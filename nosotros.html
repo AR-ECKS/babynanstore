@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,7 +15,9 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap"
+    rel="stylesheet" />
 
   <script>
     // ══════════════════════════════════════════
@@ -24,30 +27,30 @@
       theme: {
         extend: {
           colors: {
-            sky:    { pastel: '#C8E8F5', soft: '#A8D8EA', deep: '#5BA8C9' },
-            rose:   { pastel: '#F9D5E5', soft: '#F4B8CF', deep: '#E07CA0' },
-            lila:   { pastel: '#E8DEFF', soft: '#D4C4FF', deep: '#9B7FE8' },
-            cream:  { light: '#FFF8F2', base: '#F5EDE3', warm: '#EDD9C4' },
-            stone:  { 100: '#F5F0EB', 200: '#E8DDD3', 500: '#9C8A7D', 700: '#5C4A3D' },
+            sky: { pastel: '#C8E8F5', soft: '#A8D8EA', deep: '#5BA8C9' },
+            rose: { pastel: '#F9D5E5', soft: '#F4B8CF', deep: '#E07CA0' },
+            lila: { pastel: '#E8DEFF', soft: '#D4C4FF', deep: '#9B7FE8' },
+            cream: { light: '#FFF8F2', base: '#F5EDE3', warm: '#EDD9C4' },
+            stone: { 100: '#F5F0EB', 200: '#E8DDD3', 500: '#9C8A7D', 700: '#5C4A3D' },
           },
           fontFamily: {
             display: ['Playfair Display', 'serif'],
-            serif:   ['DM Serif Display', 'serif'],
-            sans:    ['DM Sans', 'sans-serif'],
+            serif: ['DM Serif Display', 'serif'],
+            sans: ['DM Sans', 'sans-serif'],
           },
           backdropBlur: { xs: '2px' },
           animation: {
-            'float':      'float 6s ease-in-out infinite',
+            'float': 'float 6s ease-in-out infinite',
             'float-slow': 'float 9s ease-in-out infinite',
             'pulse-soft': 'pulseSoft 3s ease-in-out infinite',
-            'blob':       'blob 8s ease-in-out infinite',
-            'fade-up':    'fadeUp 0.6s ease forwards',
+            'blob': 'blob 8s ease-in-out infinite',
+            'fade-up': 'fadeUp 0.6s ease forwards',
           },
           keyframes: {
-            float:      { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-14px)' } },
-            pulseSoft:  { '0%,100%': { opacity: '1' }, '50%': { opacity: '.7' } },
-            blob:       { '0%,100%': { borderRadius: '60% 40% 30% 70%/60% 30% 70% 40%' }, '50%': { borderRadius: '30% 60% 70% 40%/50% 60% 30% 60%' } },
-            fadeUp:     { from: { opacity: '0', transform: 'translateY(20px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
+            float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-14px)' } },
+            pulseSoft: { '0%,100%': { opacity: '1' }, '50%': { opacity: '.7' } },
+            blob: { '0%,100%': { borderRadius: '60% 40% 30% 70%/60% 30% 70% 40%' }, '50%': { borderRadius: '30% 60% 70% 40%/50% 60% 30% 60%' } },
+            fadeUp: { from: { opacity: '0', transform: 'translateY(20px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
           },
         }
       }
@@ -58,8 +61,18 @@
     /* ══════════════════════════════════════════
        GLOBAL STYLES
     ══════════════════════════════════════════ */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'DM Sans', sans-serif;
       background: #FFF8F2;
@@ -68,22 +81,32 @@
     }
 
     /* ── Scrollbar ── */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #FFF8F2; }
-    ::-webkit-scrollbar-thumb { background: #F4B8CF; border-radius: 10px; }
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #FFF8F2;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #F4B8CF;
+      border-radius: 10px;
+    }
 
     /* ── Glass ── */
     .glass {
       background: rgba(255, 255, 255, 0.55);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.7);
+      border: 1px solid rgba(255, 255, 255, 0.7);
     }
+
     .glass-dark {
       background: rgba(255, 248, 242, 0.6);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(244,184,207,0.3);
+      border: 1px solid rgba(244, 184, 207, 0.3);
     }
 
     /* ── Blob decorativo ── */
@@ -94,16 +117,17 @@
 
     /* ── Card premium ── */
     .card-premium {
-      background: rgba(255,255,255,0.85);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.9);
+      border: 1px solid rgba(255, 255, 255, 0.9);
       border-radius: 24px;
-      box-shadow: 0 8px 32px rgba(155,127,232,0.08), 0 2px 8px rgba(0,0,0,0.04);
+      box-shadow: 0 8px 32px rgba(155, 127, 232, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
       transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
+
     .card-premium:hover {
       transform: translateY(-6px);
-      box-shadow: 0 20px 60px rgba(155,127,232,0.15), 0 4px 16px rgba(0,0,0,0.06);
+      box-shadow: 0 20px 60px rgba(155, 127, 232, 0.15), 0 4px 16px rgba(0, 0, 0, 0.06);
     }
 
     /* ── Gradient text ── */
@@ -126,24 +150,32 @@
       letter-spacing: 0.02em;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(155,127,232,0.35);
+      box-shadow: 0 4px 20px rgba(155, 127, 232, 0.35);
       position: relative;
       overflow: hidden;
     }
+
     .btn-primary::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(255,255,255,0);
+      background: rgba(255, 255, 255, 0);
       transition: background 0.3s;
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(155,127,232,0.45); }
-    .btn-primary:hover::after { background: rgba(255,255,255,0.1); }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(155, 127, 232, 0.45);
+    }
+
+    .btn-primary:hover::after {
+      background: rgba(255, 255, 255, 0.1);
+    }
 
     /* ── Btn Secondary ── */
     .btn-secondary {
       background: transparent;
-      border: 2px solid rgba(224,124,160,0.5);
+      border: 2px solid rgba(224, 124, 160, 0.5);
       color: #E07CA0;
       border-radius: 50px;
       padding: 12px 30px;
@@ -151,49 +183,74 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
-    .btn-secondary:hover { background: rgba(224,124,160,0.08); border-color: #E07CA0; transform: translateY(-2px); }
+
+    .btn-secondary:hover {
+      background: rgba(224, 124, 160, 0.08);
+      border-color: #E07CA0;
+      transform: translateY(-2px);
+    }
 
     /* ── Navbar transition ── */
-    .navbar { transition: all 0.4s ease; }
+    .navbar {
+      transition: all 0.4s ease;
+    }
+
     .navbar-scrolled {
-      background: rgba(255,248,242,0.92) !important;
+      background: rgba(255, 248, 242, 0.92) !important;
       backdrop-filter: blur(24px);
-      box-shadow: 0 4px 30px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
     }
 
     /* ── Floating ── */
-    .float-1 { animation: float 6s ease-in-out infinite; }
-    .float-2 { animation: float 8s ease-in-out infinite 1s; }
-    .float-3 { animation: float 7s ease-in-out infinite 2s; }
+    .float-1 {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .float-2 {
+      animation: float 8s ease-in-out infinite 1s;
+    }
+
+    .float-3 {
+      animation: float 7s ease-in-out infinite 2s;
+    }
 
     /* ── Team card ── */
     .team-card {
-      background: rgba(255,255,255,0.8);
+      background: rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(16px);
-      border: 1px solid rgba(255,255,255,0.9);
+      border: 1px solid rgba(255, 255, 255, 0.9);
       border-radius: 20px;
       overflow: hidden;
       transition: all 0.3s ease;
     }
-    .team-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(155,127,232,0.15); }
+
+    .team-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(155, 127, 232, 0.15);
+    }
 
     /* ── Value card ── */
     .value-card {
-      background: rgba(255,255,255,0.7);
+      background: rgba(255, 255, 255, 0.7);
       backdrop-filter: blur(16px);
-      border: 1px solid rgba(255,255,255,0.9);
+      border: 1px solid rgba(255, 255, 255, 0.9);
       border-radius: 20px;
       padding: 24px;
       transition: all 0.3s ease;
       text-align: center;
     }
-    .value-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(155,127,232,0.1); }
+
+    .value-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(155, 127, 232, 0.1);
+    }
 
     /* ── Timeline ── */
     .timeline-item {
       position: relative;
       padding-left: 40px;
     }
+
     .timeline-item::before {
       content: '';
       position: absolute;
@@ -203,6 +260,7 @@
       width: 2px;
       background: linear-gradient(to bottom, #E07CA0, #9B7FE8, #5BA8C9);
     }
+
     .timeline-item::after {
       content: '';
       position: absolute;
@@ -220,457 +278,526 @@
       transform: translateX(-100%);
       transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
+
     .mobile-menu.open {
       transform: translateX(0);
     }
 
     @media (max-width: 768px) {
-      .team-card:hover, .value-card:hover { transform: none; }
+
+      .team-card:hover,
+      .value-card:hover {
+        transform: none;
+      }
     }
   </style>
 </head>
 
 <body>
-<!-- ══════════════════════════════════════════════════════ -->
-<!-- VUE 3 APP — NOSOTROS                                  -->
-<!-- ══════════════════════════════════════════════════════ -->
-<div id="app">
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- VUE 3 APP — NOSOTROS                                  -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div id="app">
 
-  <!-- ═══════════════════════════
+    <!-- ═══════════════════════════
        NAVBAR PREMIUM FIJO
   ═══════════════════════════ -->
-  <nav
-    class="navbar fixed top-0 left-0 right-0 z-50"
-    :class="{ 'navbar-scrolled': scrolled }"
-    style="padding: 0 clamp(16px, 4vw, 48px);"
-  >
-    <div class="max-w-7xl mx-auto flex items-center justify-between h-[72px]">
+    <nav class="navbar fixed top-0 left-0 right-0 z-50" :class="{ 'navbar-scrolled': scrolled }"
+      style="padding: 0 clamp(16px, 4vw, 48px);">
+      <div class="max-w-7xl mx-auto flex items-center justify-between h-[72px]">
 
-      <!-- Logo -->
-      <a href="index.html" class="flex items-center gap-3 select-none">
-        <div class="w-10 h-10 rounded-2xl overflow-hidden shadow-md">
-          <img src="/img/LOGO.png" alt="Baby Nan Store" class="w-full h-full object-cover" />
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3 select-none">
+          <div class="w-10 h-10 rounded-2xl overflow-hidden shadow-md">
+            <img src="img/logo.png" alt="Baby Nan Store" class="w-full h-full object-cover" />
+          </div>
+          <div>
+            <span class="font-display font-bold text-xl leading-none gradient-text">Baby Nan</span>
+            <span class="block text-xs font-sans text-stone-500 tracking-widest uppercase"
+              style="letter-spacing:.12em;">Store</span>
+          </div>
+        </a>
+
+        <!-- Nav links desktop -->
+        <ul class="hidden md:flex items-center gap-8">
+          <li v-for="link in navLinks" :key="link.href">
+            <a :href="link.href"
+              class="font-sans text-sm font-medium text-stone-700 hover:text-rose-deep transition-colors duration-200 relative group">
+              {{ link.label }}
+              <span
+                class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-rose-deep to-lila-deep group-hover:w-full transition-all duration-300 rounded-full"></span>
+            </a>
+          </li>
+        </ul>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-3">
+          <!-- Search icon -->
+          <button
+            class="w-9 h-9 rounded-xl flex items-center justify-center text-stone-500 hover:text-rose-deep hover:bg-rose-pastel/40 transition-all duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+          </button>
+
+          <!-- Cart button -->
+          <button @click="openCart"
+            class="relative w-9 h-9 rounded-xl flex items-center justify-center text-stone-500 hover:text-rose-deep hover:bg-rose-pastel/40 transition-all duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z" />
+            </svg>
+            <span v-if="cartCount > 0"
+              class="badge-pulse absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full text-white text-xs font-bold flex items-center justify-center"
+              style="background: linear-gradient(135deg,#E07CA0,#9B7FE8);">{{ cartCount }}</span>
+          </button>
+
+          <!-- Mobile menu toggle -->
+          <button @click="mobileMenuOpen = !mobileMenuOpen"
+            class="md:hidden w-9 h-9 rounded-xl flex items-center justify-center text-stone-600 hover:bg-rose-pastel/40 transition-all">
+            <svg v-if="!mobileMenuOpen" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+              viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+            <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+              stroke-width="1.8" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
-        <div>
-          <span class="font-display font-bold text-xl leading-none gradient-text">Baby Nan</span>
-          <span class="block text-xs font-sans text-stone-500 tracking-widest uppercase" style="letter-spacing:.12em;">Store</span>
+      </div>
+    </nav>
+
+    <!-- ── Mobile menu ── -->
+    <div class="mobile-menu md:hidden fixed top-0 left-0 h-full w-72 z-50 glass-dark shadow-2xl"
+      :class="{ open: mobileMenuOpen }">
+      <div class="p-6 pt-20">
+        <div class="flex items-center gap-3 mb-8">
+          <div class="w-10 h-10 rounded-2xl overflow-hidden shadow">          <img src="img/logo.png" alt="Baby Nan Store" class="w-full h-full object-cover" />
+</div>
+          <span class="font-display font-bold text-xl gradient-text">Baby Nan Store</span>
         </div>
-      </a>
-
-      <!-- Nav links desktop -->
-      <ul class="hidden md:flex items-center gap-8">
-        <li v-for="link in navLinks" :key="link.href">
-          <a :href="link.href" class="font-sans text-sm font-medium text-stone-700 hover:text-rose-deep transition-colors duration-200 relative group">
-            {{ link.label }}
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-rose-deep to-lila-deep group-hover:w-full transition-all duration-300 rounded-full"></span>
-          </a>
-        </li>
-      </ul>
-
-      <!-- Actions -->
-      <div class="flex items-center gap-3">
-        <!-- Search icon -->
-        <button class="w-9 h-9 rounded-xl flex items-center justify-center text-stone-500 hover:text-rose-deep hover:bg-rose-pastel/40 transition-all duration-200">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
-        </button>
-
-        <!-- Cart button -->
-        <button @click="openCart" class="relative w-9 h-9 rounded-xl flex items-center justify-center text-stone-500 hover:text-rose-deep hover:bg-rose-pastel/40 transition-all duration-200">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z" /></svg>
-          <span v-if="cartCount > 0" class="badge-pulse absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full text-white text-xs font-bold flex items-center justify-center" style="background: linear-gradient(135deg,#E07CA0,#9B7FE8);">{{ cartCount }}</span>
-        </button>
-
-        <!-- Mobile menu toggle -->
-        <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden w-9 h-9 rounded-xl flex items-center justify-center text-stone-600 hover:bg-rose-pastel/40 transition-all">
-          <svg v-if="!mobileMenuOpen" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
-          <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
-        </button>
+        <ul class="space-y-2">
+          <li v-for="link in navLinks" :key="link.href">
+            <a :href="link.href"
+              class="block px-4 py-3 rounded-xl font-sans font-medium text-stone-700 hover:bg-rose-pastel/50 hover:text-rose-deep transition-all">{{
+              link.label }}</a>
+          </li>
+        </ul>
       </div>
     </div>
-  </nav>
+    <div v-if="mobileMenuOpen" @click="mobileMenuOpen=false"
+      class="fixed inset-0 z-40 bg-stone-700/20 backdrop-blur-sm md:hidden"></div>
 
-  <!-- ── Mobile menu ── -->
-  <div class="mobile-menu md:hidden fixed top-0 left-0 h-full w-72 z-50 glass-dark shadow-2xl" :class="{ open: mobileMenuOpen }">
-    <div class="p-6 pt-20">
-      <div class="flex items-center gap-3 mb-8">
-        <div class="w-10 h-10 rounded-2xl overflow-hidden shadow"><img src="img/logo.png" alt="Baby Nan Store" class="w-full h-full object-cover" /></div>
-        <span class="font-display font-bold text-xl gradient-text">Baby Nan Store</span>
-      </div>
-      <ul class="space-y-2">
-        <li v-for="link in navLinks" :key="link.href">
-          <a :href="link.href" class="block px-4 py-3 rounded-xl font-sans font-medium text-stone-700 hover:bg-rose-pastel/50 hover:text-rose-deep transition-all">{{ link.label }}</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div v-if="mobileMenuOpen" @click="mobileMenuOpen=false" class="fixed inset-0 z-40 bg-stone-700/20 backdrop-blur-sm md:hidden"></div>
-
-  <!-- ═══════════════════════════
+    <!-- ═══════════════════════════
        HERO SECTION NOSOTROS
   ═══════════════════════════ -->
-  <section class="relative min-h-screen flex items-center overflow-hidden" style="padding-top:72px; background: linear-gradient(135deg, #FFF8F2 0%, #F9D5E5 35%, #E8DEFF 70%, #C8E8F5 100%);">
+    <section class="relative min-h-screen flex items-center overflow-hidden"
+      style="padding-top:72px; background: linear-gradient(135deg, #FFF8F2 0%, #F9D5E5 35%, #E8DEFF 70%, #C8E8F5 100%);">
 
-    <!-- Blobs decorativos -->
-    <div class="absolute top-20 right-10 w-80 h-80 blob opacity-30" style="background: linear-gradient(135deg,#F9D5E5,#E8DEFF);"></div>
-    <div class="absolute bottom-20 left-10 w-64 h-64 blob opacity-25" style="background: linear-gradient(135deg,#C8E8F5,#F9D5E5); animation-delay:2s;"></div>
-    <div class="absolute top-1/2 left-1/3 w-48 h-48 blob opacity-20" style="background: linear-gradient(135deg,#E8DEFF,#C8E8F5); animation-delay:4s;"></div>
+      <!-- Blobs decorativos -->
+      <div class="absolute top-20 right-10 w-80 h-80 blob opacity-30"
+        style="background: linear-gradient(135deg,#F9D5E5,#E8DEFF);"></div>
+      <div class="absolute bottom-20 left-10 w-64 h-64 blob opacity-25"
+        style="background: linear-gradient(135deg,#C8E8F5,#F9D5E5); animation-delay:2s;"></div>
+      <div class="absolute top-1/2 left-1/3 w-48 h-48 blob opacity-20"
+        style="background: linear-gradient(135deg,#E8DEFF,#C8E8F5); animation-delay:4s;"></div>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center py-20">
+      <div class="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center py-20">
 
-      <!-- Texto hero -->
-      <div data-aos="fade-right" data-aos-duration="800">
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 text-sm font-medium" style="background:rgba(255,255,255,0.7);backdrop-filter:blur(12px);border:1px solid rgba(224,124,160,0.3);color:#E07CA0;">
-          <span class="w-2 h-2 rounded-full badge-pulse" style="background:#E07CA0;"></span>
-          Nuestra historia
-        </div>
-
-        <h1 class="font-display font-bold leading-tight mb-6" style="font-size:clamp(2.2rem,5vw,3.8rem);">
-          Más que una tienda,<br />
-          una <span class="gradient-text">familia</span>
-        </h1>
-
-        <p class="font-sans text-stone-500 mb-8 leading-relaxed" style="font-size:clamp(1rem,1.5vw,1.15rem); max-width:480px;">
-          Desde 2018, hemos dedicado nuestra pasión a crear productos que hacen la diferencia en la vida de las familias. Cada detalle cuenta, cada sonrisa importa.
-        </p>
-
-        <div class="flex flex-wrap gap-4 mb-10">
-          <a href="#nuestra-historia" class="btn-primary inline-flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+        <!-- Texto hero -->
+        <div data-aos="fade-right" data-aos-duration="800">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 text-sm font-medium"
+            style="background:rgba(255,255,255,0.7);backdrop-filter:blur(12px);border:1px solid rgba(224,124,160,0.3);color:#E07CA0;">
+            <span class="w-2 h-2 rounded-full badge-pulse" style="background:#E07CA0;"></span>
             Nuestra historia
-          </a>
-          <a href="#nuestro-equipo" class="btn-secondary inline-flex items-center gap-2">
-            Conoce al equipo
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
-          </a>
-        </div>
+          </div>
 
-        <!-- Stats -->
-        <div class="flex gap-8">
-          <div class="text-center">
-            <div class="font-display font-bold text-2xl gradient-text">6+</div>
-            <div class="font-sans text-xs text-stone-400 mt-0.5">Años</div>
-          </div>
-          <div class="text-center">
-            <div class="font-display font-bold text-2xl gradient-text">50K+</div>
-            <div class="font-sans text-xs text-stone-400 mt-0.5">Familias</div>
-          </div>
-          <div class="text-center">
-            <div class="font-display font-bold text-2xl gradient-text">100%</div>
-            <div class="font-sans text-xs text-stone-400 mt-0.5">Amor</div>
-          </div>
-        </div>
-      </div>
+          <h1 class="font-display font-bold leading-tight mb-6" style="font-size:clamp(2.2rem,5vw,3.8rem);">
+            Más que una tienda,<br />
+            una <span class="gradient-text">familia</span>
+          </h1>
 
-      <!-- Imagen ilustrativa -->
-      <div data-aos="fade-left" data-aos-duration="800" class="relative">
-        <div class="relative w-full max-w-md mx-auto">
-          <div class="w-80 h-80 rounded-3xl overflow-hidden shadow-2xl mx-auto" style="background: linear-gradient(135deg,#F9D5E5,#E8DEFF);">
-            <div class="w-full h-full flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 text-white/80" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+          <p class="font-sans text-stone-500 mb-8 leading-relaxed"
+            style="font-size:clamp(1rem,1.5vw,1.15rem); max-width:480px;">
+            Desde 2018, hemos dedicado nuestra pasión a crear productos que hacen la diferencia en la vida de las
+            familias. Cada detalle cuenta, cada sonrisa importa.
+          </p>
+
+          <div class="flex flex-wrap gap-4 mb-10">
+            <a href="#nuestra-historia" class="btn-primary inline-flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
+              Nuestra historia
+            </a>
+            <a href="#nuestro-equipo" class="btn-secondary inline-flex items-center gap-2">
+              Conoce al equipo
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Stats -->
+          <div class="flex gap-8">
+            <div class="text-center">
+              <div class="font-display font-bold text-2xl gradient-text">6+</div>
+              <div class="font-sans text-xs text-stone-400 mt-0.5">Años</div>
+            </div>
+            <div class="text-center">
+              <div class="font-display font-bold text-2xl gradient-text">50K+</div>
+              <div class="font-sans text-xs text-stone-400 mt-0.5">Familias</div>
+            </div>
+            <div class="text-center">
+              <div class="font-display font-bold text-2xl gradient-text">100%</div>
+              <div class="font-sans text-xs text-stone-400 mt-0.5">Amor</div>
             </div>
           </div>
-          <div class="absolute -top-4 -right-4 w-24 h-24 rounded-2xl shadow-lg" style="background: linear-gradient(135deg,#E07CA0,#9B7FE8);">
-            <div class="w-full h-full flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-              </svg>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ═══════════════════════════
-       NUESTRA HISTORIA
-  ═══════════════════════════ -->
-  <section id="nuestra-historia" class="py-20 px-6">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16" data-aos="fade-up">
-        <h2 class="font-display font-bold text-3xl text-stone-700 mb-4">Nuestra historia</h2>
-        <p class="font-sans text-stone-500 max-w-2xl mx-auto">
-          Un viaje de pasión, dedicación y amor por los más pequeños.
-        </p>
-      </div>
-
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
-        <!-- Timeline -->
-        <div data-aos="fade-right" data-aos-duration="600">
-          <div class="space-y-8">
-            <div v-for="milestone in milestones" :key="milestone.year" class="timeline-item">
-              <div class="card-premium p-6">
-                <div class="font-display font-bold text-xl text-stone-700 mb-2">{{ milestone.year }}</div>
-                <h3 class="font-sans font-semibold text-stone-700 mb-3">{{ milestone.title }}</h3>
-                <p class="font-sans text-stone-500 leading-relaxed">{{ milestone.description }}</p>
+        <!-- Imagen ilustrativa -->
+        <div data-aos="fade-left" data-aos-duration="800" class="relative">
+          <div class="relative w-full max-w-md mx-auto">
+            <div class="w-80 h-80 rounded-3xl overflow-hidden shadow-2xl mx-auto"
+              style="background: linear-gradient(135deg,#F9D5E5,#E8DEFF);">
+              <div class="w-full h-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 text-white/80" fill="none" viewBox="0 0 24 24"
+                  stroke-width="1" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                </svg>
+              </div>
+            </div>
+            <div class="absolute -top-4 -right-4 w-24 h-24 rounded-2xl shadow-lg"
+              style="background: linear-gradient(135deg,#E07CA0,#9B7FE8);">
+              <div class="w-full h-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24"
+                  stroke-width="2" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                </svg>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- Imagen -->
-        <div data-aos="fade-left" data-aos-duration="600">
-          <div class="relative">
-            <div class="w-full max-w-md mx-auto">
-              <div class="w-80 h-80 rounded-3xl overflow-hidden shadow-2xl mx-auto" style="background: linear-gradient(135deg,#E8DEFF,#C8E8F5);">
-                <div class="w-full h-full flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 text-white/80" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
+    <!-- ═══════════════════════════
+       NUESTRA HISTORIA
+  ═══════════════════════════ -->
+    <section id="nuestra-historia" class="py-20 px-6">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h2 class="font-display font-bold text-3xl text-stone-700 mb-4">Nuestra historia</h2>
+          <p class="font-sans text-stone-500 max-w-2xl mx-auto">
+            Un viaje de pasión, dedicación y amor por los más pequeños.
+          </p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <!-- Timeline -->
+          <div data-aos="fade-right" data-aos-duration="600">
+            <div class="space-y-8">
+              <div v-for="milestone in milestones" :key="milestone.year" class="timeline-item">
+                <div class="card-premium p-6">
+                  <div class="font-display font-bold text-xl text-stone-700 mb-2">{{ milestone.year }}</div>
+                  <h3 class="font-sans font-semibold text-stone-700 mb-3">{{ milestone.title }}</h3>
+                  <p class="font-sans text-stone-500 leading-relaxed">{{ milestone.description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Imagen -->
+          <div data-aos="fade-left" data-aos-duration="600">
+            <div class="relative">
+              <div class="w-full max-w-md mx-auto">
+                <div class="w-80 h-80 rounded-3xl overflow-hidden shadow-2xl mx-auto"
+                  style="background: linear-gradient(135deg,#E8DEFF,#C8E8F5);">
+                  <div class="w-full h-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 text-white/80" fill="none"
+                      viewBox="0 0 24 24" stroke-width="1" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ═══════════════════════════
+    <!-- ═══════════════════════════
        NUESTROS VALORES
   ═══════════════════════════ -->
-  <section class="py-20 px-6" style="background: linear-gradient(135deg, #F9D5E5 0%, #E8DEFF 50%, #C8E8F5 100%);">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16" data-aos="fade-up">
-        <h2 class="font-display font-bold text-3xl text-stone-700 mb-4">Nuestros valores</h2>
-        <p class="font-sans text-stone-500 max-w-2xl mx-auto">
-          Los principios que guían cada decisión y cada producto que creamos.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" data-aos="fade-up" data-aos-delay="200">
-        <div v-for="value in values" :key="value.title" class="value-card">
-          <div class="w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center" :style="`background: linear-gradient(135deg,${value.color});`">
-            <span class="text-2xl">{{ value.icon }}</span>
-          </div>
-          <h3 class="font-sans font-semibold text-stone-700 mb-3">{{ value.title }}</h3>
-          <p class="font-sans text-stone-500 text-sm leading-relaxed">{{ value.description }}</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════
-       NUESTRO EQUIPO
-  ═══════════════════════════ -->
-  <section id="nuestro-equipo" class="py-20 px-6">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16" data-aos="fade-up">
-        <h2 class="font-display font-bold text-3xl text-stone-700 mb-4">Nuestro equipo</h2>
-        <p class="font-sans text-stone-500 max-w-2xl mx-auto">
-          Las personas apasionadas que hacen posible esta aventura cada día.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="200">
-        <div v-for="member in team" :key="member.name" class="team-card">
-          <div class="aspect-square" :style="`background: linear-gradient(135deg,${member.bgGradient});`">
-            <div class="w-full h-full flex items-center justify-center">
-              <span class="text-6xl">{{ member.emoji }}</span>
-            </div>
-          </div>
-          <div class="p-6">
-            <h3 class="font-sans font-semibold text-stone-700 mb-1">{{ member.name }}</h3>
-            <p class="font-sans text-stone-500 text-sm mb-3">{{ member.role }}</p>
-            <p class="font-sans text-stone-400 text-sm leading-relaxed">{{ member.bio }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════
-       CTA SECTION
-  ═══════════════════════════ -->
-  <section class="py-20 px-6" style="background: linear-gradient(135deg, #FFF8F2 0%, #F9D5E5 50%, #E8DEFF 100%);">
-    <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
-      <h2 class="font-display font-bold text-3xl text-stone-700 mb-4">Únete a nuestra familia</h2>
-      <p class="font-sans text-stone-500 mb-8 leading-relaxed">
-        Descubre productos creados con amor y dedicación. Cada compra nos ayuda a seguir creciendo y sirviendo a más familias.
-      </p>
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href="tienda.html" class="btn-primary inline-flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z" /></svg>
-          Ver productos
-        </a>
-        <a href="contacto.html" class="btn-secondary inline-flex items-center gap-2">
-          Contáctanos
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════
-       FOOTER
-  ═══════════════════════════ -->
-  <footer class="py-16 px-6" style="background: #3D2C24;">
-    <div class="max-w-7xl mx-auto">
-      <div class="grid md:grid-cols-4 gap-8 mb-8">
-        <div class="md:col-span-2">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-12 h-12 rounded-2xl overflow-hidden shadow-md">
-              <img src="logo_png.jpg" alt="Baby Nan Store" class="w-full h-full object-cover" />
-            </div>
-            <div>
-              <span class="font-display font-bold text-2xl text-white">Baby Nan</span>
-              <span class="block text-sm font-sans text-stone-300 tracking-widest uppercase">Store</span>
-            </div>
-          </div>
-          <p class="font-sans text-stone-300 leading-relaxed max-w-md">
-            Todo lo mejor para tu bebé, todo para ti. Productos de alta calidad con amor y cuidado en cada detalle.
+    <section class="py-20 px-6" style="background: linear-gradient(135deg, #F9D5E5 0%, #E8DEFF 50%, #C8E8F5 100%);">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h2 class="font-display font-bold text-3xl text-stone-700 mb-4">Nuestros valores</h2>
+          <p class="font-sans text-stone-500 max-w-2xl mx-auto">
+            Los principios que guían cada decisión y cada producto que creamos.
           </p>
         </div>
 
-        <div>
-          <h3 class="font-sans font-semibold text-white mb-4">Enlaces</h3>
-          <ul class="space-y-2">
-            <li><a href="index.html" class="font-sans text-stone-300 hover:text-white transition-colors">Inicio</a></li>
-            <li><a href="tienda.html" class="font-sans text-stone-300 hover:text-white transition-colors">Tienda</a></li>
-            <li><a href="nosotros.html" class="font-sans text-stone-300 hover:text-white transition-colors">Nosotros</a></li>
-            <li><a href="contacto.html" class="font-sans text-stone-300 hover:text-white transition-colors">Contacto</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 class="font-sans font-semibold text-white mb-4">Contacto</h3>
-          <ul class="space-y-2">
-            <li class="font-sans text-stone-300">+591 123 456 78</li>
-            <li class="font-sans text-stone-300">hola@babyNanstore.com</li>
-            <li class="font-sans text-stone-300">Calle Principal 123</li>
-          </ul>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" data-aos="fade-up" data-aos-delay="200">
+          <div v-for="value in values" :key="value.title" class="value-card">
+            <div class="w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center"
+              :style="`background: linear-gradient(135deg,${value.color});`">
+              <span class="text-2xl">{{ value.icon }}</span>
+            </div>
+            <h3 class="font-sans font-semibold text-stone-700 mb-3">{{ value.title }}</h3>
+            <p class="font-sans text-stone-500 text-sm leading-relaxed">{{ value.description }}</p>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="border-t border-stone-600 pt-8 flex flex-col md:flex-row justify-between items-center">
-        <p class="font-sans text-stone-400 text-sm">© 2024 Baby Nan Store. Todos los derechos reservados.</p>
-        <div class="flex gap-6 mt-4 md:mt-0">
-          <a href="#" class="font-sans text-stone-400 hover:text-white transition-colors text-sm">Política de privacidad</a>
-          <a href="#" class="font-sans text-stone-400 hover:text-white transition-colors text-sm">Términos de servicio</a>
+    <!-- ═══════════════════════════
+       NUESTRO EQUIPO
+  ═══════════════════════════ -->
+    <section id="nuestro-equipo" class="py-20 px-6">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h2 class="font-display font-bold text-3xl text-stone-700 mb-4">Nuestro equipo</h2>
+          <p class="font-sans text-stone-500 max-w-2xl mx-auto">
+            Las personas apasionadas que hacen posible esta aventura cada día.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="200">
+          <div v-for="member in team" :key="member.name" class="team-card">
+            <div class="aspect-square" :style="`background: linear-gradient(135deg,${member.bgGradient});`">
+              <div class="w-full h-full flex items-center justify-center">
+                <span class="text-6xl">{{ member.emoji }}</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="font-sans font-semibold text-stone-700 mb-1">{{ member.name }}</h3>
+              <p class="font-sans text-stone-500 text-sm mb-3">{{ member.role }}</p>
+              <p class="font-sans text-stone-400 text-sm leading-relaxed">{{ member.bio }}</p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </footer>
+    </section>
 
-</div>
+    <!-- ═══════════════════════════
+       CTA SECTION
+  ═══════════════════════════ -->
+    <section class="py-20 px-6" style="background: linear-gradient(135deg, #FFF8F2 0%, #F9D5E5 50%, #E8DEFF 100%);">
+      <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+        <h2 class="font-display font-bold text-3xl text-stone-700 mb-4">Únete a nuestra familia</h2>
+        <p class="font-sans text-stone-500 mb-8 leading-relaxed">
+          Descubre productos creados con amor y dedicación. Cada compra nos ayuda a seguir creciendo y sirviendo a más
+          familias.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="tienda.html" class="btn-primary inline-flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z" />
+            </svg>
+            Ver productos
+          </a>
+          <a href="contacto.html" class="btn-secondary inline-flex items-center gap-2">
+            Contáctanos
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
 
-<script>
-  const { createApp } = Vue;
+    <!-- ═══════════════════════════
+       FOOTER
+  ═══════════════════════════ -->
+    <footer class="py-16 px-6" style="background: #3D2C24;">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-4 gap-8 mb-8">
+          <div class="md:col-span-2">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 rounded-2xl overflow-hidden shadow-md">
+          <img src="img/logo.png" alt="Baby Nan Store" class="w-full h-full object-cover" />
+              </div>
+              <div>
+                <span class="font-display font-bold text-2xl text-white">Baby Nan</span>
+                <span class="block text-sm font-sans text-stone-300 tracking-widest uppercase">Store</span>
+              </div>
+            </div>
+            <p class="font-sans text-stone-300 leading-relaxed max-w-md">
+              Todo lo mejor para tu bebé, todo para ti. Productos de alta calidad con amor y cuidado en cada detalle.
+            </p>
+          </div>
 
-  createApp({
-    data() {
-      return {
-        scrolled: false,
-        mobileMenuOpen: false,
-        cartCount: 0,
-        navLinks: [
-          { href: 'index.html', label: 'Inicio' },
-          { href: 'tienda.html', label: 'Tienda' },
-          { href: 'nosotros.html', label: 'Nosotros' },
-          { href: 'contacto.html', label: 'Contacto' }
-        ],
-        milestones: [
-          {
-            year: '2018',
-            title: 'El nacimiento de una idea',
-            description: 'Todo comenzó con la visión de crear productos que realmente marcaran la diferencia en la vida de las familias. Nuestra fundadora, Ana María, una madre dedicada, identificó la necesidad de productos de calidad que combinaran seguridad, funcionalidad y belleza.'
-          },
-          {
-            year: '2019',
-            title: 'Primeros pasos',
-            description: 'Abrimos nuestra primera tienda física en Santa Cruz, Bolivia. Comenzamos con una línea limitada de productos, pero con el compromiso de ofrecer solo lo mejor para los bebés y sus familias.'
-          },
-          {
-            year: '2020',
-            title: 'Crecimiento digital',
-            description: 'La pandemia nos impulsó a expandirnos al mundo digital. Creamos nuestra tienda online, llegando a familias de todo el país y comenzando nuestra expansión internacional.'
-          },
-          {
-            year: '2021',
-            title: 'Certificaciones y expansión',
-            description: 'Obtuvimos las certificaciones internacionales más importantes en seguridad infantil. Expandimos nuestra línea de productos y abrimos una segunda tienda física.'
-          },
-          {
-            year: '2022',
-            title: 'Reconocimiento nacional',
-            description: 'Fuimos reconocidos como una de las mejores tiendas para bebés en Bolivia. Nuestra comunidad de clientes leales creció significativamente.'
-          },
-          {
-            year: '2024',
-            title: 'Mirando al futuro',
-            description: 'Continuamos innovando y expandiendo nuestra oferta, siempre manteniendo nuestros valores de calidad, amor y dedicación en cada producto que creamos.'
-          }
-        ],
-        values: [
-          {
-            title: 'Seguridad Primero',
-            description: 'Cada producto cumple con los más altos estándares de seguridad internacional.',
-            icon: '🛡️',
-            color: '#E07CA0, #F4B8CF'
-          },
-          {
-            title: 'Calidad Premium',
-            description: 'Utilizamos los mejores materiales y procesos de fabricación para garantizar durabilidad.',
-            icon: '⭐',
-            color: '#9B7FE8, #D4C4FF'
-          },
-          {
-            title: 'Amor y Cuidado',
-            description: 'Cada detalle está diseñado pensando en el bienestar de los más pequeños.',
-            icon: '❤️',
-            color: '#5BA8C9, #A8D8EA'
-          },
-          {
-            title: 'Sostenibilidad',
-            description: 'Comprometidos con prácticas ecológicas y empaques responsables.',
-            icon: '🌱',
-            color: '#F59E0B, #FED7AA'
-          }
-        ],
-        team: [
-          {
-            name: 'Ana María López',
-            role: 'Fundadora & CEO',
-            bio: 'Madre de dos hijos y apasionada por crear productos que hagan la diferencia en la vida de las familias.',
-            emoji: '👩‍💼',
-            bgGradient: '#F9D5E5, #E8DEFF'
-          },
-          {
-            name: 'Carlos Mendoza',
-            role: 'Director de Producto',
-            bio: 'Experto en diseño infantil con más de 10 años de experiencia en el sector de productos para bebés.',
-            emoji: '👨‍💻',
-            bgGradient: '#E8DEFF, #C8E8F5'
-          },
-          {
-            name: 'María González',
-            role: 'Jefa de Diseño',
-            bio: 'Artista y diseñadora especializada en crear piezas únicas que combinan funcionalidad y belleza.',
-            emoji: '👩‍🎨',
-            bgGradient: '#C8E8F5, #F9D5E5'
-          }
-        ]
-      }
-    },
+          <div>
+            <h3 class="font-sans font-semibold text-white mb-4">Enlaces</h3>
+            <ul class="space-y-2">
+              <li><a href="index.html" class="font-sans text-stone-300 hover:text-white transition-colors">Inicio</a>
+              </li>
+              <li><a href="tienda.html" class="font-sans text-stone-300 hover:text-white transition-colors">Tienda</a>
+              </li>
+              <li><a href="nosotros.html"
+                  class="font-sans text-stone-300 hover:text-white transition-colors">Nosotros</a></li>
+              <li><a href="contacto.html"
+                  class="font-sans text-stone-300 hover:text-white transition-colors">Contacto</a></li>
+            </ul>
+          </div>
 
-    mounted() {
-      window.addEventListener('scroll', this.handleScroll);
-      AOS.init();
-    },
+          <div>
+            <h3 class="font-sans font-semibold text-white mb-4">Contacto</h3>
+            <ul class="space-y-2">
+              <li class="font-sans text-stone-300">+591 123 456 78</li>
+              <li class="font-sans text-stone-300">hola@babyNanstore.com</li>
+              <li class="font-sans text-stone-300">Calle Principal 123</li>
+            </ul>
+          </div>
+        </div>
 
-    methods: {
-      handleScroll() {
-        this.scrolled = window.scrollY > 50;
+        <div class="border-t border-stone-600 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p class="font-sans text-stone-400 text-sm">© 2024 Baby Nan Store. Todos los derechos reservados.</p>
+          <div class="flex gap-6 mt-4 md:mt-0">
+            <a href="#" class="font-sans text-stone-400 hover:text-white transition-colors text-sm">Política de
+              privacidad</a>
+            <a href="#" class="font-sans text-stone-400 hover:text-white transition-colors text-sm">Términos de
+              servicio</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          scrolled: false,
+          mobileMenuOpen: false,
+          cartCount: 0,
+          navLinks: [
+            { href: 'index.html', label: 'Inicio' },
+            { href: 'tienda.html', label: 'Tienda' },
+            { href: 'nosotros.html', label: 'Nosotros' },
+            { href: 'contacto.html', label: 'Contacto' }
+          ],
+          milestones: [
+            {
+              year: '2018',
+              title: 'El nacimiento de una idea',
+              description: 'Todo comenzó con la visión de crear productos que realmente marcaran la diferencia en la vida de las familias. Nuestra fundadora, Ana María, una madre dedicada, identificó la necesidad de productos de calidad que combinaran seguridad, funcionalidad y belleza.'
+            },
+            {
+              year: '2019',
+              title: 'Primeros pasos',
+              description: 'Abrimos nuestra primera tienda física en Santa Cruz, Bolivia. Comenzamos con una línea limitada de productos, pero con el compromiso de ofrecer solo lo mejor para los bebés y sus familias.'
+            },
+            {
+              year: '2020',
+              title: 'Crecimiento digital',
+              description: 'La pandemia nos impulsó a expandirnos al mundo digital. Creamos nuestra tienda online, llegando a familias de todo el país y comenzando nuestra expansión internacional.'
+            },
+            {
+              year: '2021',
+              title: 'Certificaciones y expansión',
+              description: 'Obtuvimos las certificaciones internacionales más importantes en seguridad infantil. Expandimos nuestra línea de productos y abrimos una segunda tienda física.'
+            },
+            {
+              year: '2022',
+              title: 'Reconocimiento nacional',
+              description: 'Fuimos reconocidos como una de las mejores tiendas para bebés en Bolivia. Nuestra comunidad de clientes leales creció significativamente.'
+            },
+            {
+              year: '2024',
+              title: 'Mirando al futuro',
+              description: 'Continuamos innovando y expandiendo nuestra oferta, siempre manteniendo nuestros valores de calidad, amor y dedicación en cada producto que creamos.'
+            }
+          ],
+          values: [
+            {
+              title: 'Seguridad Primero',
+              description: 'Cada producto cumple con los más altos estándares de seguridad internacional.',
+              icon: '🛡️',
+              color: '#E07CA0, #F4B8CF'
+            },
+            {
+              title: 'Calidad Premium',
+              description: 'Utilizamos los mejores materiales y procesos de fabricación para garantizar durabilidad.',
+              icon: '⭐',
+              color: '#9B7FE8, #D4C4FF'
+            },
+            {
+              title: 'Amor y Cuidado',
+              description: 'Cada detalle está diseñado pensando en el bienestar de los más pequeños.',
+              icon: '❤️',
+              color: '#5BA8C9, #A8D8EA'
+            },
+            {
+              title: 'Sostenibilidad',
+              description: 'Comprometidos con prácticas ecológicas y empaques responsables.',
+              icon: '🌱',
+              color: '#F59E0B, #FED7AA'
+            }
+          ],
+          team: [
+            {
+              name: 'Ana María López',
+              role: 'Fundadora & CEO',
+              bio: 'Madre de dos hijos y apasionada por crear productos que hagan la diferencia en la vida de las familias.',
+              emoji: '👩‍💼',
+              bgGradient: '#F9D5E5, #E8DEFF'
+            },
+            {
+              name: 'Carlos Mendoza',
+              role: 'Director de Producto',
+              bio: 'Experto en diseño infantil con más de 10 años de experiencia en el sector de productos para bebés.',
+              emoji: '👨‍💻',
+              bgGradient: '#E8DEFF, #C8E8F5'
+            },
+            {
+              name: 'María González',
+              role: 'Jefa de Diseño',
+              bio: 'Artista y diseñadora especializada en crear piezas únicas que combinan funcionalidad y belleza.',
+              emoji: '👩‍🎨',
+              bgGradient: '#C8E8F5, #F9D5E5'
+            }
+          ]
+        }
       },
 
-      openCart() {
-        // Implementar apertura del carrito
-        console.log('Abrir carrito');
+      mounted() {
+        window.addEventListener('scroll', this.handleScroll);
+        AOS.init();
+      },
+
+      methods: {
+        handleScroll() {
+          this.scrolled = window.scrollY > 50;
+        },
+
+        openCart() {
+          // Implementar apertura del carrito
+          console.log('Abrir carrito');
+        }
       }
-    }
-  }).mount('#app');
-</script>
+    }).mount('#app');
+  </script>
 
 </body>
+
 </html>
