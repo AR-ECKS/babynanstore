@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,9 +14,7 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
 
   <script>
     // ══════════════════════════════════════════
@@ -27,30 +24,30 @@
       theme: {
         extend: {
           colors: {
-            sky: { pastel: '#C8E8F5', soft: '#A8D8EA', deep: '#5BA8C9' },
-            rose: { pastel: '#F9D5E5', soft: '#F4B8CF', deep: '#E07CA0' },
-            lila: { pastel: '#E8DEFF', soft: '#D4C4FF', deep: '#9B7FE8' },
-            cream: { light: '#FFF8F2', base: '#F5EDE3', warm: '#EDD9C4' },
-            stone: { 100: '#F5F0EB', 200: '#E8DDD3', 500: '#9C8A7D', 700: '#5C4A3D' },
+            sky:    { pastel: '#C8E8F5', soft: '#A8D8EA', deep: '#5BA8C9' },
+            rose:   { pastel: '#F9D5E5', soft: '#F4B8CF', deep: '#E07CA0' },
+            lila:   { pastel: '#E8DEFF', soft: '#D4C4FF', deep: '#9B7FE8' },
+            cream:  { light: '#FFF8F2', base: '#F5EDE3', warm: '#EDD9C4' },
+            stone:  { 100: '#F5F0EB', 200: '#E8DDD3', 500: '#9C8A7D', 700: '#5C4A3D' },
           },
           fontFamily: {
             display: ['Playfair Display', 'serif'],
-            serif: ['DM Serif Display', 'serif'],
-            sans: ['DM Sans', 'sans-serif'],
+            serif:   ['DM Serif Display', 'serif'],
+            sans:    ['DM Sans', 'sans-serif'],
           },
           backdropBlur: { xs: '2px' },
           animation: {
-            'float': 'float 6s ease-in-out infinite',
+            'float':      'float 6s ease-in-out infinite',
             'float-slow': 'float 9s ease-in-out infinite',
             'pulse-soft': 'pulseSoft 3s ease-in-out infinite',
-            'blob': 'blob 8s ease-in-out infinite',
-            'fade-up': 'fadeUp 0.6s ease forwards',
+            'blob':       'blob 8s ease-in-out infinite',
+            'fade-up':    'fadeUp 0.6s ease forwards',
           },
           keyframes: {
-            float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-14px)' } },
-            pulseSoft: { '0%,100%': { opacity: '1' }, '50%': { opacity: '.7' } },
-            blob: { '0%,100%': { borderRadius: '60% 40% 30% 70%/60% 30% 70% 40%' }, '50%': { borderRadius: '30% 60% 70% 40%/50% 60% 30% 60%' } },
-            fadeUp: { from: { opacity: '0', transform: 'translateY(20px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
+            float:      { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-14px)' } },
+            pulseSoft:  { '0%,100%': { opacity: '1' }, '50%': { opacity: '.7' } },
+            blob:       { '0%,100%': { borderRadius: '60% 40% 30% 70%/60% 30% 70% 40%' }, '50%': { borderRadius: '30% 60% 70% 40%/50% 60% 30% 60%' } },
+            fadeUp:     { from: { opacity: '0', transform: 'translateY(20px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
           },
         }
       }
@@ -61,18 +58,8 @@
     /* ══════════════════════════════════════════
        GLOBAL STYLES
     ══════════════════════════════════════════ */
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'DM Sans', sans-serif;
       background: #FFF8F2;
@@ -81,32 +68,22 @@
     }
 
     /* ── Scrollbar ── */
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #FFF8F2;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #F4B8CF;
-      border-radius: 10px;
-    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #FFF8F2; }
+    ::-webkit-scrollbar-thumb { background: #F4B8CF; border-radius: 10px; }
 
     /* ── Glass ── */
     .glass {
       background: rgba(255, 255, 255, 0.55);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255,255,255,0.7);
     }
-
     .glass-dark {
       background: rgba(255, 248, 242, 0.6);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(244, 184, 207, 0.3);
+      border: 1px solid rgba(244,184,207,0.3);
     }
 
     /* ── Blob decorativo ── */
@@ -117,17 +94,16 @@
 
     /* ── Card premium ── */
     .card-premium {
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255,255,255,0.85);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255,255,255,0.9);
       border-radius: 24px;
-      box-shadow: 0 8px 32px rgba(155, 127, 232, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 8px 32px rgba(155,127,232,0.08), 0 2px 8px rgba(0,0,0,0.04);
       transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-
     .card-premium:hover {
       transform: translateY(-6px);
-      box-shadow: 0 20px 60px rgba(155, 127, 232, 0.15), 0 4px 16px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 20px 60px rgba(155,127,232,0.15), 0 4px 16px rgba(0,0,0,0.06);
     }
 
     /* ── Gradient text ── */
@@ -150,32 +126,24 @@
       letter-spacing: 0.02em;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(155, 127, 232, 0.35);
+      box-shadow: 0 4px 20px rgba(155,127,232,0.35);
       position: relative;
       overflow: hidden;
     }
-
     .btn-primary::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(255, 255, 255, 0);
+      background: rgba(255,255,255,0);
       transition: background 0.3s;
     }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(155, 127, 232, 0.45);
-    }
-
-    .btn-primary:hover::after {
-      background: rgba(255, 255, 255, 0.1);
-    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(155,127,232,0.45); }
+    .btn-primary:hover::after { background: rgba(255,255,255,0.1); }
 
     /* ── Btn Secondary ── */
     .btn-secondary {
       background: transparent;
-      border: 2px solid rgba(224, 124, 160, 0.5);
+      border: 2px solid rgba(224,124,160,0.5);
       color: #E07CA0;
       border-radius: 50px;
       padding: 12px 30px;
@@ -183,41 +151,25 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
-
-    .btn-secondary:hover {
-      background: rgba(224, 124, 160, 0.08);
-      border-color: #E07CA0;
-      transform: translateY(-2px);
-    }
+    .btn-secondary:hover { background: rgba(224,124,160,0.08); border-color: #E07CA0; transform: translateY(-2px); }
 
     /* ── Navbar transition ── */
-    .navbar {
-      transition: all 0.4s ease;
-    }
-
+    .navbar { transition: all 0.4s ease; }
     .navbar-scrolled {
-      background: rgba(255, 248, 242, 0.92) !important;
+      background: rgba(255,248,242,0.92) !important;
       backdrop-filter: blur(24px);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.06);
     }
 
     /* ── Floating ── */
-    .float-1 {
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .float-2 {
-      animation: float 8s ease-in-out infinite 1s;
-    }
-
-    .float-3 {
-      animation: float 7s ease-in-out infinite 2s;
-    }
+    .float-1 { animation: float 6s ease-in-out infinite; }
+    .float-2 { animation: float 8s ease-in-out infinite 1s; }
+    .float-3 { animation: float 7s ease-in-out infinite 2s; }
 
     /* ── Form styles ── */
     .form-input {
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(200, 190, 185, 0.5);
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(200,190,185,0.5);
       border-radius: 16px;
       padding: 14px 20px;
       font-size: 0.95rem;
@@ -226,19 +178,12 @@
       transition: all 0.3s ease;
       width: 100%;
     }
-
-    .form-input:focus {
-      border-color: #E07CA0;
-      box-shadow: 0 0 0 3px rgba(224, 124, 160, 0.1);
-    }
-
-    .form-input::placeholder {
-      color: #B0A099;
-    }
+    .form-input:focus { border-color: #E07CA0; box-shadow: 0 0 0 3px rgba(224,124,160,0.1); }
+    .form-input::placeholder { color: #B0A099; }
 
     .form-textarea {
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(200, 190, 185, 0.5);
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(200,190,185,0.5);
       border-radius: 16px;
       padding: 14px 20px;
       font-size: 0.95rem;
@@ -249,35 +194,24 @@
       resize: vertical;
       min-height: 120px;
     }
-
-    .form-textarea:focus {
-      border-color: #E07CA0;
-      box-shadow: 0 0 0 3px rgba(224, 124, 160, 0.1);
-    }
-
-    .form-textarea::placeholder {
-      color: #B0A099;
-    }
+    .form-textarea:focus { border-color: #E07CA0; box-shadow: 0 0 0 3px rgba(224,124,160,0.1); }
+    .form-textarea::placeholder { color: #B0A099; }
 
     /* ── Contact card ── */
     .contact-card {
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255,255,255,0.7);
       backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255,255,255,0.9);
       border-radius: 20px;
       padding: 24px;
       transition: all 0.3s ease;
     }
-
-    .contact-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(155, 127, 232, 0.1);
-    }
+    .contact-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(155,127,232,0.1); }
 
     /* ── Success message ── */
     .success-message {
-      background: linear-gradient(135deg, rgba(224, 124, 160, 0.1), rgba(155, 127, 232, 0.1));
-      border: 1px solid rgba(224, 124, 160, 0.3);
+      background: linear-gradient(135deg, rgba(224,124,160,0.1), rgba(155,127,232,0.1));
+      border: 1px solid rgba(224,124,160,0.3);
       border-radius: 16px;
       padding: 16px 24px;
       color: #E07CA0;
@@ -289,570 +223,492 @@
       transform: translateX(-100%);
       transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-
     .mobile-menu.open {
       transform: translateX(0);
     }
 
     @media (max-width: 768px) {
-      .contact-card:hover {
-        transform: none;
-      }
+      .contact-card:hover { transform: none; }
     }
   </style>
 </head>
 
 <body>
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- VUE 3 APP — CONTACTO                                  -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <div id="app">
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- VUE 3 APP — CONTACTO                                  -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="app">
 
-    <!-- ═══════════════════════════
+  <!-- ═══════════════════════════
        NAVBAR PREMIUM FIJO
   ═══════════════════════════ -->
-    <nav class="navbar fixed top-0 left-0 right-0 z-50" :class="{ 'navbar-scrolled': scrolled }"
-      style="padding: 0 clamp(16px, 4vw, 48px);">
-      <div class="max-w-7xl mx-auto flex items-center justify-between h-[72px]">
+  <nav
+    class="navbar fixed top-0 left-0 right-0 z-50"
+    :class="{ 'navbar-scrolled': scrolled }"
+    style="padding: 0 clamp(16px, 4vw, 48px);"
+  >
+    <div class="max-w-7xl mx-auto flex items-center justify-between h-[72px]">
 
-        <!-- Logo -->
-        <a href="index.html" class="flex items-center gap-3 select-none">
-          <div class="w-10 h-10 rounded-2xl overflow-hidden shadow-md">
-            <img src="img/logo.png" alt="Baby Nan Store" class="w-full h-full object-cover" />
-          </div>
-          <div>
-            <span class="font-display font-bold text-xl leading-none gradient-text">Baby Nan</span>
-            <span class="block text-xs font-sans text-stone-500 tracking-widest uppercase"
-              style="letter-spacing:.12em;">Store</span>
-          </div>
-        </a>
-
-        <!-- Nav links desktop -->
-        <ul class="hidden md:flex items-center gap-8">
-          <li v-for="link in navLinks" :key="link.href">
-            <a :href="link.href"
-              class="font-sans text-sm font-medium text-stone-700 hover:text-rose-deep transition-colors duration-200 relative group">
-              {{ link.label }}
-              <span
-                class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-rose-deep to-lila-deep group-hover:w-full transition-all duration-300 rounded-full"></span>
-            </a>
-          </li>
-        </ul>
-
-        <!-- Actions -->
-        <div class="flex items-center gap-3">
-          <!-- Search icon -->
-          <button
-            class="w-9 h-9 rounded-xl flex items-center justify-center text-stone-500 hover:text-rose-deep hover:bg-rose-pastel/40 transition-all duration-200">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-              stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-            </svg>
-          </button>
-
-          <!-- Cart button -->
-          <button @click="openCart"
-            class="relative w-9 h-9 rounded-xl flex items-center justify-center text-stone-500 hover:text-rose-deep hover:bg-rose-pastel/40 transition-all duration-200">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-              stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z" />
-            </svg>
-            <span v-if="cartCount > 0"
-              class="badge-pulse absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full text-white text-xs font-bold flex items-center justify-center"
-              style="background: linear-gradient(135deg,#E07CA0,#9B7FE8);">{{ cartCount }}</span>
-          </button>
-
-          <!-- Mobile menu toggle -->
-          <button @click="mobileMenuOpen = !mobileMenuOpen"
-            class="md:hidden w-9 h-9 rounded-xl flex items-center justify-center text-stone-600 hover:bg-rose-pastel/40 transition-all">
-            <svg v-if="!mobileMenuOpen" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-              viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-            <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
-              stroke-width="1.8" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-            </svg>
-          </button>
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-3 select-none">
+        <div class="w-10 h-10 rounded-2xl overflow-hidden shadow-md">
+          <img src="img/logo.png" alt="Baby Nan Store" class="w-full h-full object-cover" />
         </div>
-      </div>
-    </nav>
-
-    <!-- ── Mobile menu ── -->
-    <div class="mobile-menu md:hidden fixed top-0 left-0 h-full w-72 z-50 glass-dark shadow-2xl"
-      :class="{ open: mobileMenuOpen }">
-      <div class="p-6 pt-20">
-        <div class="flex items-center gap-3 mb-8">
-          <div class="w-10 h-10 rounded-2xl overflow-hidden shadow">          <img src="img/logo.png" alt="Baby Nan Store" class="w-full h-full object-cover" />
-</div>
-          <span class="font-display font-bold text-xl gradient-text">Baby Nan Store</span>
+        <div>
+          <span class="font-display font-bold text-xl leading-none gradient-text">Baby Nan</span>
+          <span class="block text-xs font-sans text-stone-500 tracking-widest uppercase" style="letter-spacing:.12em;">Store</span>
         </div>
-        <ul class="space-y-2">
-          <li v-for="link in navLinks" :key="link.href">
-            <a :href="link.href"
-              class="block px-4 py-3 rounded-xl font-sans font-medium text-stone-700 hover:bg-rose-pastel/50 hover:text-rose-deep transition-all">{{
-              link.label }}</a>
-          </li>
-        </ul>
+      </a>
+
+      <!-- Nav links desktop -->
+      <ul class="hidden md:flex items-center gap-8">
+        <li v-for="link in navLinks" :key="link.href">
+          <a :href="link.href" class="font-sans text-sm font-medium text-stone-700 hover:text-rose-deep transition-colors duration-200 relative group">
+            {{ link.label }}
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-rose-deep to-lila-deep group-hover:w-full transition-all duration-300 rounded-full"></span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Search icon -->
+        <button class="w-9 h-9 rounded-xl flex items-center justify-center text-stone-500 hover:text-rose-deep hover:bg-rose-pastel/40 transition-all duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
+        </button>
+
+        <!-- Cart button -->
+        <button @click="openCart" class="relative w-9 h-9 rounded-xl flex items-center justify-center text-stone-500 hover:text-rose-deep hover:bg-rose-pastel/40 transition-all duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z" /></svg>
+          <span v-if="cartCount > 0" class="badge-pulse absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full text-white text-xs font-bold flex items-center justify-center" style="background: linear-gradient(135deg,#E07CA0,#9B7FE8);">{{ cartCount }}</span>
+        </button>
+
+        <!-- Mobile menu toggle -->
+        <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden w-9 h-9 rounded-xl flex items-center justify-center text-stone-600 hover:bg-rose-pastel/40 transition-all">
+          <svg v-if="!mobileMenuOpen" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+          <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+        </button>
       </div>
     </div>
-    <div v-if="mobileMenuOpen" @click="mobileMenuOpen=false"
-      class="fixed inset-0 z-40 bg-stone-700/20 backdrop-blur-sm md:hidden"></div>
+  </nav>
 
-    <!-- ═══════════════════════════
+  <!-- ── Mobile menu ── -->
+  <div class="mobile-menu md:hidden fixed top-0 left-0 h-full w-72 z-50 glass-dark shadow-2xl" :class="{ open: mobileMenuOpen }">
+    <div class="p-6 pt-20">
+      <div class="flex items-center gap-3 mb-8">
+        <div class="w-10 h-10 rounded-2xl overflow-hidden shadow"><img src="img/logo.png" alt="Baby Nan Store" class="w-full h-full object-cover" /></div>
+        <span class="font-display font-bold text-xl gradient-text">Baby Nan Store</span>
+      </div>
+      <ul class="space-y-2">
+        <li v-for="link in navLinks" :key="link.href">
+          <a :href="link.href" class="block px-4 py-3 rounded-xl font-sans font-medium text-stone-700 hover:bg-rose-pastel/50 hover:text-rose-deep transition-all">{{ link.label }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div v-if="mobileMenuOpen" @click="mobileMenuOpen=false" class="fixed inset-0 z-40 bg-stone-700/20 backdrop-blur-sm md:hidden"></div>
+
+  <!-- ═══════════════════════════
        HERO SECTION CONTACTO
   ═══════════════════════════ -->
-    <section class="relative min-h-screen flex items-center overflow-hidden"
-      style="padding-top:72px; background: linear-gradient(135deg, #FFF8F2 0%, #F9D5E5 35%, #E8DEFF 70%, #C8E8F5 100%);">
+  <section class="relative min-h-screen flex items-center overflow-hidden" style="padding-top:72px; background: linear-gradient(135deg, #FFF8F2 0%, #F9D5E5 35%, #E8DEFF 70%, #C8E8F5 100%);">
 
-      <!-- Blobs decorativos -->
-      <div class="absolute top-20 right-10 w-80 h-80 blob opacity-30"
-        style="background: linear-gradient(135deg,#F9D5E5,#E8DEFF);"></div>
-      <div class="absolute bottom-20 left-10 w-64 h-64 blob opacity-25"
-        style="background: linear-gradient(135deg,#C8E8F5,#F9D5E5); animation-delay:2s;"></div>
-      <div class="absolute top-1/2 left-1/3 w-48 h-48 blob opacity-20"
-        style="background: linear-gradient(135deg,#E8DEFF,#C8E8F5); animation-delay:4s;"></div>
+    <!-- Blobs decorativos -->
+    <div class="absolute top-20 right-10 w-80 h-80 blob opacity-30" style="background: linear-gradient(135deg,#F9D5E5,#E8DEFF);"></div>
+    <div class="absolute bottom-20 left-10 w-64 h-64 blob opacity-25" style="background: linear-gradient(135deg,#C8E8F5,#F9D5E5); animation-delay:2s;"></div>
+    <div class="absolute top-1/2 left-1/3 w-48 h-48 blob opacity-20" style="background: linear-gradient(135deg,#E8DEFF,#C8E8F5); animation-delay:4s;"></div>
 
-      <div class="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center py-20">
+    <div class="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center py-20">
 
-        <!-- Texto hero -->
-        <div data-aos="fade-right" data-aos-duration="800">
-          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 text-sm font-medium"
-            style="background:rgba(255,255,255,0.7);backdrop-filter:blur(12px);border:1px solid rgba(224,124,160,0.3);color:#E07CA0;">
-            <span class="w-2 h-2 rounded-full badge-pulse" style="background:#E07CA0;"></span>
-            ¡Estamos aquí para ayudarte!
+      <!-- Texto hero -->
+      <div data-aos="fade-right" data-aos-duration="800">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 text-sm font-medium" style="background:rgba(255,255,255,0.7);backdrop-filter:blur(12px);border:1px solid rgba(224,124,160,0.3);color:#E07CA0;">
+          <span class="w-2 h-2 rounded-full badge-pulse" style="background:#E07CA0;"></span>
+          ¡Estamos aquí para ayudarte!
+        </div>
+
+        <h1 class="font-display font-bold leading-tight mb-6" style="font-size:clamp(2.2rem,5vw,3.8rem);">
+          Ponte en <span class="gradient-text">contacto</span><br />
+          con nosotros
+        </h1>
+
+        <p class="font-sans text-stone-500 mb-8 leading-relaxed" style="font-size:clamp(1rem,1.5vw,1.15rem); max-width:480px;">
+          ¿Tienes preguntas sobre nuestros productos? ¿Necesitas asesoramiento personalizado? Estamos aquí para escucharte y ayudarte en cada paso.
+        </p>
+
+        <div class="flex flex-wrap gap-4 mb-10">
+          <a href="#contact-form" class="btn-primary inline-flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>
+            Enviar mensaje
+          </a>
+          <a href="#contact-info" class="btn-secondary inline-flex items-center gap-2">
+            Ver información
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
+          </a>
+        </div>
+
+        <!-- Contact quick info -->
+        <div class="flex gap-8">
+          <div class="text-center">
+            <div class="font-display font-bold text-2xl text-stone-700 mb-1">24/7</div>
+            <div class="font-sans text-xs text-stone-400">Soporte</div>
           </div>
-
-          <h1 class="font-display font-bold leading-tight mb-6" style="font-size:clamp(2.2rem,5vw,3.8rem);">
-            Ponte en <span class="gradient-text">contacto</span><br />
-            con nosotros
-          </h1>
-
-          <p class="font-sans text-stone-500 mb-8 leading-relaxed"
-            style="font-size:clamp(1rem,1.5vw,1.15rem); max-width:480px;">
-            ¿Tienes preguntas sobre nuestros productos? ¿Necesitas asesoramiento personalizado? Estamos aquí para
-            escucharte y ayudarte en cada paso.
-          </p>
-
-          <div class="flex flex-wrap gap-4 mb-10">
-            <a href="#contact-form" class="btn-primary inline-flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
-              </svg>
-              Enviar mensaje
-            </a>
-            <a href="#contact-info" class="btn-secondary inline-flex items-center gap-2">
-              Ver información
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-              </svg>
-            </a>
+          <div class="text-center">
+            <div class="font-display font-bold text-2xl text-stone-700 mb-1">< 1h</div>
+            <div class="font-sans text-xs text-stone-400">Respuesta</div>
           </div>
+          <div class="text-center">
+            <div class="font-display font-bold text-2xl text-stone-700 mb-1">100%</div>
+            <div class="font-sans text-xs text-stone-400">Satisfacción</div>
+          </div>
+        </div>
+      </div>
 
-          <!-- Contact quick info -->
-          <div class="flex gap-8">
-            <div class="text-center">
-              <div class="font-display font-bold text-2xl text-stone-700 mb-1">24/7</div>
-              <div class="font-sans text-xs text-stone-400">Soporte</div>
-            </div>
-            <div class="text-center">
-              <div class="font-display font-bold text-2xl text-stone-700 mb-1">
-                < 1h</div>
-                  <div class="font-sans text-xs text-stone-400">Respuesta</div>
-              </div>
-              <div class="text-center">
-                <div class="font-display font-bold text-2xl text-stone-700 mb-1">100%</div>
-                <div class="font-sans text-xs text-stone-400">Satisfacción</div>
-              </div>
+      <!-- Imagen ilustrativa -->
+      <div data-aos="fade-left" data-aos-duration="800" class="relative">
+        <div class="relative w-full max-w-md mx-auto">
+          <div class="w-80 h-80 rounded-3xl overflow-hidden shadow-2xl mx-auto" style="background: linear-gradient(135deg,#F9D5E5,#E8DEFF);">
+            <div class="w-full h-full flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 text-white/80" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+              </svg>
             </div>
           </div>
-
-          <!-- Imagen ilustrativa -->
-          <div data-aos="fade-left" data-aos-duration="800" class="relative">
-            <div class="relative w-full max-w-md mx-auto">
-              <div class="w-80 h-80 rounded-3xl overflow-hidden shadow-2xl mx-auto"
-                style="background: linear-gradient(135deg,#F9D5E5,#E8DEFF);">
-                <div class="w-full h-full flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 text-white/80" fill="none"
-                    viewBox="0 0 24 24" stroke-width="1" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
-                  </svg>
-                </div>
-              </div>
-              <div class="absolute -top-4 -right-4 w-24 h-24 rounded-2xl shadow-lg"
-                style="background: linear-gradient(135deg,#E07CA0,#9B7FE8);">
-                <div class="w-full h-full flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24"
-                    stroke-width="2" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
-                  </svg>
-                </div>
-              </div>
+          <div class="absolute -top-4 -right-4 w-24 h-24 rounded-2xl shadow-lg" style="background: linear-gradient(135deg,#E07CA0,#9B7FE8);">
+            <div class="w-full h-full flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
+              </svg>
             </div>
           </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- ═══════════════════════════
+  <!-- ═══════════════════════════
        CONTACT FORM & INFO
   ═══════════════════════════ -->
-    <section id="contact-form" class="py-20 px-6">
-      <div class="max-w-7xl mx-auto">
-        <div class="grid lg:grid-cols-2 gap-16">
+  <section id="contact-form" class="py-20 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-16">
 
-          <!-- Contact Form -->
-          <div data-aos="fade-up" data-aos-duration="600">
-            <h2 class="font-display font-bold text-3xl text-stone-700 mb-6">Envíanos un mensaje</h2>
-            <p class="font-sans text-stone-500 mb-8 leading-relaxed">
-              Completa el formulario y te responderemos lo antes posible. Todos los campos son obligatorios.
-            </p>
+        <!-- Contact Form -->
+        <div data-aos="fade-up" data-aos-duration="600">
+          <h2 class="font-display font-bold text-3xl text-stone-700 mb-6">Envíanos un mensaje</h2>
+          <p class="font-sans text-stone-500 mb-8 leading-relaxed">
+            Completa el formulario y te responderemos lo antes posible. Todos los campos son obligatorios.
+          </p>
 
-            <form @submit.prevent="submitForm" class="space-y-6">
-              <div class="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label class="block font-sans font-medium text-stone-700 mb-2">Nombre completo</label>
-                  <input v-model="form.name" type="text" required class="form-input" placeholder="Tu nombre" />
-                </div>
-                <div>
-                  <label class="block font-sans font-medium text-stone-700 mb-2">Correo electrónico</label>
-                  <input v-model="form.email" type="email" required class="form-input" placeholder="tu@email.com" />
-                </div>
-              </div>
-
+          <form @submit.prevent="submitForm" class="space-y-6">
+            <div class="grid md:grid-cols-2 gap-6">
               <div>
-                <label class="block font-sans font-medium text-stone-700 mb-2">Asunto</label>
-                <select v-model="form.subject" required class="form-input">
-                  <option value="">Selecciona un asunto</option>
-                  <option value="consulta-general">Consulta general</option>
-                  <option value="productos">Información sobre productos</option>
-                  <option value="pedidos">Estado de pedido</option>
-                  <option value="devoluciones">Devoluciones y cambios</option>
-                  <option value="soporte">Soporte técnico</option>
-                  <option value="otros">Otros</option>
-                </select>
+                <label class="block font-sans font-medium text-stone-700 mb-2">Nombre completo</label>
+                <input v-model="form.name" type="text" required class="form-input" placeholder="Tu nombre" />
               </div>
-
               <div>
-                <label class="block font-sans font-medium text-stone-700 mb-2">Mensaje</label>
-                <textarea v-model="form.message" required class="form-textarea"
-                  placeholder="Cuéntanos cómo podemos ayudarte..." rows="5"></textarea>
+                <label class="block font-sans font-medium text-stone-700 mb-2">Correo electrónico</label>
+                <input v-model="form.email" type="email" required class="form-input" placeholder="tu@email.com" />
               </div>
+            </div>
 
-              <div v-if="formSubmitted" class="success-message">
-                <div class="flex items-center gap-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
-                    stroke-width="2" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            <div>
+              <label class="block font-sans font-medium text-stone-700 mb-2">Asunto</label>
+              <select v-model="form.subject" required class="form-input">
+                <option value="">Selecciona un asunto</option>
+                <option value="consulta-general">Consulta general</option>
+                <option value="productos">Información sobre productos</option>
+                <option value="pedidos">Estado de pedido</option>
+                <option value="devoluciones">Devoluciones y cambios</option>
+                <option value="soporte">Soporte técnico</option>
+                <option value="otros">Otros</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block font-sans font-medium text-stone-700 mb-2">Mensaje</label>
+              <textarea v-model="form.message" required class="form-textarea" placeholder="Cuéntanos cómo podemos ayudarte..." rows="5"></textarea>
+            </div>
+
+            <div v-if="formSubmitted" class="success-message">
+              <div class="flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                ¡Mensaje enviado exitosamente! Te responderemos pronto.
+              </div>
+            </div>
+
+            <button type="submit" :disabled="submitting" class="btn-primary w-full md:w-auto">
+              <span v-if="submitting">Enviando...</span>
+              <span v-else>Enviar mensaje</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Contact Info -->
+        <div id="contact-info" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">
+          <h2 class="font-display font-bold text-3xl text-stone-700 mb-6">Información de contacto</h2>
+          <p class="font-sans text-stone-500 mb-8 leading-relaxed">
+            También puedes contactarnos directamente a través de estos medios. Estamos disponibles de lunes a viernes de 9:00 a 18:00.
+          </p>
+
+          <div class="space-y-6">
+            <!-- Phone -->
+            <div class="contact-card">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg,#F9D5E5,#E8DEFF);">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-rose-deep" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
                   </svg>
-                  ¡Mensaje enviado exitosamente! Te responderemos pronto.
+                </div>
+                <div>
+                  <h3 class="font-sans font-semibold text-stone-700 mb-1">Teléfono</h3>
+                  <p class="font-sans text-stone-500 mb-2">Llámanos para consultas inmediatas</p>
+                  <a href="tel:+59112345678" class="font-sans font-medium text-rose-deep hover:text-lila-deep transition-colors">+591 123 456 78</a>
                 </div>
               </div>
+            </div>
 
-              <button type="submit" :disabled="submitting" class="btn-primary w-full md:w-auto">
-                <span v-if="submitting">Enviando...</span>
-                <span v-else>Enviar mensaje</span>
-              </button>
-            </form>
-          </div>
-
-          <!-- Contact Info -->
-          <div id="contact-info" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">
-            <h2 class="font-display font-bold text-3xl text-stone-700 mb-6">Información de contacto</h2>
-            <p class="font-sans text-stone-500 mb-8 leading-relaxed">
-              También puedes contactarnos directamente a través de estos medios. Estamos disponibles de lunes a viernes
-              de 9:00 a 18:00.
-            </p>
-
-            <div class="space-y-6">
-              <!-- Phone -->
-              <div class="contact-card">
-                <div class="flex items-start gap-4">
-                  <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style="background: linear-gradient(135deg,#F9D5E5,#E8DEFF);">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-rose-deep" fill="none"
-                      viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 class="font-sans font-semibold text-stone-700 mb-1">Teléfono</h3>
-                    <p class="font-sans text-stone-500 mb-2">Llámanos para consultas inmediatas</p>
-                    <a href="tel:+59112345678"
-                      class="font-sans font-medium text-rose-deep hover:text-lila-deep transition-colors">+591 123 456
-                      78</a>
-                  </div>
+            <!-- Email -->
+            <div class="contact-card">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg,#E8DEFF,#C8E8F5);">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-lila-deep" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-sans font-semibold text-stone-700 mb-1">Correo electrónico</h3>
+                  <p class="font-sans text-stone-500 mb-2">Respuesta en menos de 24 horas</p>
+                  <a href="mailto:hola@babyNanstore.com" class="font-sans font-medium text-lila-deep hover:text-sky-deep transition-colors">hola@babyNanstore.com</a>
                 </div>
               </div>
+            </div>
 
-              <!-- Email -->
-              <div class="contact-card">
-                <div class="flex items-start gap-4">
-                  <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style="background: linear-gradient(135deg,#E8DEFF,#C8E8F5);">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-lila-deep" fill="none"
-                      viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 class="font-sans font-semibold text-stone-700 mb-1">Correo electrónico</h3>
-                    <p class="font-sans text-stone-500 mb-2">Respuesta en menos de 24 horas</p>
-                    <a href="mailto:hola@babyNanstore.com"
-                      class="font-sans font-medium text-lila-deep hover:text-sky-deep transition-colors">hola@babyNanstore.com</a>
-                  </div>
+            <!-- WhatsApp -->
+            <div class="contact-card">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg,#C8E8F5,#F9D5E5);">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-sky-deep" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-sans font-semibold text-stone-700 mb-1">WhatsApp</h3>
+                  <p class="font-sans text-stone-500 mb-2">Respuesta inmediata durante horario laboral</p>
+                  <a href="https://wa.me/59112345678" target="_blank" class="font-sans font-medium text-sky-deep hover:text-rose-deep transition-colors">+591 123 456 78</a>
                 </div>
               </div>
+            </div>
 
-              <!-- WhatsApp -->
-              <div class="contact-card">
-                <div class="flex items-start gap-4">
-                  <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style="background: linear-gradient(135deg,#C8E8F5,#F9D5E5);">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-sky-deep" fill="none"
-                      viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 class="font-sans font-semibold text-stone-700 mb-1">WhatsApp</h3>
-                    <p class="font-sans text-stone-500 mb-2">Respuesta inmediata durante horario laboral</p>
-                    <a href="https://wa.me/59112345678" target="_blank"
-                      class="font-sans font-medium text-sky-deep hover:text-rose-deep transition-colors">+591 123 456
-                      78</a>
-                  </div>
+            <!-- Address -->
+            <div class="contact-card">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg,#EDD9C4,#F5EDE3);">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-stone-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.458-7.5 11.458s-7.5-4.316-7.5-11.458a7.5 7.5 0 1 1 15 0Z" />
+                  </svg>
                 </div>
-              </div>
-
-              <!-- Address -->
-              <div class="contact-card">
-                <div class="flex items-start gap-4">
-                  <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style="background: linear-gradient(135deg,#EDD9C4,#F5EDE3);">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-stone-600" fill="none"
-                      viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M19.5 10.5c0 7.142-7.5 11.458-7.5 11.458s-7.5-4.316-7.5-11.458a7.5 7.5 0 1 1 15 0Z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 class="font-sans font-semibold text-stone-700 mb-1">Dirección</h3>
-                    <p class="font-sans text-stone-500 mb-2">Visítanos en nuestra tienda física</p>
-                    <address class="font-sans text-stone-600 not-italic">
-                      Calle Principal 123<br />
-                      Zona Centro, Santa Cruz<br />
-                      Bolivia
-                    </address>
-                  </div>
+                <div>
+                  <h3 class="font-sans font-semibold text-stone-700 mb-1">Dirección</h3>
+                  <p class="font-sans text-stone-500 mb-2">Visítanos en nuestra tienda física</p>
+                  <address class="font-sans text-stone-600 not-italic">
+                    Calle Principal 123<br />
+                    Zona Centro, Santa Cruz<br />
+                    Bolivia
+                  </address>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ═══════════════════════════
+  <!-- ═══════════════════════════
        FAQ SECTION
   ═══════════════════════════ -->
-    <section class="py-20 px-6" style="background: linear-gradient(135deg, #F9D5E5 0%, #E8DEFF 50%, #C8E8F5 100%);">
-      <div class="max-w-4xl mx-auto">
-        <div class="text-center mb-16" data-aos="fade-up">
-          <h2 class="font-display font-bold text-3xl text-stone-700 mb-4">Preguntas frecuentes</h2>
-          <p class="font-sans text-stone-500 max-w-2xl mx-auto">
-            Resolvemos las dudas más comunes sobre nuestros productos y servicios.
+  <section class="py-20 px-6" style="background: linear-gradient(135deg, #F9D5E5 0%, #E8DEFF 50%, #C8E8F5 100%);">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="font-display font-bold text-3xl text-stone-700 mb-4">Preguntas frecuentes</h2>
+        <p class="font-sans text-stone-500 max-w-2xl mx-auto">
+          Resolvemos las dudas más comunes sobre nuestros productos y servicios.
+        </p>
+      </div>
+
+      <div class="space-y-4" data-aos="fade-up" data-aos-delay="200">
+        <div v-for="faq in faqs" :key="faq.id" class="card-premium">
+          <button @click="toggleFaq(faq.id)" class="w-full px-6 py-5 text-left flex items-center justify-between">
+            <span class="font-sans font-semibold text-stone-700">{{ faq.question }}</span>
+            <svg :class="faq.open ? 'rotate-180' : ''" class="w-5 h-5 text-stone-400 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div :class="faq.open ? 'faq-answer open' : 'faq-answer'">
+            <p class="font-sans text-stone-500 leading-relaxed">{{ faq.answer }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════
+       FOOTER
+  ═══════════════════════════ -->
+  <footer class="py-16 px-6" style="background: #3D2C24;">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-2xl overflow-hidden shadow-md">
+              <img src="logo_png.jpg" alt="Baby Nan Store" class="w-full h-full object-cover" />
+            </div>
+            <div>
+              <span class="font-display font-bold text-2xl text-white">Baby Nan</span>
+              <span class="block text-sm font-sans text-stone-300 tracking-widest uppercase">Store</span>
+            </div>
+          </div>
+          <p class="font-sans text-stone-300 leading-relaxed max-w-md">
+            Todo lo mejor para tu bebé, todo para ti. Productos de alta calidad con amor y cuidado en cada detalle.
           </p>
         </div>
 
-        <div class="space-y-4" data-aos="fade-up" data-aos-delay="200">
-          <div v-for="faq in faqs" :key="faq.id" class="card-premium">
-            <button @click="toggleFaq(faq.id)" class="w-full px-6 py-5 text-left flex items-center justify-between">
-              <span class="font-sans font-semibold text-stone-700">{{ faq.question }}</span>
-              <svg :class="faq.open ? 'rotate-180' : ''"
-                class="w-5 h-5 text-stone-400 transition-transform duration-200" fill="none" viewBox="0 0 24 24"
-                stroke-width="2" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div :class="faq.open ? 'faq-answer open' : 'faq-answer'">
-              <p class="font-sans text-stone-500 leading-relaxed">{{ faq.answer }}</p>
-            </div>
-          </div>
+        <div>
+          <h3 class="font-sans font-semibold text-white mb-4">Enlaces</h3>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="font-sans text-stone-300 hover:text-white transition-colors">Inicio</a></li>
+            <li><a href="tienda.html" class="font-sans text-stone-300 hover:text-white transition-colors">Tienda</a></li>
+            <li><a href="nosotros.html" class="font-sans text-stone-300 hover:text-white transition-colors">Nosotros</a></li>
+            <li><a href="contacto.html" class="font-sans text-stone-300 hover:text-white transition-colors">Contacto</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-sans font-semibold text-white mb-4">Contacto</h3>
+          <ul class="space-y-2">
+            <li class="font-sans text-stone-300">+591 123 456 78</li>
+            <li class="font-sans text-stone-300">hola@babyNanstore.com</li>
+            <li class="font-sans text-stone-300">Calle Principal 123</li>
+          </ul>
         </div>
       </div>
-    </section>
 
-    <!-- ═══════════════════════════
-       FOOTER
-  ═══════════════════════════ -->
-    <footer class="py-16 px-6" style="background: #3D2C24;">
-      <div class="max-w-7xl mx-auto">
-        <div class="grid md:grid-cols-4 gap-8 mb-8">
-          <div class="md:col-span-2">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-12 h-12 rounded-2xl overflow-hidden shadow-md">
-          <img src="img/logo.png" alt="Baby Nan Store" class="w-full h-full object-cover" />
-              </div>
-              <div>
-                <span class="font-display font-bold text-2xl text-white">Baby Nan</span>
-                <span class="block text-sm font-sans text-stone-300 tracking-widest uppercase">Store</span>
-              </div>
-            </div>
-            <p class="font-sans text-stone-300 leading-relaxed max-w-md">
-              Todo lo mejor para tu bebé, todo para ti. Productos de alta calidad con amor y cuidado en cada detalle.
-            </p>
-          </div>
-
-          <div>
-            <h3 class="font-sans font-semibold text-white mb-4">Enlaces</h3>
-            <ul class="space-y-2">
-              <li><a href="index.html" class="font-sans text-stone-300 hover:text-white transition-colors">Inicio</a>
-              </li>
-              <li><a href="tienda.html" class="font-sans text-stone-300 hover:text-white transition-colors">Tienda</a>
-              </li>
-              <li><a href="nosotros.html"
-                  class="font-sans text-stone-300 hover:text-white transition-colors">Nosotros</a></li>
-              <li><a href="contacto.html"
-                  class="font-sans text-stone-300 hover:text-white transition-colors">Contacto</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="font-sans font-semibold text-white mb-4">Contacto</h3>
-            <ul class="space-y-2">
-              <li class="font-sans text-stone-300">+591 123 456 78</li>
-              <li class="font-sans text-stone-300">hola@babyNanstore.com</li>
-              <li class="font-sans text-stone-300">Calle Principal 123</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="border-t border-stone-600 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p class="font-sans text-stone-400 text-sm">© 2024 Baby Nan Store. Todos los derechos reservados.</p>
-          <div class="flex gap-6 mt-4 md:mt-0">
-            <a href="#" class="font-sans text-stone-400 hover:text-white transition-colors text-sm">Política de
-              privacidad</a>
-            <a href="#" class="font-sans text-stone-400 hover:text-white transition-colors text-sm">Términos de
-              servicio</a>
-          </div>
+      <div class="border-t border-stone-600 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="font-sans text-stone-400 text-sm">© 2024 Baby Nan Store. Todos los derechos reservados.</p>
+        <div class="flex gap-6 mt-4 md:mt-0">
+          <a href="#" class="font-sans text-stone-400 hover:text-white transition-colors text-sm">Política de privacidad</a>
+          <a href="#" class="font-sans text-stone-400 hover:text-white transition-colors text-sm">Términos de servicio</a>
         </div>
       </div>
-    </footer>
+    </div>
+  </footer>
 
-  </div>
+</div>
 
-  <script>
-    const { createApp } = Vue;
+<script>
+  const { createApp } = Vue;
 
-    createApp({
-      data() {
-        return {
-          scrolled: false,
-          mobileMenuOpen: false,
-          cartCount: 0,
-          form: {
-            name: '',
-            email: '',
-            subject: '',
-            message: ''
+  createApp({
+    data() {
+      return {
+        scrolled: false,
+        mobileMenuOpen: false,
+        cartCount: 0,
+        form: {
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        },
+        formSubmitted: false,
+        submitting: false,
+        faqs: [
+          {
+            id: 1,
+            question: '¿Cuál es el tiempo de entrega?',
+            answer: 'El tiempo de entrega varía según la ubicación. Para entregas locales es de 1-3 días hábiles, mientras que para otras ciudades puede tomar 3-7 días hábiles.',
+            open: false
           },
-          formSubmitted: false,
-          submitting: false,
-          faqs: [
-            {
-              id: 1,
-              question: '¿Cuál es el tiempo de entrega?',
-              answer: 'El tiempo de entrega varía según la ubicación. Para entregas locales es de 1-3 días hábiles, mientras que para otras ciudades puede tomar 3-7 días hábiles.',
-              open: false
-            },
-            {
-              id: 2,
-              question: '¿Aceptan devoluciones?',
-              answer: 'Sí, aceptamos devoluciones dentro de los 30 días posteriores a la compra, siempre y cuando el producto esté en perfectas condiciones y con su empaque original.',
-              open: false
-            },
-            {
-              id: 3,
-              question: '¿Los productos son seguros para bebés?',
-              answer: 'Todos nuestros productos cumplen con las normas de seguridad internacionales y están certificados para uso infantil. Utilizamos materiales no tóxicos y libres de sustancias dañinas.',
-              open: false
-            },
-            {
-              id: 4,
-              question: '¿Ofrecen envío gratuito?',
-              answer: 'Sí, ofrecemos envío gratuito en compras superiores a Bs. 500. Para compras menores, el costo de envío se calcula según la ubicación y peso del pedido.',
-              open: false
-            },
-            {
-              id: 5,
-              question: '¿Puedo cambiar el tamaño o color de un producto?',
-              answer: 'Dependiendo del producto y la disponibilidad, podemos procesar cambios. Contáctanos dentro de las 48 horas posteriores a la recepción para coordinar el cambio.',
-              open: false
-            }
-          ],
-          navLinks: [
-            { href: 'index.html', label: 'Inicio' },
-            { href: 'tienda.html', label: 'Tienda' },
-            { href: 'nosotros.html', label: 'Nosotros' },
-            { href: 'contacto.html', label: 'Contacto' }
-          ]
-        }
-      },
-
-      mounted() {
-        window.addEventListener('scroll', this.handleScroll);
-        AOS.init();
-      },
-
-      methods: {
-        handleScroll() {
-          this.scrolled = window.scrollY > 50;
-        },
-
-        openCart() {
-          // Implementar apertura del carrito
-          console.log('Abrir carrito');
-        },
-
-        toggleFaq(id) {
-          const faq = this.faqs.find(f => f.id === id);
-          if (faq) {
-            faq.open = !faq.open;
+          {
+            id: 2,
+            question: '¿Aceptan devoluciones?',
+            answer: 'Sí, aceptamos devoluciones dentro de los 30 días posteriores a la compra, siempre y cuando el producto esté en perfectas condiciones y con su empaque original.',
+            open: false
+          },
+          {
+            id: 3,
+            question: '¿Los productos son seguros para bebés?',
+            answer: 'Todos nuestros productos cumplen con las normas de seguridad internacionales y están certificados para uso infantil. Utilizamos materiales no tóxicos y libres de sustancias dañinas.',
+            open: false
+          },
+          {
+            id: 4,
+            question: '¿Ofrecen envío gratuito?',
+            answer: 'Sí, ofrecemos envío gratuito en compras superiores a Bs. 500. Para compras menores, el costo de envío se calcula según la ubicación y peso del pedido.',
+            open: false
+          },
+          {
+            id: 5,
+            question: '¿Puedo cambiar el tamaño o color de un producto?',
+            answer: 'Dependiendo del producto y la disponibilidad, podemos procesar cambios. Contáctanos dentro de las 48 horas posteriores a la recepción para coordinar el cambio.',
+            open: false
           }
-        },
-
-        async submitForm() {
-          if (this.submitting) return;
-
-          this.submitting = true;
-
-          // Simular envío del formulario
-          setTimeout(() => {
-            this.formSubmitted = true;
-            this.submitting = false;
-            this.form = { name: '', email: '', subject: '', message: '' };
-
-            // Ocultar mensaje después de 5 segundos
-            setTimeout(() => {
-              this.formSubmitted = false;
-            }, 5000);
-          }, 2000);
-        }
+        ],
+        navLinks: [
+          { href: 'index.html', label: 'Inicio' },
+          { href: 'tienda.html', label: 'Tienda' },
+          { href: 'nosotros.html', label: 'Nosotros' },
+          { href: 'contacto.html', label: 'Contacto' }
+        ]
       }
-    }).mount('#app');
-  </script>
+    },
+
+    mounted() {
+      window.addEventListener('scroll', this.handleScroll);
+      AOS.init();
+    },
+
+    methods: {
+      handleScroll() {
+        this.scrolled = window.scrollY > 50;
+      },
+
+      openCart() {
+        // Implementar apertura del carrito
+        console.log('Abrir carrito');
+      },
+
+      toggleFaq(id) {
+        const faq = this.faqs.find(f => f.id === id);
+        if (faq) {
+          faq.open = !faq.open;
+        }
+      },
+
+      async submitForm() {
+        if (this.submitting) return;
+
+        this.submitting = true;
+
+        // Simular envío del formulario
+        setTimeout(() => {
+          this.formSubmitted = true;
+          this.submitting = false;
+          this.form = { name: '', email: '', subject: '', message: '' };
+
+          // Ocultar mensaje después de 5 segundos
+          setTimeout(() => {
+            this.formSubmitted = false;
+          }, 5000);
+        }, 2000);
+      }
+    }
+  }).mount('#app');
+</script>
 
 </body>
-
 </html>
