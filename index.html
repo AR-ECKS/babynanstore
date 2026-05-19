@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Baby Nana Store — Todo para tu bebé, todo para ti</title>
+  <title>Baby Nan Store — Todo para tu bebé, todo para ti</title>
 
   <!-- ══════════════════════════════════════════ -->
   <!-- CDN DEPENDENCIES                          -->
@@ -331,8 +331,8 @@
   <div class="mobile-menu fixed top-0 left-0 h-full w-72 z-50 glass-dark shadow-2xl" :class="{ open: mobileMenuOpen }">
     <div class="p-6 pt-20">
       <div class="flex items-center gap-3 mb-8">
-        <div class="w-10 h-10 rounded-2xl overflow-hidden shadow"><img src="logo_png.jpg" alt="Baby Nana Store" class="w-full h-full object-cover" /></div>
-        <span class="font-display font-bold text-xl gradient-text">Baby Nana Store</span>
+        <div class="w-10 h-10 rounded-2xl overflow-hidden shadow"><img src="logo_png.jpg" alt="Baby Nan Store" class="w-full h-full object-cover" /></div>
+        <span class="font-display font-bold text-xl gradient-text">Baby Nan Store</span>
       </div>
       <ul class="space-y-2">
         <li v-for="link in navLinks" :key="link.href">
@@ -408,9 +408,9 @@
         <div class="float-1 relative z-10">
           <div class="card-premium p-8 text-center max-w-xs mx-auto glow-lila">
             <div class="w-36 h-36 mx-auto mb-4 rounded-3xl overflow-hidden shadow-xl" style="background: linear-gradient(135deg,#F9D5E5,#E8DEFF);">
-              <img src="/img/LOGO.png" alt="Baby Nana Store" class="w-full h-full object-contain p-2" />
+              <img src="/img/LOGO.png" alt="Baby Nan Store" class="w-full h-full object-contain p-2" />
             </div>
-            <h3 class="font-display font-semibold text-lg text-stone-700 mb-1">Baby Nana Store</h3>
+            <h3 class="font-display font-semibold text-lg text-stone-700 mb-1">Baby Nan Store</h3>
             <p class="font-sans text-xs text-stone-400">Productos para bebés y mamás</p>
             <div class="flex items-center justify-center gap-1 mt-3">
               <svg v-for="i in 5" :key="i" class="w-4 h-4 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
@@ -664,9 +664,9 @@
         <!-- Brand -->
         <div class="lg:col-span-1">
           <div class="flex items-center gap-3 mb-5">
-            <div class="w-11 h-11 rounded-2xl overflow-hidden"><img src="/img/LOGO.png" alt="Baby Nana Store" class="w-full h-full object-cover" /></div>
+            <div class="w-11 h-11 rounded-2xl overflow-hidden"><img src="/img/LOGO.png" alt="Baby Nan Store" class="w-full h-full object-cover" /></div>
             <div>
-              <span class="font-display font-bold text-xl text-white">Baby Nana Store</span>
+              <span class="font-display font-bold text-xl text-white">Baby Nan Store</span>
               <span class="block text-xs tracking-widest text-stone-400 uppercase">Todo para tu bebe</span>
             </div>
           </div>
@@ -962,7 +962,7 @@ sizes: null
       { name:'Carla Mendoza',  role:'Mama de Lucas, 1 año',    color:'linear-gradient(135deg,#9B7FE8,#D4C4FF)', text:'Compre el kit de lactancia y fue un cambio total. Todo de excelente calidad y el servicio fue muy personalizado. Volvere a comprar sin duda.' },
       { name:'Patricia Rios',  role:'Mama de Emma, 4 meses',   color:'linear-gradient(135deg,#5BA8C9,#A8D8EA)', text:'Me encanto la atencion por WhatsApp. Me ayudaron a elegir los productos correctos para la edad de mi bebe. Muy profesionales y amables.' },
       { name:'Daniela Torres', role:'Mama de Mateo, 6 meses',  color:'linear-gradient(135deg,#E07CA0,#9B7FE8)', text:'Los juguetes sensoriales Montessori son hermosos y muy bien diseñados. Mi bebe quedo fascinado. Definitivamente la mejor tienda de bebes.' },
-      { name:'Andrea Lopez',   role:'Mama de Valentina, 9m',   color:'linear-gradient(135deg,#9B7FE8,#5BA8C9)', text:'Calidad premium en todos los productos. Los sonajeros musicales son suaves y perfectos. Baby Nana Store es mi tienda de confianza.' },
+      { name:'Andrea Lopez',   role:'Mama de Valentina, 9m',   color:'linear-gradient(135deg,#9B7FE8,#5BA8C9)', text:'Calidad premium en todos los productos. Los sonajeros musicales son suaves y perfectos. Baby Nan Store es mi tienda de confianza.' },
     ];
 
     const faqs = reactive([
@@ -1001,13 +1001,13 @@ sizes: null
     // ── CART METHODS ───────────────────────────────
     function loadCart() {
       try {
-        const stored = localStorage.getItem('babyNanaCart');
+        const stored = localStorage.getItem('babyNanCart');
         cartItems.value = stored ? JSON.parse(stored) : [];
       } catch { cartItems.value = []; }
     }
 
     function saveCart() {
-      localStorage.setItem('babyNanaCart', JSON.stringify(cartItems.value));
+      localStorage.setItem('babyNanCart', JSON.stringify(cartItems.value));
     }
 
     function openCart()  { cartOpen.value = true;  document.body.style.overflow = 'hidden'; }

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tienda — Baby Nana Store</title>
+  <title>Tienda — Baby Nan Store</title>
 
   <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -407,7 +407,7 @@
       style="padding:0 clamp(16px,4vw,48px);">
       <div class="max-w-7xl mx-auto flex items-center justify-between h-[72px]">
         <a href="index.html" class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl overflow-hidden shadow-md"><img src="/img/LOGO.png" alt="Baby Nana Store"
+          <div class="w-9 h-9 rounded-xl overflow-hidden shadow-md"><img src="/img/LOGO.png" alt="Baby Nan Store"
               class="w-full h-full object-cover" /></div>
           <span class="font-display font-bold text-xl gradient-text">Baby Nan Store</span>
         </a>
@@ -924,9 +924,9 @@
       <div class="max-w-7xl mx-auto px-6 py-12">
         <div class="flex flex-col md:flex-row items-center justify-between gap-6">
           <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl overflow-hidden"><img src="logo_png.jpg" alt="Baby Nana Store"
+            <div class="w-9 h-9 rounded-xl overflow-hidden"><img src="logo_png.jpg" alt="Baby Nan Store"
                 class="w-full h-full object-cover" /></div>
-            <span class="font-display font-bold text-lg text-white">Baby Nana Store</span>
+            <span class="font-display font-bold text-lg text-white">Baby Nan Store</span>
           </div>
           <div class="flex gap-6">
             <a href="index.html" class="font-sans text-sm text-stone-400 hover:text-white transition-colors">Inicio</a>
@@ -935,7 +935,7 @@
             <a href="contacto.html"
               class="font-sans text-sm text-stone-400 hover:text-white transition-colors">Contacto</a>
           </div>
-          <p class="font-sans text-xs text-stone-500">© 2024 Baby Nana Store</p>
+          <p class="font-sans text-xs text-stone-500">© 2024 Baby Nan Store</p>
         </div>
       </div>
     </footer>
@@ -2116,7 +2116,7 @@ sizes: null
 
         function loadCart() {
           try {
-            const s = localStorage.getItem('babyNanaCart');
+            const s = localStorage.getItem('babyNanCart');
             cartItems.value = s ? JSON.parse(s) : [];
           } catch {
             cartItems.value = [];
@@ -2124,7 +2124,7 @@ sizes: null
         }
 
         function saveCart() {
-          localStorage.setItem('babyNanaCart', JSON.stringify(cartItems.value));
+          localStorage.setItem('babyNanCart', JSON.stringify(cartItems.value));
         }
 
         function addToCart(product) {
