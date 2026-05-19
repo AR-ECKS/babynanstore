@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baby Nana Store — Todo para tu bebé, todo para ti</title>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- CDN DEPENDENCIES                          -->
+  <!-- ══════════════════════════════════════════ -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+
+  <script>
+    // ══════════════════════════════════════════
+    // TAILWIND CONFIG — Custom tokens
+    // ══════════════════════════════════════════
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sky:    { pastel: '#C8E8F5', soft: '#A8D8EA', deep: '#5BA8C9' },
+            rose:   { pastel: '#F9D5E5', soft: '#F4B8CF', deep: '#E07CA0' },
+            lila:   { pastel: '#E8DEFF', soft: '#D4C4FF', deep: '#9B7FE8' },
+            cream:  { light: '#FFF8F2', base: '#F5EDE3', warm: '#EDD9C4' },
+            stone:  { 100: '#F5F0EB', 200: '#E8DDD3', 500: '#9C8A7D', 700: '#5C4A3D' },
+          },
+          fontFamily: {
+            display: ['Playfair Display', 'serif'],
+            serif:   ['DM Serif Display', 'serif'],
+            sans:    ['DM Sans', 'sans-serif'],
+          },
+          backdropBlur: { xs: '2px' },
+          animation: {
+            'float':      'float 6s ease-in-out infinite',
+            'float-slow': 'float 9s ease-in-out infinite',
+            'pulse-soft': 'pulseSoft 3s ease-in-out infinite',
+            'blob':       'blob 8s ease-in-out infinite',
+            'fade-up':    'fadeUp 0.6s ease forwards',
+          },
+          keyframes: {
+            float:      { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-14px)' } },
+            pulseSoft:  { '0%,100%': { opacity: '1' }, '50%': { opacity: '.7' } },
+            blob:       { '0%,100%': { borderRadius: '60% 40% 30% 70%/60% 30% 70% 40%' }, '50%': { borderRadius: '30% 60% 70% 40%/50% 60% 30% 60%' } },
+            fadeUp:     { from: { opacity: '0', transform: 'translateY(20px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ══════════════════════════════════════════
+       GLOBAL STYLES
+    ══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #FFF8F2;
+      color: #3D2C24;
+      overflow-x: hidden;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #FFF8F2; }
+    ::-webkit-scrollbar-thumb { background: #F4B8CF; border-radius: 10px; }
+
+    /* ── Glass ── */
+    .glass {
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.7);
+    }
+    .glass-dark {
+      background: rgba(255, 248, 242, 0.6);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(244,184,207,0.3);
+    }
+
+    /* ── Blob decorativo ── */
+    .blob {
+      border-radius: 60% 40% 30% 70%/60% 30% 70% 40%;
+      animation: blob 8s ease-in-out infinite;
+    }
+
+    /* ── Card premium ── */
+    .card-premium {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.9);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(155,127,232,0.08), 0 2px 8px rgba(0,0,0,0.04);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .card-premium:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(155,127,232,0.15), 0 4px 16px rgba(0,0,0,0.06);
+    }
+
+    /* ── Product card 3D ── */
+    .product-card {
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform-style: preserve-3d;
+    }
+    .product-card:hover {
+      transform: perspective(1000px) rotateY(-4deg) rotateX(2deg) translateY(-8px);
+      box-shadow: 20px 20px 60px rgba(155,127,232,0.18);
+    }
+
+    /* ── Gradient text ── */
+    .gradient-text {
+      background: linear-gradient(135deg, #E07CA0 0%, #9B7FE8 50%, #5BA8C9 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Btn Primary ── */
+    .btn-primary {
+      background: linear-gradient(135deg, #E07CA0, #9B7FE8);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 32px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(155,127,232,0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0);
+      transition: background 0.3s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(155,127,232,0.45); }
+    .btn-primary:hover::after { background: rgba(255,255,255,0.1); }
+
+    /* ── Btn Secondary ── */
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid rgba(224,124,160,0.5);
+      color: #E07CA0;
+      border-radius: 50px;
+      padding: 12px 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-secondary:hover { background: rgba(224,124,160,0.08); border-color: #E07CA0; transform: translateY(-2px); }
+
+    /* ── Navbar transition ── */
+    .navbar { transition: all 0.4s ease; }
+    .navbar-scrolled {
+      background: rgba(255,248,242,0.92) !important;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.06);
+    }
+
+    /* ── Floating ── */
+    .float-1 { animation: float 6s ease-in-out infinite; }
+    .float-2 { animation: float 8s ease-in-out infinite 1s; }
+    .float-3 { animation: float 7s ease-in-out infinite 2s; }
+
+    /* ── FAQ accordion ── */
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+    }
+    .faq-answer.open { max-height: 300px; padding-top: 12px; }
+
+    /* ── Counter ── */
+    .counter-num {
+      background: linear-gradient(135deg, #E07CA0 0%, #9B7FE8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Testimonial card ── */
+    .testi-card {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.9);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(155,127,232,0.08);
+    }
+
+    /* ── Category card ── */
+    .cat-card {
+      transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: pointer;
+    }
+    .cat-card:hover { transform: translateY(-8px) scale(1.02); }
+
+    /* ── Cart drawer ── */
+    .cart-drawer {
+      position: fixed;
+      top: 0; right: 0;
+      width: min(420px, 100vw);
+      height: 100vh;
+      z-index: 1000;
+      transform: translateX(100%);
+      transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      background: rgba(255,248,242,0.97);
+      backdrop-filter: blur(24px);
+      box-shadow: -20px 0 60px rgba(0,0,0,0.12);
+    }
+    .cart-drawer.open { transform: translateX(0); }
+    .cart-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(61,44,36,0.3);
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s;
+    }
+    .cart-overlay.open { opacity: 1; pointer-events: all; }
+
+    /* ── Mobile menu ── */
+    .mobile-menu {
+      transform: translateX(-100%);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .mobile-menu.open { transform: translateX(0); }
+
+    /* ── Badge pulse ── */
+    .badge-pulse {
+      animation: pulseSoft 2s ease-in-out infinite;
+    }
+
+    /* ── Swiper customization ── */
+    .swiper-pagination-bullet { background: #E07CA0 !important; }
+    .swiper-button-next, .swiper-button-prev { color: #9B7FE8 !important; }
+
+    /* ── Section divider ── */
+    .wave-divider { overflow: hidden; line-height: 0; }
+
+    /* ── Glow effect ── */
+    .glow-rose { box-shadow: 0 0 40px rgba(224,124,160,0.2); }
+    .glow-lila { box-shadow: 0 0 40px rgba(155,127,232,0.2); }
+
+    /* ── Star rating ── */
+    .star-filled { color: #F59E0B; }
+    .star-empty  { color: #E5E7EB; }
+
+    @media (max-width: 768px) {
+      .product-card:hover { transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- VUE 3 APP — INICIO (index.html)                       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="app">
+
+  <!-- ═══════════════════════════
+       NAVBAR PREMIUM FIJO
+  ═══════════════════════════ -->
+  <nav
+    class="navbar fixed top-0 left-0 right-0 z-50"
+    :class="{ 'navbar-scrolled': scrolled }"
+    style="padding: 0 clamp(16px, 4vw, 48px);"
+  >
+    <div class="max-w-7xl mx-auto flex items-center justify-between h-[72px]">
+
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-3 select-none">
+        <div class="w-10 h-10 rounded-2xl overflow-hidden shadow-md">
+          <img src="/img/LOGO.png" alt="Baby Nan Store" class="w-full h-full object-cover" />
+        </div>
+        <div>
+          <span class="font-display font-bold text-xl leading-none gradient-text">Baby Nan</span>
+          <span class="block text-xs font-sans text-stone-500 tracking-widest uppercase" style="letter-spacing:.12em;">Store</span>
+        </div>
+      </a>
+
+      <!-- Nav links desktop -->
+      <ul class="hidden md:flex items-center gap-8">
+        <li v-for="link in navLinks" :key="link.href">
+          <a :href="link.href" class="font-sans text-sm font-medium text-stone-700 hover:text-rose-deep transition-colors duration-200 relative group">
+            {{ link.label }}
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-rose-deep to-lila-deep group-hover:w-full transition-all duration-300 rounded-full"></span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Search icon -->
+        <button class="w-9 h-9 rounded-xl flex items-center justify-center text-stone-500 hover:text-rose-deep hover:bg-rose-pastel/40 transition-all duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
+        </button>
+
+        <!-- Cart button -->
+        <button @click="openCart" class="relative w-9 h-9 rounded-xl flex items-center justify-center text-stone-500 hover:text-rose-deep hover:bg-rose-pastel/40 transition-all duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z" /></svg>
+          <span v-if="cartCount > 0" class="badge-pulse absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full text-white text-xs font-bold flex items-center justify-center" style="background: linear-gradient(135deg,#E07CA0,#9B7FE8);">{{ cartCount }}</span>
+        </button>
+
+        <!-- Mobile menu toggle -->
+        <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden w-9 h-9 rounded-xl flex items-center justify-center text-stone-600 hover:bg-rose-pastel/40 transition-all">
+          <svg v-if="!mobileMenuOpen" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+          <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Mobile menu ── -->
+  <div class="mobile-menu fixed top-0 left-0 h-full w-72 z-50 glass-dark shadow-2xl" :class="{ open: mobileMenuOpen }">
+    <div class="p-6 pt-20">
+      <div class="flex items-center gap-3 mb-8">
+        <div class="w-10 h-10 rounded-2xl overflow-hidden shadow"><img src="logo_png.jpg" alt="Baby Nana Store" class="w-full h-full object-cover" /></div>
+        <span class="font-display font-bold text-xl gradient-text">Baby Nana Store</span>
+      </div>
+      <ul class="space-y-2">
+        <li v-for="link in navLinks" :key="link.href">
+          <a :href="link.href" class="block px-4 py-3 rounded-xl font-sans font-medium text-stone-700 hover:bg-rose-pastel/50 hover:text-rose-deep transition-all">{{ link.label }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div v-if="mobileMenuOpen" @click="mobileMenuOpen=false" class="fixed inset-0 z-40 bg-stone-700/20 backdrop-blur-sm"></div>
+
+  <!-- ═══════════════════════════
+       HERO SECTION PREMIUM
+  ═══════════════════════════ -->
+  <section class="relative min-h-screen flex items-center overflow-hidden" style="padding-top:72px; background: linear-gradient(135deg, #FFF8F2 0%, #F9D5E5 35%, #E8DEFF 70%, #C8E8F5 100%);">
+
+    <!-- Blobs decorativos -->
+    <div class="absolute top-20 right-10 w-80 h-80 blob opacity-30" style="background: linear-gradient(135deg,#F9D5E5,#E8DEFF);"></div>
+    <div class="absolute bottom-20 left-10 w-64 h-64 blob opacity-25" style="background: linear-gradient(135deg,#C8E8F5,#F9D5E5); animation-delay:2s;"></div>
+    <div class="absolute top-1/2 left-1/3 w-48 h-48 blob opacity-20" style="background: linear-gradient(135deg,#E8DEFF,#C8E8F5); animation-delay:4s;"></div>
+
+    <!-- Particles decorativas -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div v-for="p in particles" :key="p.id"
+        class="absolute rounded-full"
+        :style="`width:${p.size}px;height:${p.size}px;left:${p.x}%;top:${p.y}%;background:${p.color};opacity:${p.opacity};animation:float ${p.dur}s ease-in-out infinite ${p.delay}s;`">
+      </div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center py-20">
+
+      <!-- Texto hero -->
+      <div data-aos="fade-right" data-aos-duration="800">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 text-sm font-medium" style="background:rgba(255,255,255,0.7);backdrop-filter:blur(12px);border:1px solid rgba(224,124,160,0.3);color:#E07CA0;">
+          <span class="w-2 h-2 rounded-full badge-pulse" style="background:#E07CA0;"></span>
+          Nuevos productos disponibles
+        </div>
+
+        <h1 class="font-display font-bold leading-tight mb-6" style="font-size:clamp(2.2rem,5vw,3.8rem);">
+          Todo lo mejor<br />
+          <span class="gradient-text">para tu bebé</span><br />
+          <span style="font-style:italic; font-weight:400;">y para ti</span>
+        </h1>
+
+        <p class="font-sans text-stone-500 mb-8 leading-relaxed" style="font-size:clamp(1rem,1.5vw,1.15rem); max-width:480px;">
+          Productos de alta calidad, diseñados con amor para los primeros momentos que lo son todo. Seguridad, ternura y estilo en cada detalle.
+        </p>
+
+        <div class="flex flex-wrap gap-4 mb-10">
+          <a href="tienda.html" class="btn-primary inline-flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z" /></svg>
+            Ver tienda
+          </a>
+          <a href="nosotros.html" class="btn-secondary inline-flex items-center gap-2">
+            Conocer más
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
+          </a>
+        </div>
+
+        <!-- Mini stats -->
+        <div class="flex gap-8">
+          <div v-for="s in heroStats" :key="s.label" class="text-center">
+            <div class="font-display font-bold text-2xl counter-num">{{ s.value }}</div>
+            <div class="font-sans text-xs text-stone-400 mt-0.5">{{ s.label }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual hero -->
+      <div class="relative flex justify-center items-center" data-aos="fade-left" data-aos-duration="900" data-aos-delay="100">
+
+        <!-- Central card flotante -->
+        <div class="float-1 relative z-10">
+          <div class="card-premium p-8 text-center max-w-xs mx-auto glow-lila">
+            <div class="w-36 h-36 mx-auto mb-4 rounded-3xl overflow-hidden shadow-xl" style="background: linear-gradient(135deg,#F9D5E5,#E8DEFF);">
+              <img src="/img/LOGO.png" alt="Baby Nana Store" class="w-full h-full object-contain p-2" />
+            </div>
+            <h3 class="font-display font-semibold text-lg text-stone-700 mb-1">Baby Nana Store</h3>
+            <p class="font-sans text-xs text-stone-400">Productos para bebés y mamás</p>
+            <div class="flex items-center justify-center gap-1 mt-3">
+              <svg v-for="i in 5" :key="i" class="w-4 h-4 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <span class="font-sans text-xs text-stone-500 ml-1">5.0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating cards small -->
+        <div class="float-2 absolute -top-4 -right-4 md:right-4 card-premium p-3 w-40" style="z-index:8;">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#C8E8F5,#A8D8EA);">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-sky-deep" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" /></svg>
+            </div>
+            <div>
+              <div class="font-sans font-semibold text-xs text-stone-700">100% Seguro</div>
+              <div class="font-sans text-xs text-stone-400">BPA Free</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="float-3 absolute -bottom-4 -left-4 md:left-0 card-premium p-3 w-44" style="z-index:8;">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#F9D5E5,#F4B8CF);">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rose-deep" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" /></svg>
+            </div>
+            <div>
+              <div class="font-sans font-semibold text-xs text-stone-700">Con mucho amor</div>
+              <div class="font-sans text-xs text-stone-400">Seleccion cuidadosa</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decoration rings -->
+        <div class="absolute inset-0 rounded-full border-2 border-dashed border-rose-pastel/50 scale-110 animate-spin" style="animation-duration:25s;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════
+       PRODUCTOS DESTACADOS
+  ═══════════════════════════ -->
+  <section class="py-24 px-6" style="background: linear-gradient(180deg, #FFF8F2 0%, #FFFFFF 100%);">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <span class="font-sans text-xs font-semibold tracking-widest text-lila-deep uppercase mb-3 block">Seleccion premium</span>
+        <h2 class="font-display font-bold text-4xl text-stone-700 mb-4">Productos <span class="gradient-text">destacados</span></h2>
+        <p class="font-sans text-stone-400 max-w-lg mx-auto">Los favoritos de nuestras mamis. Calidad, seguridad y mucho amor en cada producto.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div
+          v-for="product in featuredProducts"
+          :key="product.id"
+          class="product-card card-premium overflow-hidden cursor-pointer"
+          data-aos="fade-up"
+          :data-aos-delay="product.delay"
+        >
+          <!-- Image -->
+          <div class="relative overflow-hidden" style="height:220px; background: linear-gradient(135deg,#FFF8F2,#F9D5E5);">
+            <div class="w-full h-full flex items-center justify-center p-6">
+              <div class="text-6xl">{{ product.emoji }}</div>
+            </div>
+            <!-- Badges -->
+            <div class="absolute top-3 left-3 flex flex-col gap-1.5">
+              <span v-if="product.isNew" class="px-2.5 py-1 rounded-full text-xs font-semibold text-white" style="background:linear-gradient(135deg,#9B7FE8,#5BA8C9);">Nuevo</span>
+              <span v-if="product.isBestSeller" class="px-2.5 py-1 rounded-full text-xs font-semibold text-white" style="background:linear-gradient(135deg,#E07CA0,#F4B8CF);">Top ventas</span>
+              <span v-if="product.discount" class="px-2.5 py-1 rounded-full text-xs font-semibold text-white" style="background:linear-gradient(135deg,#F59E0B,#EF4444);">-{{ product.discount }}%</span>
+            </div>
+            <!-- Quick add -->
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300" style="background:rgba(255,248,242,0.85);backdrop-filter:blur(4px);">
+              <button @click="addToCart(product)" class="btn-primary text-sm px-6 py-3">
+                Agregar al carrito
+              </button>
+            </div>
+          </div>
+          <!-- Info -->
+          <div class="p-5">
+            <div class="flex items-center gap-1 mb-2">
+              <svg v-for="i in 5" :key="i" class="w-3.5 h-3.5" :class="i <= product.rating ? 'star-filled' : 'star-empty'" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <span class="font-sans text-xs text-stone-400 ml-1">({{ product.reviews }})</span>
+            </div>
+            <h3 class="font-sans font-semibold text-stone-700 text-sm leading-snug mb-1">{{ product.name }}</h3>
+            <p class="font-sans text-xs text-stone-400 mb-3 line-clamp-2">{{ product.description }}</p>
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="font-display font-bold text-xl gradient-text">Bs. {{ product.price }}</span>
+                <span v-if="product.originalPrice" class="font-sans text-xs text-stone-400 line-through ml-2">Bs. {{ product.originalPrice }}</span>
+              </div>
+              <button @click="addToCart(product)" class="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110" style="background:linear-gradient(135deg,#E07CA0,#9B7FE8);">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="tienda.html" class="btn-primary inline-flex items-center gap-2">
+          Ver todos los productos
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- ═══════════════════════════
+       CATEGORIAS DESTACADAS
+  ═══════════════════════════ -->
+  <section class="py-24 px-6" style="background: #FFFFFF;">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <span class="font-sans text-xs font-semibold tracking-widest text-rose-deep uppercase mb-3 block">Explorar</span>
+        <h2 class="font-display font-bold text-4xl text-stone-700 mb-4">Categorías para cada etapa</h2>
+        <p class="font-sans text-stone-400 max-w-lg mx-auto">Encontrá exactamente lo que tu bebé necesita en cada momento de su crecimiento.</p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a v-for="cat in featuredCategories" :key="cat.name" :href="cat.href" class="cat-card card-premium p-6 text-center" data-aos="fade-up" :data-aos-delay="cat.delay">
+          <div class="w-14 h-14 mx-auto mb-4 rounded-2xl flex items-center justify-center" :style="`background: ${cat.bg};`">
+            <span class="text-2xl" v-html="cat.icon"></span>
+          </div>
+          <h3 class="font-sans font-semibold text-sm text-stone-700 leading-tight">{{ cat.name }}</h3>
+          <p class="font-sans text-xs text-stone-400 mt-1">{{ cat.count }} productos</p>
+        </a>
+      </div>
+
+      <div class="text-center mt-10">
+        <a href="tienda.html" class="btn-secondary inline-flex items-center gap-2">
+          Ver todas las categorias
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════
+       BENEFICIOS
+  ═══════════════════════════ -->
+  <section class="py-24 px-6" style="background: linear-gradient(135deg, #E8DEFF 0%, #F9D5E5 50%, #C8E8F5 100%);">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="font-display font-bold text-4xl text-stone-700 mb-4">Por que elegirnos</h2>
+        <p class="font-sans text-stone-500 max-w-lg mx-auto">Cada detalle pensado para darte la mejor experiencia de compra y los productos mas seguros para tu bebe.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div v-for="b in benefits" :key="b.title" class="card-premium p-6 text-center" data-aos="fade-up" :data-aos-delay="b.delay">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center" :style="`background: ${b.bg};`">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" :class="b.iconColor" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" v-html="b.svgPath"></svg>
+          </div>
+          <h3 class="font-sans font-semibold text-stone-700 mb-2">{{ b.title }}</h3>
+          <p class="font-sans text-sm text-stone-400 leading-relaxed">{{ b.desc }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════
+       TESTIMONIOS — SWIPER
+  ═══════════════════════════ -->
+  <section class="py-24 px-6" style="background:#FFFFFF;">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <span class="font-sans text-xs font-semibold tracking-widest text-rose-deep uppercase mb-3 block">Testimonios</span>
+        <h2 class="font-display font-bold text-4xl text-stone-700 mb-4">Lo que dicen las <span class="gradient-text">mamis</span></h2>
+      </div>
+
+      <div class="swiper testimonialSwiper overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+        <div class="swiper-wrapper pb-12">
+          <div v-for="t in testimonials" :key="t.name" class="swiper-slide">
+            <div class="testi-card p-8 mx-2">
+              <div class="flex items-center gap-1 mb-4">
+                <svg v-for="i in 5" :key="i" class="w-4 h-4 star-filled" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              </div>
+              <p class="font-sans text-stone-600 leading-relaxed mb-6 italic">"{{ t.text }}"</p>
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-full flex items-center justify-center font-display font-bold text-white text-lg" :style="`background: ${t.color};`">{{ t.name[0] }}</div>
+                <div>
+                  <div class="font-sans font-semibold text-stone-700 text-sm">{{ t.name }}</div>
+                  <div class="font-sans text-xs text-stone-400">{{ t.role }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════
+       FAQ SECTION
+  ═══════════════════════════ -->
+  <section class="py-24 px-6" style="background: linear-gradient(180deg, #FFF8F2 0%, #F9D5E5 100%);">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <span class="font-sans text-xs font-semibold tracking-widest text-lila-deep uppercase mb-3 block">Preguntas frecuentes</span>
+        <h2 class="font-display font-bold text-4xl text-stone-700">Resolvemos tus <span class="gradient-text">dudas</span></h2>
+      </div>
+
+      <div class="space-y-3" data-aos="fade-up" data-aos-delay="100">
+        <div v-for="(faq, i) in faqs" :key="i" class="card-premium overflow-hidden">
+          <button
+            @click="toggleFaq(i)"
+            class="w-full flex items-center justify-between p-6 text-left"
+          >
+            <span class="font-sans font-semibold text-stone-700">{{ faq.q }}</span>
+            <div class="w-8 h-8 rounded-full flex-shrink-0 ml-4 flex items-center justify-center transition-all duration-300" :style="`background:${faq.open ? 'linear-gradient(135deg,#E07CA0,#9B7FE8)' : 'rgba(200,200,200,0.2)'};`">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform duration-300" :class="[faq.open ? 'rotate-45 text-white' : 'text-stone-400']" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+            </div>
+          </button>
+          <div class="faq-answer px-6 pb-0" :class="{ open: faq.open }">
+            <p class="font-sans text-sm text-stone-500 leading-relaxed pb-6">{{ faq.a }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════
+       CTA FINAL
+  ═══════════════════════════ -->
+  <section class="py-24 px-6 relative overflow-hidden" style="background: linear-gradient(135deg, #9B7FE8 0%, #E07CA0 50%, #5BA8C9 100%);">
+    <div class="absolute inset-0">
+      <div class="blob absolute top-10 right-10 w-72 h-72 opacity-20" style="background:rgba(255,255,255,0.3);"></div>
+      <div class="blob absolute bottom-10 left-10 w-56 h-56 opacity-20" style="background:rgba(255,255,255,0.2); animation-delay:3s;"></div>
+    </div>
+    <div class="relative z-10 max-w-3xl mx-auto text-center" data-aos="fade-up">
+      <h2 class="font-display font-bold text-white mb-4" style="font-size:clamp(2rem,4vw,3rem);">Empieza a comprar hoy</h2>
+      <p class="font-sans text-white/80 mb-8 text-lg">Descubri nuestra coleccion completa y encontra todo lo que tu bebe necesita.</p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="tienda.html" class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white font-sans font-semibold text-lila-deep hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          Ir a la tienda
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
+        </a>
+        <a href="contacto.html" class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white/20 border border-white/50 font-sans font-semibold text-white hover:bg-white/30 transition-all duration-300 hover:-translate-y-1">
+          Contactanos
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════
+       FOOTER PREMIUM
+  ═══════════════════════════ -->
+  <footer style="background:#2D1B14; color:#C8A899;">
+    <div class="max-w-7xl mx-auto px-6 py-20">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+        <!-- Brand -->
+        <div class="lg:col-span-1">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-11 h-11 rounded-2xl overflow-hidden"><img src="/img/LOGO.png" alt="Baby Nana Store" class="w-full h-full object-cover" /></div>
+            <div>
+              <span class="font-display font-bold text-xl text-white">Baby Nana Store</span>
+              <span class="block text-xs tracking-widest text-stone-400 uppercase">Todo para tu bebe</span>
+            </div>
+          </div>
+          <p class="font-sans text-sm leading-relaxed text-stone-400 mb-6">Productos premium para bebes y mamas, seleccionados con amor y cuidado para los primeros momentos.</p>
+          <!-- Social -->
+          <div class="flex gap-3">
+            <a v-for="s in socials" :key="s.name" :href="s.href" class="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200 hover:-translate-y-1" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1);" v-html="s.icon"></a>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <div v-for="col in footerColumns" :key="col.title">
+          <h4 class="font-sans font-semibold text-white mb-5">{{ col.title }}</h4>
+          <ul class="space-y-3">
+            <li v-for="link in col.links" :key="link.label">
+              <a :href="link.href" class="font-sans text-sm text-stone-400 hover:text-white transition-colors duration-200">{{ link.label }}</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Newsletter -->
+        <div>
+          <h4 class="font-sans font-semibold text-white mb-5">Newsletter</h4>
+          <p class="font-sans text-sm text-stone-400 mb-4">Recibe novedades, ofertas y consejos para tu bebe.</p>
+          <div class="flex gap-2">
+            <input type="email" placeholder="tu@email.com" class="flex-1 px-4 py-2.5 rounded-xl text-sm font-sans outline-none" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); color:#fff;" />
+            <button class="px-4 py-2.5 rounded-xl text-sm font-sans font-semibold text-white transition-all hover:opacity-90" style="background:linear-gradient(135deg,#E07CA0,#9B7FE8);">Ok</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-stone-700/50 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="font-sans text-xs text-stone-500">© 2024 Baby Nan Store. Todos los derechos reservados.</p>
+        <p class="font-sans text-xs text-stone-500">Hecho con amor para las mamis de Bolivia</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════
+       CART DRAWER
+  ═══════════════════════════ -->
+  <div class="cart-overlay" :class="{ open: cartOpen }" @click="closeCart"></div>
+  <div class="cart-drawer flex flex-col" :class="{ open: cartOpen }">
+    <!-- Header -->
+    <div class="flex items-center justify-between p-6 border-b border-stone-100">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#E07CA0,#9B7FE8);">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z" /></svg>
+        </div>
+        <div>
+          <h3 class="font-sans font-semibold text-stone-700">Mi Carrito</h3>
+          <span class="font-sans text-xs text-stone-400">{{ cartCount }} {{ cartCount === 1 ? 'producto' : 'productos' }}</span>
+        </div>
+      </div>
+      <button @click="closeCart" class="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-stone-100 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-stone-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+      </button>
+    </div>
+
+    <!-- Items -->
+    <div class="flex-1 overflow-y-auto p-6 space-y-4">
+      <div v-if="cartItems.length === 0" class="flex flex-col items-center justify-center h-full text-center py-16">
+        <div class="w-20 h-20 rounded-3xl flex items-center justify-center mb-4" style="background:linear-gradient(135deg,#F9D5E5,#E8DEFF);">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 text-rose-deep" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z" /></svg>
+        </div>
+        <h4 class="font-sans font-semibold text-stone-600 mb-2">Tu carrito esta vacio</h4>
+        <p class="font-sans text-sm text-stone-400 mb-6">Agrega productos para comenzar tu compra</p>
+        <a href="tienda.html" @click="closeCart" class="btn-primary text-sm px-6 py-3">Ver productos</a>
+      </div>
+
+      <div v-for="item in cartItems" :key="item.cartId" class="flex gap-4 p-4 rounded-2xl" style="background:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.9);">
+        <div class="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 text-3xl" style="background:linear-gradient(135deg,#FFF8F2,#F9D5E5);">{{ item.emoji }}</div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-sans font-semibold text-stone-700 text-sm truncate">{{ item.name }}</h4>
+          <p class="font-display font-bold text-sm gradient-text mt-0.5">Bs. {{ item.price }}</p>
+          <div class="flex items-center gap-2 mt-2">
+            <button @click="decreaseQty(item)" class="w-6 h-6 rounded-lg flex items-center justify-center text-stone-500 hover:bg-rose-pastel/50 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" /></svg>
+            </button>
+            <span class="font-sans font-semibold text-stone-700 text-sm w-6 text-center">{{ item.qty }}</span>
+            <button @click="increaseQty(item)" class="w-6 h-6 rounded-lg flex items-center justify-center text-stone-500 hover:bg-rose-pastel/50 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+            </button>
+          </div>
+        </div>
+        <button @click="removeFromCart(item)" class="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-rose-pastel/50 transition-colors flex-shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-stone-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer carrito -->
+    <div v-if="cartItems.length > 0" class="p-6 border-t border-stone-100">
+      <div class="flex items-center justify-between mb-2">
+        <span class="font-sans text-sm text-stone-500">Subtotal</span>
+        <span class="font-sans font-semibold text-stone-700">Bs. {{ cartTotal }}</span>
+      </div>
+      <div class="flex items-center justify-between mb-5">
+        <span class="font-sans font-semibold text-stone-700">Total</span>
+        <span class="font-display font-bold text-xl gradient-text">Bs. {{ cartTotal }}</span>
+      </div>
+      <button @click="checkoutWhatsapp" class="btn-primary w-full flex items-center justify-center gap-2 mb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Continuar por WhatsApp
+      </button>
+      <button @click="clearCart" class="w-full font-sans text-sm text-stone-400 hover:text-rose-deep transition-colors py-2">Vaciar carrito</button>
+    </div>
+  </div>
+
+</div><!-- /app -->
+
+<!-- ══════════════════════════════════════════ -->
+<!-- VUE 3 SCRIPT — INDEX                      -->
+<!-- ══════════════════════════════════════════ -->
+<script>
+const { createApp, ref, computed, onMounted, reactive } = Vue;
+
+createApp({
+  setup() {
+    // ── CONFIGURACION ──────────────────────────────
+    const WHATSAPP_NUMBER = '59170000000'; // Cambiar por numero real
+
+    // ── STATE ──────────────────────────────────────
+    const scrolled       = ref(false);
+    const mobileMenuOpen = ref(false);
+    const cartOpen       = ref(false);
+    const cartItems      = ref([]);
+
+    // ── DATOS ESTÁTICOS ────────────────────────────
+    const navLinks = [
+      { label: 'Inicio',    href: 'index.html'    },
+      { label: 'Tienda',    href: 'tienda.html'   },
+      { label: 'Nosotros',  href: 'nosotros.html' },
+      { label: 'Contacto',  href: 'contacto.html' },
+    ];
+
+    const heroStats = [
+      { value: '+500', label: 'Productos' },
+      { value: '+1K',  label: 'Clientes felices' },
+      { value: '5/5',  label: 'Calificacion' },
+    ];
+
+    const particles = Array.from({ length: 12 }, (_, i) => ({
+      id: i,
+      size:    Math.random() * 10 + 4,
+      x:       Math.random() * 100,
+      y:       Math.random() * 100,
+      opacity: Math.random() * 0.3 + 0.1,
+      dur:     Math.random() * 5 + 5,
+      delay:   Math.random() * 4,
+      color:   ['#F9D5E5','#E8DEFF','#C8E8F5','#F4B8CF'][Math.floor(Math.random()*4)],
+    }));
+
+    const featuredCategories = [
+      { name: 'Alimentacion y Lactancia', count: 38, href: 'tienda.html', delay: 0,   bg: 'linear-gradient(135deg,#C8E8F5,#A8D8EA)', icon: '<svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-sky-deep" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" /></svg>' },
+      { name: 'Juguetes y Diversion',     count: 52, href: 'tienda.html', delay: 50,  bg: 'linear-gradient(135deg,#F9D5E5,#F4B8CF)', icon: '<svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-rose-deep" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" /></svg>' },
+      { name: 'Montessori y Aprendizaje', count: 29, href: 'tienda.html', delay: 100, bg: 'linear-gradient(135deg,#E8DEFF,#D4C4FF)', icon: '<svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-lila-deep" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 3.741-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg>' },
+      { name: 'Bano y Cuidado',           count: 41, href: 'tienda.html', delay: 150, bg: 'linear-gradient(135deg,#FFF8F2,#F5EDE3)', icon: '<svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-stone-500" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" /></svg>' },
+      { name: 'Musicales y Sensoriales',  count: 23, href: 'tienda.html', delay: 200, bg: 'linear-gradient(135deg,#C8E8F5,#E8DEFF)', icon: '<svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-sky-deep" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" /></svg>' },
+      { name: 'Siliconados BPA Free',      count: 17, href: 'tienda.html', delay: 250, bg: 'linear-gradient(135deg,#F9D5E5,#E8DEFF)', icon: '<svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-rose-deep" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" /></svg>' },
+      { name: 'Maternidad y Paseo',        count: 34, href: 'tienda.html', delay: 300, bg: 'linear-gradient(135deg,#FFF8F2,#C8E8F5)', icon: '<svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-stone-500" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" /></svg>' },
+      { name: 'Recien Llegados',           count: 16, href: 'tienda.html', delay: 350, bg: 'linear-gradient(135deg,#E8DEFF,#C8E8F5)', icon: '<svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-lila-deep" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z" /></svg>' },
+    ];
+
+    const featuredProducts = [
+     
+{
+id: 29,
+name: 'Mamadera PPSU 300ML',
+description: `
+🍼🌟 Calidad premium para los momentos más importantes.
+
+Mamadera PPSU resistente al calor y súper durable. 💖
+
+✔️ Alta resistencia
+✔️ Material premium
+✔️ Diseño ergonómico
+✔️ Ideal para uso diario
+
+👶 Seguridad y comodidad para tu bebé.
+`,
+price: 70,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 8,
+isNew: true,
+isBestSeller: true,
+image: 'img/productos/mamadera-ppsu.jpg',
+bgGradient: 'linear-gradient(135deg,#FFF8F2,#E8DEFF)',
+categories: ['alimentacion', '0a6'],
+colors: ['#C7A17A'],
+sizes: ['300ml']
+},
+     
+{
+id: 26,
+name: 'Gorro de Baño con Orejas',
+description: `
+🛁🐰 ¡Baños sin lágrimas y con mucha ternura!
+
+Gorro ajustable que protege ojos y oídos durante el baño. 💖
+
+✔️ Ajustable
+✔️ Cómodo
+✔️ Material suave
+✔️ Diseño adorable
+
+👶 Hace la hora del baño mucho más divertida.
+`,
+price: 65,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 7,
+isNew: false,
+isBestSeller: false,
+image: 'img/productos/gorro-bano.jpg',
+bgGradient: 'linear-gradient(135deg,#C8E8F5,#E8DEFF)',
+categories: ['bano', '0a6'],
+colors: ['#BFE9F5'],
+sizes: null
+},
+
+{
+id: 24,
+name: 'Vaso Siliconado',
+description: `
+🥤💖 ¡Suave, resistente y perfecto para pequeños exploradores!
+
+Vaso de silicona premium diseñado para bebés y niños pequeños. ✨
+
+✔️ Flexible y resistente
+✔️ Libre de BPA
+✔️ Fácil limpieza
+✔️ Diseño moderno
+
+👶 Ideal para aprendizaje independiente.
+`,
+price: 80,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 6,
+isNew: false,
+isBestSeller: false,
+image: 'img/productos/vaso-siliconado.jpg',
+bgGradient: 'linear-gradient(135deg,#FFF8F2,#E8DEFF)',
+categories: ['alimentacion', 'siliconados', '6a12'],
+colors: ['#7D9D9C', '#C38D9E', '#E4CDA7'],
+sizes: ['300ml']
+},
+
+{
+id: 20,
+name: 'Maletin de Colores',
+description: `
+🎨🖍️ ¡Creatividad sin límites para pequeños artistas!
+
+Maletín completo con múltiples accesorios para dibujar, pintar y divertirse. 💖
+
+✔️ Súper completo
+✔️ Fácil de transportar
+✔️ Ideal para estimular creatividad
+✔️ Diseño práctico
+
+🌈 Perfecto para niños creativos.
+`,
+price: 150,
+originalPrice: 180,
+discount: 16,
+rating: 5,
+reviews: 16,
+isNew: true,
+isBestSeller: true,
+image: 'img/productos/maletin-colores.jpg',
+bgGradient: 'linear-gradient(135deg,#E8DEFF,#FFF8F2)',
+categories: ['juguetes', 'montessori', 'mas1'],
+colors: ['#2C3A47'],
+sizes: null
+},
+    ];
+
+    const benefits = [
+      { title:'Envios Seguros',   desc:'Embalaje especial para proteger cada producto durante el transporte.',       bg:'linear-gradient(135deg,#C8E8F5,#A8D8EA)', iconColor:'text-sky-deep',  delay:0,   svgPath:'<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />' },
+      { title:'100% Seguros',     desc:'Todos nuestros productos estan certificados y son libres de sustancias nocivas.', bg:'linear-gradient(135deg,#F9D5E5,#F4B8CF)', iconColor:'text-rose-deep', delay:100, svgPath:'<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />' },
+      { title:'Atencion Premium', desc:'Soporte personalizado por WhatsApp para asesorarte en tu compra.',               bg:'linear-gradient(135deg,#E8DEFF,#D4C4FF)', iconColor:'text-lila-deep', delay:200, svgPath:'<path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />' },
+      { title:'Seleccion Cuidada', desc:'Cada producto es revisado y seleccionado personalmente por expertos en bebe.',  bg:'linear-gradient(135deg,#FFF8F2,#F5EDE3)', iconColor:'text-stone-500', delay:300, svgPath:'<path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />' },
+    ];
+
+    const testimonials = [
+      { name:'Maria Fernanda', role:'Mama de Sofía, 8 meses',  color:'linear-gradient(135deg,#E07CA0,#F4B8CF)', text:'Los mordedores siliconados son increibles. Mi hija los ama y yo quedo tranquila sabiendo que son completamente seguros. La calidad es excelente.' },
+      { name:'Carla Mendoza',  role:'Mama de Lucas, 1 año',    color:'linear-gradient(135deg,#9B7FE8,#D4C4FF)', text:'Compre el kit de lactancia y fue un cambio total. Todo de excelente calidad y el servicio fue muy personalizado. Volvere a comprar sin duda.' },
+      { name:'Patricia Rios',  role:'Mama de Emma, 4 meses',   color:'linear-gradient(135deg,#5BA8C9,#A8D8EA)', text:'Me encanto la atencion por WhatsApp. Me ayudaron a elegir los productos correctos para la edad de mi bebe. Muy profesionales y amables.' },
+      { name:'Daniela Torres', role:'Mama de Mateo, 6 meses',  color:'linear-gradient(135deg,#E07CA0,#9B7FE8)', text:'Los juguetes sensoriales Montessori son hermosos y muy bien diseñados. Mi bebe quedo fascinado. Definitivamente la mejor tienda de bebes.' },
+      { name:'Andrea Lopez',   role:'Mama de Valentina, 9m',   color:'linear-gradient(135deg,#9B7FE8,#5BA8C9)', text:'Calidad premium en todos los productos. Los sonajeros musicales son suaves y perfectos. Baby Nana Store es mi tienda de confianza.' },
+    ];
+
+    const faqs = reactive([
+      { q: 'Son seguros los productos para recien nacidos?',     a: 'Absolutamente. Todos nuestros productos estan hechos de materiales certificados, libres de BPA, ftalatos y sustancias nocivas. Son seguros desde el primer dia de vida.',              open: false },
+      { q: 'Cuanto tarda el envio?',                             a: 'Los envios dentro de La Paz se realizan en 24-48 horas. Para otras ciudades de Bolivia, entre 3 y 7 dias habiles dependiendo de la ubicacion.',                                             open: false },
+      { q: 'Puedo cambiar o devolver un producto?',              a: 'Si, aceptamos cambios y devoluciones dentro de los 7 dias posteriores a la compra, siempre que el producto este en su estado original y sin uso.',                                           open: false },
+      { q: 'Como realizo mi pedido?',                            a: 'Puedes agregar productos al carrito y finalizar tu compra directamente por WhatsApp. Te atendemos de forma personalizada para que tengas la mejor experiencia.',                            open: false },
+      { q: 'Tienen sucursal fisica?',                            a: 'Por el momento operamos de manera online. Esto nos permite ofrecerte mejores precios y atencion personalizada. Coordinamos puntos de entrega o envio a domicilio.',                          open: false },
+    ]);
+
+    const socials = [
+      { name:'Instagram', href:'#', icon:'<svg class="w-4 h-4 text-stone-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>' },
+      { name:'Facebook',  href:'#', icon:'<svg class="w-4 h-4 text-stone-400" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>' },
+      { name:'TikTok',    href:'#', icon:'<svg class="w-4 h-4 text-stone-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>' },
+    ];
+
+    const footerColumns = [
+      { title: 'Tienda', links: [
+        { label:'Todos los productos', href:'tienda.html' },
+        { label:'Recien llegados',      href:'tienda.html' },
+        { label:'Mas vendidos',         href:'tienda.html' },
+        { label:'Ofertas especiales',   href:'tienda.html' },
+      ]},
+      { title: 'Informacion', links: [
+        { label:'Nuestra historia',  href:'nosotros.html' },
+        { label:'Contacto',          href:'contacto.html' },
+        { label:'Preguntas frecuentes', href:'index.html#faq' },
+        { label:'Politica de cambios',  href:'#' },
+      ]},
+    ];
+
+    // ── CART COMPUTED ──────────────────────────────
+    const cartCount = computed(() => cartItems.value.reduce((a, i) => a + i.qty, 0));
+    const cartTotal = computed(() => cartItems.value.reduce((a, i) => a + i.price * i.qty, 0).toFixed(2));
+
+    // ── CART METHODS ───────────────────────────────
+    function loadCart() {
+      try {
+        const stored = localStorage.getItem('babyNanaCart');
+        cartItems.value = stored ? JSON.parse(stored) : [];
+      } catch { cartItems.value = []; }
+    }
+
+    function saveCart() {
+      localStorage.setItem('babyNanaCart', JSON.stringify(cartItems.value));
+    }
+
+    function openCart()  { cartOpen.value = true;  document.body.style.overflow = 'hidden'; }
+    function closeCart() { cartOpen.value = false; document.body.style.overflow = ''; }
+
+    function addToCart(product) {
+      const existing = cartItems.value.find(i => i.id === product.id);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cartItems.value.push({ ...product, cartId: Date.now(), qty: 1 });
+      }
+      saveCart();
+      openCart();
+    }
+
+    function removeFromCart(item) {
+      cartItems.value = cartItems.value.filter(i => i.cartId !== item.cartId);
+      saveCart();
+    }
+
+    function increaseQty(item) { item.qty++; saveCart(); }
+
+    function decreaseQty(item) {
+      if (item.qty > 1) { item.qty--; saveCart(); }
+      else removeFromCart(item);
+    }
+
+    function clearCart() {
+      cartItems.value = [];
+      saveCart();
+    }
+
+    function checkoutWhatsapp() {
+      if (!cartItems.value.length) return;
+      const lines = cartItems.value.map(i =>
+        `• ${i.name} (x${i.qty}) — Bs. ${(i.price * i.qty).toFixed(2)}`
+      ).join('\n');
+      const msg = `¡Hola! Quiero realizar el siguiente pedido:\n\n${lines}\n\n*Total: Bs. ${cartTotal.value}*\n\n¿Podrian confirmar disponibilidad y coordinar el envio? Muchas gracias!`;
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function toggleFaq(i) {
+      faqs[i].open = !faqs[i].open;
+    }
+
+    // ── LIFECYCLE ──────────────────────────────────
+    onMounted(() => {
+      loadCart();
+
+      // Navbar scroll
+      window.addEventListener('scroll', () => { scrolled.value = window.scrollY > 40; });
+
+      // AOS
+      AOS.init({ once: true, duration: 700, easing: 'ease-out-cubic' });
+
+      // Swiper testimonials
+      new Swiper('.testimonialSwiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        pagination: { el: '.swiper-pagination', clickable: true },
+        breakpoints: {
+          640:  { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+        },
+        autoplay: { delay: 4000, disableOnInteraction: false },
+      });
+    });
+
+    return {
+      scrolled, mobileMenuOpen, cartOpen, cartItems,
+      cartCount, cartTotal,
+      navLinks, heroStats, particles, featuredCategories,
+      featuredProducts, benefits, testimonials, faqs,
+      socials, footerColumns,
+      openCart, closeCart, addToCart, removeFromCart,
+      increaseQty, decreaseQty, clearCart, checkoutWhatsapp,
+      toggleFaq,
+    };
+  }
+}).mount('#app');
+</script>
+</body>
+</html>

@@ -1,0 +1,2201 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tienda — Baby Nana Store</title>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sky: { pastel: '#C8E8F5', soft: '#A8D8EA', deep: '#5BA8C9' },
+            rose: { pastel: '#F9D5E5', soft: '#F4B8CF', deep: '#E07CA0' },
+            lila: { pastel: '#E8DEFF', soft: '#D4C4FF', deep: '#9B7FE8' },
+            cream: { light: '#FFF8F2', base: '#F5EDE3' },
+            stone: { 100: '#F5F0EB', 200: '#E8DDD3', 500: '#9C8A7D', 700: '#5C4A3D' },
+          },
+          fontFamily: {
+            display: ['Playfair Display', 'serif'],
+            sans: ['DM Sans', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #FFF8F2;
+      color: #3D2C24;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #FFF8F2;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #F4B8CF;
+      border-radius: 10px;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+
+    .glass-dark {
+      background: rgba(255, 248, 242, 0.85);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(244, 184, 207, 0.3);
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #E07CA0 0%, #9B7FE8 50%, #5BA8C9 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #E07CA0, #9B7FE8);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 28px;
+      font-weight: 600;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: all .3s ease;
+      box-shadow: 0 4px 20px rgba(155, 127, 232, .35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(155, 127, 232, .45);
+    }
+
+    .btn-sm {
+      padding: 8px 18px;
+      font-size: .82rem;
+    }
+
+    .navbar {
+      transition: all .4s ease;
+    }
+
+    .navbar-scrolled {
+      background: rgba(255, 248, 242, .92) !important;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, .06);
+    }
+
+    /* Product card */
+    .product-card {
+      background: rgba(255, 255, 255, .85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, .9);
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(155, 127, 232, .07);
+      transition: all .4s cubic-bezier(.25, .46, .45, .94);
+      overflow: hidden;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px) perspective(800px) rotateY(-3deg);
+      box-shadow: 0 16px 50px rgba(155, 127, 232, .16);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background: rgba(255, 255, 255, .8);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, .9);
+      border-radius: 24px;
+      box-shadow: 0 4px 24px rgba(155, 127, 232, .08);
+    }
+
+    /* Category chip active */
+    .cat-chip {
+      border-radius: 12px;
+      padding: 8px 14px;
+      font-size: .82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .25s ease;
+      border: 1px solid transparent;
+    }
+
+    .cat-chip:hover {
+      background: rgba(224, 124, 160, .1);
+      border-color: rgba(224, 124, 160, .3);
+      color: #E07CA0;
+    }
+
+    .cat-chip.active {
+      background: linear-gradient(135deg, rgba(224, 124, 160, .15), rgba(155, 127, 232, .15));
+      border-color: rgba(155, 127, 232, .4);
+      color: #9B7FE8;
+      font-weight: 600;
+    }
+
+    /* Filter select */
+    .filter-select {
+      background: rgba(255, 255, 255, .8);
+      border: 1px solid rgba(200, 190, 185, .5);
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: .85rem;
+      color: #5C4A3D;
+      outline: none;
+      cursor: pointer;
+      transition: border-color .2s;
+    }
+
+    .filter-select:focus {
+      border-color: #E07CA0;
+    }
+
+    /* Search input */
+    .search-input {
+      background: rgba(255, 255, 255, .85);
+      border: 1px solid rgba(200, 190, 185, .5);
+      border-radius: 16px;
+      padding: 12px 20px 12px 44px;
+      font-size: .9rem;
+      color: #3D2C24;
+      outline: none;
+      transition: all .3s;
+      width: 100%;
+    }
+
+    .search-input:focus {
+      border-color: #E07CA0;
+      box-shadow: 0 0 0 3px rgba(224, 124, 160, .1);
+    }
+
+    .search-input::placeholder {
+      color: #B0A099;
+    }
+
+    /* Badge */
+    .badge {
+      border-radius: 50px;
+      padding: 3px 10px;
+      font-size: .72rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    .badge-new {
+      background: linear-gradient(135deg, #9B7FE8, #5BA8C9);
+    }
+
+    .badge-hot {
+      background: linear-gradient(135deg, #E07CA0, #F4B8CF);
+    }
+
+    .badge-sale {
+      background: linear-gradient(135deg, #F59E0B, #EF4444);
+    }
+
+    .badge-pulse {
+      animation: pulseSoft 2s ease-in-out infinite;
+    }
+
+    @keyframes pulseSoft {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .7
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-12px)
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(.96)
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1)
+      }
+    }
+
+    .card-enter-active {
+      animation: fadeIn .4s ease forwards;
+    }
+
+    .quick-view-description {
+      white-space: pre-line;
+      line-height: 1.6;
+    }
+
+    /* Quick view */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(61, 44, 36, .45);
+      backdrop-filter: blur(6px);
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-box {
+      background: #FFF8F2;
+      border-radius: 28px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, .2);
+    }
+
+    /* Cart drawer */
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(420px, 100vw);
+      height: 100vh;
+      z-index: 1000;
+      transform: translateX(100%);
+      transition: transform .45s cubic-bezier(.25, .46, .45, .94);
+      background: rgba(255, 248, 242, .97);
+      backdrop-filter: blur(24px);
+      box-shadow: -20px 0 60px rgba(0, 0, 0, .12);
+    }
+
+    .cart-drawer.open {
+      transform: translateX(0);
+    }
+
+    .cart-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(61, 44, 36, .3);
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .4s;
+    }
+
+    .cart-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Mobile sidebar */
+    .mobile-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: min(320px, 90vw);
+      height: 100vh;
+      z-index: 800;
+      transform: translateX(-100%);
+      transition: transform .4s cubic-bezier(.25, .46, .45, .94);
+      overflow-y: auto;
+      padding: 20px;
+      background: #FFF8F2;
+    }
+
+    .mobile-sidebar.open {
+      transform: translateX(0);
+    }
+
+    /* Skeleton */
+    .skeleton {
+      background: linear-gradient(90deg, #F5EDE3 25%, #EDD9C4 50%, #F5EDE3 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 12px;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: 200% 0
+      }
+
+      100% {
+        background-position: -200% 0
+      }
+    }
+
+    .star-filled {
+      color: #F59E0B;
+    }
+
+    .star-empty {
+      color: #E5E7EB;
+    }
+
+    .mobile-menu {
+      transform: translateX(-100%);
+      transition: transform .4s cubic-bezier(.25, .46, .45, .94);
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    @media(max-width:768px) {
+      .product-card:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+
+    <!-- ═══════════════════════════
+       NAVBAR
+  ═══════════════════════════ -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50" :class="{'navbar-scrolled':scrolled}"
+      style="padding:0 clamp(16px,4vw,48px);">
+      <div class="max-w-7xl mx-auto flex items-center justify-between h-[72px]">
+        <a href="index.html" class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl overflow-hidden shadow-md"><img src="/img/LOGO.png" alt="Baby Nana Store"
+              class="w-full h-full object-cover" /></div>
+          <span class="font-display font-bold text-xl gradient-text">Baby Nan Store</span>
+        </a>
+
+        <ul class="hidden md:flex items-center gap-8">
+          <li v-for="link in navLinks" :key="link.href">
+            <a :href="link.href"
+              class="font-sans text-sm font-medium hover:text-rose-deep transition-colors relative group"
+              :class="link.active?'text-rose-deep':'text-stone-700'">
+              {{ link.label }}
+              <span
+                class="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-rose-deep to-lila-deep transition-all duration-300 rounded-full"
+                :class="link.active?'w-full':'w-0 group-hover:w-full'"></span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="flex items-center gap-3">
+          <button
+            class="w-9 h-9 rounded-xl flex items-center justify-center text-stone-500 hover:text-rose-deep hover:bg-rose-pastel/40 transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+          </button>
+          <button @click="openCart"
+            class="relative w-9 h-9 rounded-xl flex items-center justify-center text-stone-500 hover:text-rose-deep hover:bg-rose-pastel/40 transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z" />
+            </svg>
+            <span v-if="cartCount>0"
+              class="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full text-white text-xs font-bold flex items-center justify-center badge-pulse"
+              style="background:linear-gradient(135deg,#E07CA0,#9B7FE8);">{{cartCount}}</span>
+          </button>
+          <!-- Mobile filter toggle -->
+          <button @click="mobileSidebarOpen=!mobileSidebarOpen"
+            class="md:hidden w-9 h-9 rounded-xl flex items-center justify-center text-stone-600 hover:bg-rose-pastel/40 transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile sidebar overlay -->
+    <div v-if="mobileSidebarOpen" @click="mobileSidebarOpen=false"
+      class="fixed inset-0 z-50 bg-stone-700/25 backdrop-blur-sm md:hidden"></div>
+
+    <!-- Mobile sidebar -->
+    <div class="mobile-sidebar md:hidden z-50 shadow-2xl" :class="{open:mobileSidebarOpen}" style="padding-top:90px;">
+      <div class="sidebar p-5">
+        <h3 class="font-sans font-semibold text-stone-700 mb-4">Categorias</h3>
+        <div class="space-y-1 mb-6">
+          <button v-for="cat in categories" :key="cat.id" @click="selectCategory(cat.id); mobileSidebarOpen=false"
+            class="cat-chip w-full text-left flex items-center justify-between"
+            :class="{ active: activeCategory === cat.id }">
+            <span>{{ cat.name }}</span>
+            <span class="text-xs px-2 py-0.5 rounded-full" style="background:rgba(155,127,232,.1);color:#9B7FE8;">{{
+              cat.count }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════
+       PAGE HEADER
+  ═══════════════════════════ -->
+    <div style="padding-top:15px; background:linear-gradient(135deg,#FFF8F2 0%,#F9D5E5 40%,#E8DEFF 100%);"
+      class="py-14 px-6">
+      <!-- <div class="max-w-7xl mx-auto">
+      <div class="flex items-center gap-2 text-xs text-stone-400 mb-4 font-sans">
+        <a href="index.html" class="hover:text-rose-deep transition-colors">Inicio</a>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+        <span class="text-stone-600">Tienda</span>
+      </div>
+      <h1 class="font-display font-bold text-4xl text-stone-700 mb-3">Nuestra <span class="gradient-text">Tienda</span></h1>
+      <p class="font-sans text-stone-500 max-w-lg">Descubri nuestra coleccion completa de productos para bebes y mamas. Calidad premium en cada detalle.</p>
+    </div> -->
+    </div>
+
+    <!-- ═══════════════════════════
+       MAIN LAYOUT
+  ═══════════════════════════ -->
+    <main class="max-w-7xl mx-auto px-6 py-12">
+      <div class="flex gap-8">
+
+        <!-- ── SIDEBAR desktop ── -->
+        <aside class="hidden md:block w-72 flex-shrink-0">
+          <div class="sidebar p-6 sticky top-24">
+            <!-- Categories -->
+            <h3 class="font-sans font-semibold text-stone-700 mb-4 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rose-deep" fill="none" viewBox="0 0 24 24"
+                stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
+              </svg>
+              Categorias
+            </h3>
+            <div class="space-y-1 mb-8">
+              <button v-for="cat in categories" :key="cat.id" @click="selectCategory(cat.id)"
+                class="cat-chip w-full text-left flex items-center justify-between"
+                :class="{ active: activeCategory === cat.id }">
+                <span class="font-sans text-sm text-stone-600">{{ cat.name }}</span>
+                <span class="text-xs px-2 py-0.5 rounded-full font-semibold"
+                  style="background:rgba(155,127,232,.1);color:#9B7FE8;">{{ cat.count }}</span>
+              </button>
+            </div>
+
+            <!-- Price range -->
+            <h3 class="font-sans font-semibold text-stone-700 mb-3">Rango de precio</h3>
+            <div class="mb-8">
+              <input type="range" min="0" max="500" v-model="maxPrice" class="w-full accent-rose-500 mb-2" />
+              <div class="flex justify-between text-xs text-stone-400 font-sans">
+                <span>Bs. 0</span>
+                <span class="text-rose-deep font-semibold">Bs. {{ maxPrice }}</span>
+              </div>
+            </div>
+
+            <!-- Tags -->
+            <h3 class="font-sans font-semibold text-stone-700 mb-3">Etiquetas</h3>
+            <div class="flex flex-wrap gap-2">
+              <button v-for="tag in tags" :key="tag" @click="toggleTag(tag)"
+                class="px-3 py-1.5 rounded-full text-xs font-sans font-medium transition-all duration-200"
+                :class="activeTags.includes(tag) ? 'text-white' : 'text-stone-500 border border-stone-200 hover:border-rose-soft'"
+                :style="activeTags.includes(tag) ? 'background:linear-gradient(135deg,#E07CA0,#9B7FE8)' : ''">
+                {{ tag }}
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        <!-- ── PRODUCTS AREA ── -->
+        <div class="flex-1 min-w-0">
+
+          <!-- Toolbar -->
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-8">
+            <!-- Search -->
+            <div class="relative flex-1">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" fill="none"
+                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+              </svg>
+              <input v-model="searchQuery" type="text" placeholder="Buscar productos..." class="search-input" />
+            </div>
+            <!-- Sort -->
+            <select v-model="sortBy" class="filter-select">
+              <option value="default">Ordenar por</option>
+              <option value="price-asc">Precio: Menor a mayor</option>
+              <option value="price-desc">Precio: Mayor a menor</option>
+              <option value="name">Nombre A-Z</option>
+              <option value="rating">Mejor valorados</option>
+              <option value="featured">Destacados</option>
+            </select>
+            <!-- View toggle -->
+            <div class="flex gap-1 p-1 rounded-xl"
+              style="background:rgba(255,255,255,.8);border:1px solid rgba(200,190,185,.4);">
+              <button @click="gridCols=4" :class="gridCols===4?'bg-white shadow-sm text-rose-deep':'text-stone-400'"
+                class="w-8 h-8 rounded-lg flex items-center justify-center transition-all text-stone-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
+                </svg>
+              </button>
+              <button @click="gridCols=2" :class="gridCols===2?'bg-white shadow-sm text-rose-deep':'text-stone-400'"
+                class="w-8 h-8 rounded-lg flex items-center justify-center transition-all text-stone-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Results info -->
+          <div class="flex items-center justify-between mb-6">
+            <p class="font-sans text-sm text-stone-400">
+              Mostrando <span class="font-semibold text-stone-600">{{ filteredProducts.length }}</span> productos
+              <span v-if="activeCategory !== 'all'"> en <span class="text-rose-deep font-semibold">{{ activeCategoryName
+                  }}</span></span>
+            </p>
+            <button v-if="activeCategory!=='all' || searchQuery || activeTags.length" @click="clearFilters"
+              class="text-xs font-sans text-stone-400 hover:text-rose-deep transition-colors flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>
+              Limpiar filtros
+            </button>
+          </div>
+
+          <!-- Skeleton loading -->
+          <div v-if="loading"
+            :class="`grid gap-5 ${gridCols===4?'grid-cols-2 lg:grid-cols-4':'grid-cols-1 sm:grid-cols-2'}`">
+            <div v-for="i in 8" :key="i" class="rounded-2xl overflow-hidden">
+              <div class="skeleton h-48 mb-3"></div>
+              <div class="skeleton h-4 mb-2 mx-3" style="width:70%"></div>
+              <div class="skeleton h-3 mb-4 mx-3" style="width:50%"></div>
+            </div>
+          </div>
+
+          <!-- Products grid -->
+          <div v-else
+            :class="`grid gap-5 ${gridCols===4?'grid-cols-2 lg:grid-cols-3 xl:grid-cols-4':'grid-cols-1 sm:grid-cols-2'}`">
+            <div v-for="product in paginatedProducts" :key="product.id" class="product-card card-enter-active">
+
+              <!-- Image area -->
+              <div class="relative overflow-hidden"
+                :style="`height:${gridCols===4?'200':'180'}px; background:${product.bgGradient};`">
+                <div class="w-full h-full flex items-center justify-center overflow-hidden">
+                  <img v-if="product.image" :src="product.image" :alt="product.name"
+                    class="w-full h-full object-cover" />
+                  <div v-else class="w-full h-full flex items-center justify-center">
+                    <span :class="`${gridCols===4?'text-5xl':'text-4xl'}`">{{ product.emoji || '' }}</span>
+                  </div>
+                </div>
+                <!-- Badges -->
+                <div class="absolute top-3 left-3 flex flex-col gap-1.5">
+                  <span v-if="product.isNew" class="badge badge-new badge-pulse">Nuevo</span>
+                  <span v-if="product.isBestSeller" class="badge badge-hot">Top</span>
+                  <span v-if="product.discount" class="badge badge-sale">-{{ product.discount }}%</span>
+                </div>
+                <!-- Wishlist -->
+                <button
+                  class="absolute top-3 right-3 w-8 h-8 rounded-xl flex items-center justify-center transition-all"
+                  style="background:rgba(255,255,255,.7);backdrop-filter:blur(8px);">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-rose-deep" fill="none" viewBox="0 0 24 24"
+                    stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                  </svg>
+                </button>
+                <!-- Quick add overlay -->
+                <div
+                  class="absolute inset-0 flex flex-col items-center justify-center gap-2 opacity-0 hover:opacity-100 transition-opacity duration-300"
+                  style="background:rgba(255,248,242,.9);backdrop-filter:blur(4px);">
+                  <button @click="openQuickView(product)"
+                    class="px-5 py-2 rounded-full text-sm font-semibold transition-all"
+                    style="background:white;color:#9B7FE8;border:2px solid #9B7FE8;">Ver detalles</button>
+                  <button @click="addToCart(product)" class="btn-primary btn-sm">Agregar al carrito</button>
+                </div>
+              </div>
+
+              <!-- Info -->
+              <div class="p-4">
+                <!-- Category chips -->
+                <div class="flex flex-wrap gap-1 mb-2">
+                  <span v-for="cat in product.categories.slice(0,2)" :key="cat"
+                    class="text-xs px-2 py-0.5 rounded-full font-sans"
+                    style="background:rgba(155,127,232,.1);color:#9B7FE8;">{{ cat }}</span>
+                </div>
+                <!-- Stars -->
+                <div class="flex items-center gap-0.5 mb-1.5">
+                  <svg v-for="i in 5" :key="i" class="w-3 h-3" :class="i<=product.rating?'star-filled':'star-empty'"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                  <span class="text-xs text-stone-400 ml-1 font-sans">({{ product.reviews }})</span>
+                </div>
+                <h3 class="font-sans font-semibold text-stone-700 text-sm leading-snug mb-1 line-clamp-2">{{
+                  product.name }}</h3>
+                <p v-if="gridCols===2" class="font-sans text-xs text-stone-400 mb-2 line-clamp-2">{{ product.description
+                  }}</p>
+                <!-- Colors -->
+                <div v-if="product.colors" class="flex gap-1.5 mb-3">
+                  <div v-for="c in product.colors" :key="c" class="w-4 h-4 rounded-full border-2 border-white shadow-sm"
+                    :style="`background:${c};`"></div>
+                </div>
+                <!-- Price + CTA -->
+                <div class="flex items-center justify-between">
+                  <div>
+                    <span class="font-display font-bold text-lg gradient-text">Bs. {{ product.price }}</span>
+                    <span v-if="product.originalPrice" class="font-sans text-xs text-stone-400 line-through ml-1.5">Bs.
+                      {{ product.originalPrice }}</span>
+                  </div>
+                  <button @click="addToCart(product)"
+                    class="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
+                    style="background:linear-gradient(135deg,#E07CA0,#9B7FE8);">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"
+                      stroke-width="2.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty state -->
+          <div v-if="!loading && filteredProducts.length===0" class="text-center py-20">
+            <div class="w-24 h-24 mx-auto mb-6 rounded-3xl flex items-center justify-center text-4xl"
+              style="background:linear-gradient(135deg,#F9D5E5,#E8DEFF);">🔍</div>
+            <h3 class="font-display font-semibold text-xl text-stone-600 mb-2">Sin resultados</h3>
+            <p class="font-sans text-stone-400 mb-6">No encontramos productos con esos filtros.</p>
+            <button @click="clearFilters" class="btn-primary btn-sm">Limpiar filtros</button>
+          </div>
+
+          <!-- Pagination -->
+          <div v-if="totalPages > 1" class="flex justify-center gap-2 mt-10">
+            <button @click="currentPage=Math.max(1,currentPage-1)" :disabled="currentPage===1"
+              class="w-10 h-10 rounded-xl flex items-center justify-center transition-all"
+              :class="currentPage===1?'text-stone-300 cursor-not-allowed':'text-stone-600 hover:bg-rose-pastel/50'"
+              style="background:rgba(255,255,255,.8);border:1px solid rgba(200,190,185,.4);">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+              </svg>
+            </button>
+            <button v-for="p in totalPages" :key="p" @click="currentPage=p"
+              class="w-10 h-10 rounded-xl flex items-center justify-center font-sans text-sm font-medium transition-all"
+              :class="currentPage===p?'text-white shadow-md':'text-stone-600'"
+              :style="currentPage===p?'background:linear-gradient(135deg,#E07CA0,#9B7FE8)':'background:rgba(255,255,255,.8);border:1px solid rgba(200,190,185,.4);'">{{
+              p }}</button>
+            <button @click="currentPage=Math.min(totalPages,currentPage+1)" :disabled="currentPage===totalPages"
+              class="w-10 h-10 rounded-xl flex items-center justify-center transition-all"
+              :class="currentPage===totalPages?'text-stone-300 cursor-not-allowed':'text-stone-600 hover:bg-rose-pastel/50'"
+              style="background:rgba(255,255,255,.8);border:1px solid rgba(200,190,185,.4);">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ═══════════════════════════
+       QUICK VIEW MODAL
+  ═══════════════════════════ -->
+    <div v-if="quickViewProduct" class="modal-overlay" @click.self="quickViewProduct=null">
+      <div class="modal-box p-8">
+        <div class="flex items-start gap-6">
+          <!-- Product image -->
+          <div class="w-48 h-48 rounded-2xl overflow-hidden flex items-center justify-center flex-shrink-0"
+            :style="`background:${quickViewProduct.bgGradient};`">
+            <img v-if="quickViewProduct.image" :src="quickViewProduct.image" :alt="quickViewProduct.name"
+              class="w-full h-full object-cover" />
+            <div v-else class="w-full h-full flex items-center justify-center text-7xl">{{ quickViewProduct.emoji || ''
+              }}</div>
+          </div>
+          <!-- Info -->
+          <div class="flex-1">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex flex-wrap gap-1">
+                <span v-for="cat in quickViewProduct.categories" :key="cat" class="text-xs px-2 py-0.5 rounded-full"
+                  style="background:rgba(155,127,232,.1);color:#9B7FE8;">{{ cat }}</span>
+              </div>
+              <button @click="quickViewProduct=null"
+                class="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-stone-100 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-stone-400" fill="none" viewBox="0 0 24 24"
+                  stroke-width="2" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <h2 class="font-display font-bold text-2xl text-stone-700 mb-2">{{ quickViewProduct.name }}</h2>
+            <div class="flex items-center gap-1 mb-3">
+              <svg v-for="i in 5" :key="i" class="w-4 h-4"
+                :class="i<=quickViewProduct.rating?'star-filled':'star-empty'" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <span class="text-sm text-stone-400 ml-1 font-sans">{{ quickViewProduct.reviews }} reseñas</span>
+            </div>
+            <p class="font-sans text-stone-500 text-sm leading-relaxed mb-4">{{ quickViewProduct.description }}</p>
+            <!-- Colors -->
+            <div v-if="quickViewProduct.colors" class="mb-4">
+              <p class="font-sans text-xs font-semibold text-stone-500 mb-2 uppercase tracking-wide">Colores disponibles
+              </p>
+              <div class="flex gap-2">
+                <button v-for="c in quickViewProduct.colors" :key="c"
+                  class="w-7 h-7 rounded-full border-2 transition-all hover:scale-110"
+                  :style="`background:${c};border-color:${selectedColor===c?'#9B7FE8':'#fff'};`"
+                  @click="selectedColor=c"></button>
+              </div>
+            </div>
+            <!-- Sizes -->
+            <div v-if="quickViewProduct.sizes" class="mb-5">
+              <p class="font-sans text-xs font-semibold text-stone-500 mb-2 uppercase tracking-wide">Talla</p>
+              <div class="flex gap-2">
+                <button v-for="s in quickViewProduct.sizes" :key="s" @click="selectedSize=s"
+                  class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
+                  :class="selectedSize===s?'text-white':'text-stone-500 border border-stone-200'"
+                  :style="selectedSize===s?'background:linear-gradient(135deg,#E07CA0,#9B7FE8);':''">{{ s }}</button>
+              </div>
+            </div>
+            <!-- Price & CTA -->
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="font-display font-bold text-2xl gradient-text">Bs. {{ quickViewProduct.price }}</span>
+                <span v-if="quickViewProduct.originalPrice"
+                  class="font-sans text-sm text-stone-400 line-through ml-2">Bs. {{ quickViewProduct.originalPrice
+                  }}</span>
+              </div>
+              <button @click="addToCart(quickViewProduct); quickViewProduct=null"
+                class="btn-primary flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z" />
+                </svg>
+                Agregar al carrito
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════
+       CART DRAWER
+  ═══════════════════════════ -->
+    <div class="cart-overlay" :class="{open:cartOpen}" @click="closeCart"></div>
+    <div class="cart-drawer flex flex-col" :class="{open:cartOpen}">
+      <div class="flex items-center justify-between p-6 border-b border-stone-100">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center"
+            style="background:linear-gradient(135deg,#E07CA0,#9B7FE8);"><svg xmlns="http://www.w3.org/2000/svg"
+              class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z" />
+            </svg></div>
+          <div>
+            <h3 class="font-sans font-semibold text-stone-700">Mi Carrito</h3><span
+              class="font-sans text-xs text-stone-400">{{ cartCount }} {{ cartCount===1?'producto':'productos' }}</span>
+          </div>
+        </div>
+        <button @click="closeCart"
+          class="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-stone-100 transition-colors"><svg
+            xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-stone-500" fill="none" viewBox="0 0 24 24"
+            stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg></button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-6 space-y-4">
+        <div v-if="cartItems.length===0" class="flex flex-col items-center justify-center h-full text-center py-16">
+          <div class="w-20 h-20 rounded-3xl flex items-center justify-center mb-4 text-4xl"
+            style="background:linear-gradient(135deg,#F9D5E5,#E8DEFF);">🛒</div>
+          <h4 class="font-sans font-semibold text-stone-600 mb-2">Tu carrito esta vacio</h4>
+          <p class="font-sans text-sm text-stone-400">Agrega productos para comenzar</p>
+        </div>
+
+        <div v-for="item in cartItems" :key="item.cartId" class="flex gap-4 p-4 rounded-2xl"
+          style="background:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.9);">
+          <div class="w-16 h-16 rounded-xl overflow-hidden flex items-center justify-center flex-shrink-0"
+            style="background:linear-gradient(135deg,#FFF8F2,#F9D5E5);">
+            <img v-if="item.image" :src="item.image" :alt="item.name" class="w-full h-full object-cover" />
+            <div v-else class="w-full h-full flex items-center justify-center text-3xl">{{ item.emoji || '' }}</div>
+          </div>
+          <div class="flex-1 min-w-0">
+            <h4 class="font-sans font-semibold text-stone-700 text-sm truncate">{{ item.name }}</h4>
+            <p class="font-display font-bold text-sm gradient-text mt-0.5">Bs. {{ item.price }}</p>
+            <div class="flex items-center gap-2 mt-2">
+              <button @click="decreaseQty(item)"
+                class="w-6 h-6 rounded-lg flex items-center justify-center text-stone-500 hover:bg-rose-pastel/50 transition-colors"><svg
+                  xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                </svg></button>
+              <span class="font-sans font-semibold text-stone-700 text-sm w-6 text-center">{{ item.qty }}</span>
+              <button @click="increaseQty(item)"
+                class="w-6 h-6 rounded-lg flex items-center justify-center text-stone-500 hover:bg-rose-pastel/50 transition-colors"><svg
+                  xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg></button>
+            </div>
+          </div>
+          <button @click="removeFromCart(item)"
+            class="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-rose-pastel/50 transition-colors flex-shrink-0"><svg
+              xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-stone-400" fill="none" viewBox="0 0 24 24"
+              stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg></button>
+        </div>
+      </div>
+
+      <div v-if="cartItems.length>0" class="p-6 border-t border-stone-100">
+        <div class="flex items-center justify-between mb-2"><span
+            class="font-sans text-sm text-stone-500">Subtotal</span><span
+            class="font-sans font-semibold text-stone-700">Bs. {{ cartTotal }}</span></div>
+        <div class="flex items-center justify-between mb-5"><span
+            class="font-sans font-semibold text-stone-700">Total</span><span
+            class="font-display font-bold text-xl gradient-text">Bs. {{ cartTotal }}</span></div>
+        <button @click="checkoutWhatsapp" class="btn-primary w-full flex items-center justify-center gap-2 mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+          </svg>
+          Continuar por WhatsApp
+        </button>
+        <button @click="clearCart"
+          class="w-full font-sans text-sm text-stone-400 hover:text-rose-deep transition-colors py-2">Vaciar
+          carrito</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════
+       FOOTER
+  ═══════════════════════════ -->
+    <footer style="background:#2D1B14;color:#C8A899;" class="mt-16">
+      <div class="max-w-7xl mx-auto px-6 py-12">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl overflow-hidden"><img src="logo_png.jpg" alt="Baby Nana Store"
+                class="w-full h-full object-cover" /></div>
+            <span class="font-display font-bold text-lg text-white">Baby Nana Store</span>
+          </div>
+          <div class="flex gap-6">
+            <a href="index.html" class="font-sans text-sm text-stone-400 hover:text-white transition-colors">Inicio</a>
+            <a href="nosotros.html"
+              class="font-sans text-sm text-stone-400 hover:text-white transition-colors">Nosotros</a>
+            <a href="contacto.html"
+              class="font-sans text-sm text-stone-400 hover:text-white transition-colors">Contacto</a>
+          </div>
+          <p class="font-sans text-xs text-stone-500">© 2024 Baby Nana Store</p>
+        </div>
+      </div>
+    </footer>
+
+  </div><!-- /app -->
+  <script>
+    const { createApp, ref, computed, onMounted, watch } = Vue;
+
+    createApp({
+      setup() {
+        const WHATSAPP_NUMBER = '59170000000';
+
+        // ── STATE ──────────────────────────────────────
+        const scrolled = ref(false);
+        const loading = ref(true);
+        const cartOpen = ref(false);
+        const cartItems = ref([]);
+        const activeCategory = ref('all');
+        const searchQuery = ref('');
+        const sortBy = ref('default');
+        const maxPrice = ref(500);
+        const activeTags = ref([]);
+        const gridCols = ref(4);
+        const currentPage = ref(1);
+        const quickViewProduct = ref(null);
+        const mobileSidebarOpen = ref(false);
+        const selectedColor = ref(null);
+        const selectedSize = ref(null);
+        const ITEMS_PER_PAGE = 12;
+
+        const navLinks = [
+          { label: 'Inicio', href: 'index.html', active: false },
+          { label: 'Tienda', href: 'tienda.html', active: true },
+          { label: 'Nosotros', href: 'nosotros.html', active: false },
+          { label: 'Contacto', href: 'contacto.html', active: false },
+        ];
+
+        const tags = ['BPA Free', 'Montessori', 'Siliconado', 'Organico', '0-6m', '6-12m', '+1 año', 'Unisex'];
+
+        // ── CATEGORIES ─────────────────────────────────
+        const categories = [
+          { id: 'all', name: 'Todos los productos', count: 34 },
+          { id: 'alimentacion', name: 'Alimentacion y Lactancia', count: 10 },
+          { id: 'juguetes', name: 'Juguetes y Diversion', count: 12 },
+          { id: 'mordedores', name: 'Mordedores y Denticion', count: 5 },
+          { id: 'montessori', name: 'Montessori y Aprendizaje', count: 3 },
+          { id: 'accesorios', name: 'Accesorios de Bebe', count: 5 },
+          { id: 'bano', name: 'Bano y Cuidado', count: 3 },
+          { id: 'maternidad', name: 'Maternidad y Paseo', count: 2 },
+          { id: 'estimulacion', name: 'Estimulacion Temprana', count: 2 },
+          { id: 'musicales', name: 'Musicales y Sensoriales', count: 6 },
+          { id: 'siliconados', name: 'Siliconados y BPA Free', count: 9 },
+          { id: 'nuevos', name: 'Recien llegados', count: 17 },
+          { id: 'topventas', name: 'Mas vendidos', count: 15 },
+          { id: 'ofertas', name: 'Ofertas especiales', count: 5 },
+          { id: '0a6', name: '0 a 6 meses', count: 17 },
+          { id: '6a12', name: '6 a 12 meses', count: 8 },
+          { id: 'mas1', name: '+1 año', count: 5 },
+        ];
+
+        // ── PRODUCTOS REALES ──────────────────────────
+   const allProducts = [
+{
+id: 1,
+name: 'Lava mamadera de Esponja',
+description: `
+🍼✨ ¡La limpieza de las mamaderas ahora es mucho más fácil y práctica!
+
+Este completo set incluye todo lo necesario para mantener las mamaderas y accesorios de tu bebé perfectamente limpios y seguros. 💖
+
+🌟 Incluye:
+✔️ Cepillo principal de esponja ultra suave
+✔️ Pinzas para esterilización
+✔️ Limpia válvula
+✔️ Limpia tetina
+
+💧 Limpieza profunda sin rayar
+🧼 Ideal para mamaderas, vasos y accesorios
+👶 Seguro para productos de bebé
+✨ Diseño práctico y cómodo de usar
+
+💕 Perfecto para mamás que buscan higiene, comodidad y practicidad todos los días.
+`,
+price: 50,
+originalPrice: null,
+discount: null,
+rating: 4,
+reviews: 4,
+isNew: false,
+isBestSeller: false,
+image: 'img/productos/lava-esponja.jpg',
+bgGradient: 'linear-gradient(135deg,#FF6B6B,#FFD93D)',
+categories: ['alimentacion', 'accesorios', 'maternidad'],
+colors: ['#FF6B6B'],
+sizes: null
+},
+
+{
+id: 2,
+name: 'Lava Mamadera ONLY Siliconado',
+description: `
+🍼💖 ¡El aliado perfecto para mantener impecables las mamaderas de tu bebé!
+
+Set práctico y moderno fabricado con materiales resistentes y seguros. ✨
+
+🌟 Incluye:
+✔️ Cepillo siliconado
+✔️ Limpia válvula
+✔️ Limpia tetina
+
+💧 Limpieza 360°
+🧼 Fácil de lavar y secar
+🌿 Material higiénico y duradero
+👶 Ideal para mamaderas y accesorios delicados
+
+✨ Compacto, práctico y súper útil para el día a día.
+`,
+price: 60,
+originalPrice: null,
+discount: null,
+rating: 4,
+reviews: 4,
+isNew: false,
+isBestSeller: false,
+image: 'img/productos/only-siliconado.jpg',
+bgGradient: 'linear-gradient(135deg,#FF6B6B,#FFD93D)',
+categories: ['alimentacion', 'accesorios', 'maternidad'],
+colors: ['#FF6B6B'],
+sizes: null
+},
+
+{
+id: 3,
+name: 'Lava Mamadera Platillo',
+description: `
+🍼✨ ¡Limpieza completa y profesional para los accesorios de tu bebé!
+
+Este hermoso set siliconado está diseñado para limpiar mamaderas de manera rápida, cómoda y eficiente. 💖
+
+🌟 Incluye:
+✔️ Cepillo principal 360°
+✔️ Limpia válvula
+✔️ Limpia tetina
+✔️ Porta lava mamadera
+
+🌿 Material siliconado premium
+🧼 Fácil de limpiar
+💧 No raya ni maltrata las mamaderas
+👶 Ideal para uso diario
+
+💕 Práctico, moderno y súper necesario para toda mamá.
+`,
+price: 75,
+originalPrice: 85,
+discount: 14,
+rating: 5,
+reviews: 12,
+isNew: true,
+isBestSeller: true,
+image: 'img/productos/lavamamadera.jpg',
+bgGradient: 'linear-gradient(135deg,#D6A2E8,#B8E994)',
+categories: ['alimentacion', 'accesorios', 'maternidad'],
+colors: ['#D6D6D6'],
+sizes: null
+},
+
+{
+id: 4,
+name: 'Set Basico de Sonajeros',
+description: `
+👶🎶 ¡Diversión y estimulación desde los primeros meses!
+
+Hermoso set de sonajeros diseñado para estimular los sentidos y acompañar el desarrollo temprano de tu bebé. 💖
+
+✨ Beneficios:
+✔️ Favorece la coordinación
+✔️ Estimula el oído y la vista
+✔️ Ayuda durante la dentición
+✔️ Material seguro y liviano
+
+🌈 Colores llamativos y tiernos
+🍼 Fácil de agarrar para pequeñas manitos
+💕 Ideal para regalar
+`,
+price: 40,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 12,
+isNew: true,
+isBestSeller: true,
+image: 'img/productos/set-basico-sonajeros.jpg',
+bgGradient: 'linear-gradient(135deg,#F9D5E5,#E8DEFF)',
+categories: ['juguetes', 'mordedores', '0a6'],
+colors: ['#F9D5E5'],
+sizes: null
+},
+
+{
+id: 5,
+name: 'Sonajero Multisensorial',
+description: `
+🧸✨ ¡Estimulación divertida y segura para tu bebé!
+
+Este sonajero multisensorial ayuda al desarrollo temprano mientras entretiene a tu pequeño. 💕
+
+🌟 Características:
+✔️ BPA Free
+✔️ Texturas suaves
+✔️ Sonidos delicados
+✔️ Ideal para dentición
+
+👶 Favorece la motricidad
+🌈 Colores llamativos
+🍼 Seguro y resistente
+`,
+price: 45,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 9,
+isNew: true,
+isBestSeller: false,
+image: 'img/productos/sonajero-multisensorial.jpg',
+bgGradient: 'linear-gradient(135deg,#C8E8F5,#E8DEFF)',
+categories: ['mordedores', 'estimulacion', '0a6'],
+colors: ['#BFE9F5'],
+sizes: null
+},
+
+{
+id: 6,
+name: 'Leon Mordedor',
+description: `
+🦁💛 ¡El mordedor favorito de los pequeños exploradores!
+
+Diseñado especialmente para aliviar las molestias de la dentición de manera segura y divertida. ✨
+
+✔️ Silicona suave y flexible
+✔️ Fácil de agarrar
+✔️ Libre de BPA
+✔️ Texturas estimulantes
+
+👶 Ayuda a calmar encías
+🌈 Diseño adorable
+💕 Súper resistente
+`,
+price: 40,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 7,
+isNew: false,
+isBestSeller: true,
+image: 'img/productos/leon-mordedor.jpg',
+bgGradient: 'linear-gradient(135deg,#FFF8F2,#F9D5E5)',
+categories: ['mordedores', 'siliconados', '0a6'],
+colors: ['#D8A33D'],
+sizes: null
+},
+
+{
+id: 7,
+name: 'Caja de Sonajeros Musicales',
+description: `
+🎶👶 ¡Música, diversión y aprendizaje en un solo set!
+
+Caja completa con juguetes musicales ideales para estimular el desarrollo de tu bebé. 💖
+
+✨ Incluye:
+✔️ Sonidos suaves
+✔️ Colores llamativos
+✔️ Texturas variadas
+✔️ Diseño seguro
+
+🧠 Estimula sentidos y coordinación
+🎵 Favorece la creatividad
+👶 Ideal para bebés pequeños
+`,
+price: 100,
+originalPrice: 120,
+discount: 16,
+rating: 5,
+reviews: 14,
+isNew: false,
+isBestSeller: true,
+image: 'img/productos/caja-sonajeros-musicales.jpg',
+bgGradient: 'linear-gradient(135deg,#E8DEFF,#C8E8F5)',
+categories: ['juguetes', 'musicales', '0a6'],
+colors: ['#FF6B6B'],
+sizes: null
+},
+
+{
+id: 8,
+name: 'Sujetador de Chupete Disney',
+description: `
+✨🍼 ¡Mantén el chupete siempre limpio y cerca!
+
+Hermoso sujetador con diseños inspirados en personajes tiernos que encantan a mamás y bebés. 💖
+
+✔️ Seguro y resistente
+✔️ Fácil de colocar
+✔️ Evita caídas del chupete
+✔️ Diseño adorable
+
+👶 Ideal para uso diario
+🌈 Súper práctico y bonito
+`,
+price: 20,
+originalPrice: null,
+discount: null,
+rating: 4,
+reviews: 5,
+isNew: false,
+isBestSeller: false,
+image: 'img/productos/sujetador-disney.jpg',
+bgGradient: 'linear-gradient(135deg,#F9D5E5,#FFF8F2)',
+categories: ['accesorios', '0a6'],
+colors: ['#F4D6C2', '#BFE9F5', '#F9D5E5'],
+sizes: null
+},
+
+{
+id: 9,
+name: 'Sujetador de Chupete Siliconado',
+description: `
+🍼✨ Elegancia, seguridad y comodidad para tu bebé.
+
+Sujetador siliconado resistente y flexible ideal para mantener el chupete siempre limpio. 💖
+
+✔️ Silicona premium
+✔️ Fácil de limpiar
+✔️ Seguro para bebés
+✔️ Diseño moderno
+
+💕 Ideal para combinar con cualquier outfit del bebé.
+`,
+price: 35,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 8,
+isNew: true,
+isBestSeller: false,
+image: 'img/productos/sujetador-siliconado.jpg',
+bgGradient: 'linear-gradient(135deg,#FFF8F2,#E8DEFF)',
+categories: ['accesorios', 'siliconados', '0a6'],
+colors: ['#8BB4E7'],
+sizes: null
+},
+
+{
+id: 10,
+name: 'Bateria para Niños',
+description: `
+🥁🎵 ¡Despierta el talento musical de tu pequeño!
+
+Batería infantil completa para horas de diversión y creatividad. ✨
+
+🌟 Incluye:
+✔️ Taburete
+✔️ Baquetas
+✔️ Platillos
+✔️ Diseño resistente
+
+🎶 Favorece coordinación y ritmo
+👦 Ideal para niños creativos
+🔥 Súper divertida
+`,
+price: 320,
+originalPrice: 360,
+discount: 11,
+rating: 5,
+reviews: 15,
+isNew: true,
+isBestSeller: true,
+image: 'img/productos/bateria-ninos.jpg',
+bgGradient: 'linear-gradient(135deg,#C8E8F5,#FFF8F2)',
+categories: ['musicales', 'juguetes', 'mas1'],
+colors: ['#4D96FF'],
+sizes: null
+},
+
+{
+id: 11,
+name: 'Sonajeros Musicales',
+description: `
+🎶👶 ¡Estimulación y diversión en cada movimiento!
+
+Sonajeros interactivos ideales para desarrollar los sentidos del bebé. 💖
+
+✔️ Sonidos suaves
+✔️ Colores vibrantes
+✔️ Material seguro
+✔️ Diseño ergonómico
+
+🧠 Estimula motricidad y atención
+✨ Perfectos para regalar
+`,
+price: 95,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 10,
+isNew: false,
+isBestSeller: true,
+image: 'img/productos/sonajeros-musicales.jpg',
+bgGradient: 'linear-gradient(135deg,#F9D5E5,#C8E8F5)',
+categories: ['musicales', 'juguetes', '0a6'],
+colors: ['#FFD93D'],
+sizes: null
+},
+
+{
+id: 12,
+name: 'Set para Insertar Montessori',
+description: `
+🧠✨ ¡Aprender jugando nunca fue tan divertido!
+
+Juego Montessori diseñado para desarrollar habilidades cognitivas y motrices. 💖
+
+✔️ Estimula coordinación
+✔️ Favorece concentración
+✔️ Material seguro
+✔️ Colores educativos
+
+👶 Ideal para aprendizaje temprano
+🌈 Súper entretenido
+`,
+price: 80,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 11,
+isNew: true,
+isBestSeller: true,
+image: 'img/productos/set-insertar-montessori.jpg',
+bgGradient: 'linear-gradient(135deg,#E8DEFF,#F9D5E5)',
+categories: ['montessori', 'estimulacion', '6a12'],
+colors: ['#6BCB77'],
+sizes: null
+},
+
+{
+id: 13,
+name: 'Rompecabezas con Pizarra',
+description: `
+🧩✏️ Diversión educativa para pequeños genios.
+
+Rompecabezas multifuncional con pizarra integrada ideal para aprender jugando. 💖
+
+✔️ Desarrollo cognitivo
+✔️ Estimula creatividad
+✔️ Fácil de usar
+✔️ Material resistente
+
+🧠 Ideal para aprendizaje temprano
+🌈 Súper entretenido
+`,
+price: 45,
+originalPrice: null,
+discount: null,
+rating: 4,
+reviews: 6,
+isNew: false,
+isBestSeller: false,
+image: 'img/productos/rompecabezas-pizarra.jpg',
+bgGradient: 'linear-gradient(135deg,#FFF8F2,#C8E8F5)',
+categories: ['montessori', 'juguetes', 'mas1'],
+colors: ['#6BCB77'],
+sizes: null
+},
+
+{
+id: 14,
+name: 'Dispensador Pink',
+description: `
+🌸🍼 ¡Practicidad y ternura en un solo producto!
+
+Dispensador ideal para agua o leche con diseño hermoso y funcional. 💖
+
+✔️ Fácil de usar
+✔️ Compacto
+✔️ Diseño moderno
+✔️ Ideal para salidas
+
+✨ Perfecto para mamás prácticas.
+`,
+price: 75,
+originalPrice: null,
+discount: null,
+rating: 4,
+reviews: 5,
+isNew: true,
+isBestSeller: false,
+image: 'img/productos/dispensador-pink.jpg',
+bgGradient: 'linear-gradient(135deg,#F9D5E5,#FFF8F2)',
+categories: ['alimentacion', 'accesorios'],
+colors: ['#F78FB3'],
+sizes: null
+},
+
+{
+id: 15,
+name: 'Vasos Siliconados de Animalitos',
+description: `
+🐻🥤 ¡Hora de tomar agua con mucha ternura!
+
+Hermosos vasos siliconados con diseños de animalitos que encantan a los pequeños. 💖
+
+✔️ Silicona alimentaria
+✔️ Resistentes
+✔️ Libres de BPA
+✔️ Fáciles de limpiar
+
+👶 Perfectos para transición al vaso
+🌈 Súper adorables
+`,
+price: 65,
+originalPrice: 80,
+discount: 18,
+rating: 5,
+reviews: 10,
+isNew: false,
+isBestSeller: true,
+image: 'img/productos/vasos-animalitos.jpg',
+bgGradient: 'linear-gradient(135deg,#C8E8F5,#E8DEFF)',
+categories: ['alimentacion', 'siliconados', '6a12'],
+colors: ['#8EC5FF', '#F7B7D2', '#F4A261'],
+sizes: ['250ml']
+},
+
+{
+id: 16,
+name: 'Set de Alimentación Cangrejo',
+description: `
+🦀🍽️ ¡Todo lo necesario para las primeras comidas de tu bebé!
+
+Set premium de alimentación súper completo y adorable. 💖
+
+✨ Incluye:
+✔️ Plato con divisiones
+✔️ Bowl profundo
+✔️ Babero flexible
+✔️ Cubiertos de silicona
+✔️ Vaso con bombilla
+
+🌿 100% silicona alimentaria
+🧼 Fácil de limpiar
+💧 Base con ventosa antiderrame
+👶 Seguro y libre de BPA
+
+💕 La hora de comer será mucho más divertida.
+`,
+price: 180,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 8,
+isNew: true,
+isBestSeller: true,
+image: 'img/productos/set-cangrejo.jpg',
+bgGradient: 'linear-gradient(135deg,#FFF8F2,#F9D5E5)',
+categories: ['alimentacion', 'siliconados', '6a12'],
+colors: ['#F4D6C2', '#BFE9F5', '#F9D5E5'],
+sizes: null
+},
+
+{
+id: 17,
+name: 'Set de Alimentacion de Ceramica',
+description: `
+🍽️✨ Elegancia y calidad para las comidas de tu bebé.
+
+Set premium de cerámica diseñado para mamás que aman los detalles hermosos. 💖
+
+✔️ Diseño elegante
+✔️ Material resistente
+✔️ Fácil de limpiar
+✔️ Ideal para alimentación diaria
+
+🌸 Hermoso y funcional.
+`,
+price: 165,
+originalPrice: 180,
+discount: 16,
+rating: 5,
+reviews: 9,
+isNew: false,
+isBestSeller: false,
+image: 'img/productos/set-ceramica.jpg',
+bgGradient: 'linear-gradient(135deg,#FFF8F2,#C8E8F5)',
+categories: ['alimentacion', 'mas1'],
+colors: ['#D9D9D9', '#F9D5E5', '#BFE9F5'],
+sizes: null
+},
+
+{
+id: 18,
+name: 'Cepillo de Baño',
+description: `
+🛁💖 ¡Hora del baño más divertida y relajante!
+
+Cepillo siliconado suave ideal para cuidar la delicada piel del bebé. ✨
+
+✔️ Silicona suave
+✔️ Masaje relajante
+✔️ Fácil de limpiar
+✔️ Seguro y cómodo
+
+👶 Ideal para recién nacidos y bebés pequeños.
+`,
+price: 20,
+originalPrice: null,
+discount: null,
+rating: 4,
+reviews: 4,
+isNew: false,
+isBestSeller: false,
+image: 'img/productos/cepillo-bano.jpg',
+bgGradient: 'linear-gradient(135deg,#C8E8F5,#FFF8F2)',
+categories: ['bano', 'siliconados'],
+colors: ['#7ED6DF', '#F8A5C2'],
+sizes: null
+},
+
+{
+id: 19,
+name: 'Set de Alimentacion con Diseño',
+description: `
+🍴🌈 ¡Alimentación divertida y llena de color!
+
+Hermoso set infantil diseñado para acompañar el crecimiento de tu bebé. 💖
+
+✔️ Material seguro
+✔️ Diseño adorable
+✔️ Fácil limpieza
+✔️ Incluye accesorios
+
+👶 Perfecto para alimentación complementaria.
+`,
+price: 160,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 7,
+isNew: true,
+isBestSeller: false,
+image: 'img/productos/set-diseno.jpg',
+bgGradient: 'linear-gradient(135deg,#E8DEFF,#FFF8F2)',
+categories: ['alimentacion', 'siliconados', '6a12'],
+colors: ['#F9D5E5', '#B8E994', '#D6A2E8'],
+sizes: null
+},
+
+{
+id: 20,
+name: 'Maletin de Colores',
+description: `
+🎨🖍️ ¡Creatividad sin límites para pequeños artistas!
+
+Maletín completo con múltiples accesorios para dibujar, pintar y divertirse. 💖
+
+✔️ Súper completo
+✔️ Fácil de transportar
+✔️ Ideal para estimular creatividad
+✔️ Diseño práctico
+
+🌈 Perfecto para niños creativos.
+`,
+price: 150,
+originalPrice: 180,
+discount: 16,
+rating: 5,
+reviews: 16,
+isNew: true,
+isBestSeller: true,
+image: 'img/productos/maletin-colores.jpg',
+bgGradient: 'linear-gradient(135deg,#E8DEFF,#FFF8F2)',
+categories: ['juguetes', 'montessori', 'mas1'],
+colors: ['#2C3A47'],
+sizes: null
+},
+
+{
+id: 21,
+name: 'Chupa Frutas Osito',
+description: `
+🍓🐻 ¡La forma más segura y divertida de probar frutas!
+
+Alimentador de frutas ideal para bebés en etapa de alimentación complementaria. 💖
+
+✔️ Seguro y práctico
+✔️ Silicona alimentaria
+✔️ Fácil de usar
+✔️ Diseño adorable
+
+👶 Ayuda a descubrir nuevos sabores.
+`,
+price: 65,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 10,
+isNew: false,
+isBestSeller: true,
+image: 'img/productos/chupa-frutas-osito.jpg',
+bgGradient: 'linear-gradient(135deg,#F9D5E5,#C8E8F5)',
+categories: ['alimentacion', 'siliconados', '6a12'],
+colors: ['#D6D6D6'],
+sizes: null
+},
+
+{
+id: 22,
+name: 'Urinario para Niños',
+description: `
+🚽👦 ¡Aprender a ir al baño nunca fue tan divertido!
+
+Urinario infantil cómodo, práctico y fácil de instalar. ✨
+
+✔️ Diseño ergonómico
+✔️ Fácil limpieza
+✔️ Ideal para entrenamiento
+✔️ Material resistente
+
+💖 Perfecto para acompañar esta etapa importante.
+`,
+price: 70,
+originalPrice: null,
+discount: null,
+rating: 4,
+reviews: 5,
+isNew: false,
+isBestSeller: false,
+image: 'img/productos/urinario.jpg',
+bgGradient: 'linear-gradient(135deg,#C8E8F5,#FFF8F2)',
+categories: ['bano', 'mas1'],
+colors: ['#F7D774'],
+sizes: null
+},
+
+{
+id: 23,
+name: 'Tomatodo con Valvula',
+description: `
+🥤✨ ¡Menos derrames y más comodidad!
+
+Tomatodo antiderrame ideal para acompañar a tu bebé todos los días. 💖
+
+✔️ Válvula antiderrame
+✔️ Fácil de usar
+✔️ Diseño ergonómico
+✔️ Súper resistente
+
+👶 Perfecto para transición al vaso.
+`,
+price: 35,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 6,
+isNew: true,
+isBestSeller: false,
+image: 'img/productos/tomatodo-valvula.jpg',
+bgGradient: 'linear-gradient(135deg,#E8DEFF,#C8E8F5)',
+categories: ['alimentacion', '6a12'],
+colors: ['#FF6B81', '#6BCBFF', '#C56CF0'],
+sizes: ['250ml']
+},
+
+{
+id: 24,
+name: 'Vaso Siliconado',
+description: `
+🥤💖 ¡Suave, resistente y perfecto para pequeños exploradores!
+
+Vaso de silicona premium diseñado para bebés y niños pequeños. ✨
+
+✔️ Flexible y resistente
+✔️ Libre de BPA
+✔️ Fácil limpieza
+✔️ Diseño moderno
+
+👶 Ideal para aprendizaje independiente.
+`,
+price: 80,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 6,
+isNew: false,
+isBestSeller: false,
+image: 'img/productos/vaso-siliconado.jpg',
+bgGradient: 'linear-gradient(135deg,#FFF8F2,#E8DEFF)',
+categories: ['alimentacion', 'siliconados', '6a12'],
+colors: ['#7D9D9C', '#C38D9E', '#E4CDA7'],
+sizes: ['300ml']
+},
+
+{
+id: 25,
+name: 'Guante Mordedor',
+description: `
+🧤🍼 ¡Alivio práctico para la dentición!
+
+Guante mordedor diseñado para calmar las encías del bebé de forma segura. 💖
+
+✔️ Texturas suaves
+✔️ Fácil de usar
+✔️ Material seguro
+✔️ Ajuste cómodo
+
+👶 Ideal para bebés curiosos.
+`,
+price: 50,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 8,
+isNew: true,
+isBestSeller: true,
+image: 'img/productos/guante-mordedor.jpg',
+bgGradient: 'linear-gradient(135deg,#F9D5E5,#FFF8F2)',
+categories: ['mordedores', '0a6'],
+colors: ['#FF6B6B'],
+sizes: null
+},
+
+{
+id: 26,
+name: 'Gorro de Baño con Orejas',
+description: `
+🛁🐰 ¡Baños sin lágrimas y con mucha ternura!
+
+Gorro ajustable que protege ojos y oídos durante el baño. 💖
+
+✔️ Ajustable
+✔️ Cómodo
+✔️ Material suave
+✔️ Diseño adorable
+
+👶 Hace la hora del baño mucho más divertida.
+`,
+price: 65,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 7,
+isNew: false,
+isBestSeller: false,
+image: 'img/productos/gorro-bano.jpg',
+bgGradient: 'linear-gradient(135deg,#C8E8F5,#E8DEFF)',
+categories: ['bano', '0a6'],
+colors: ['#BFE9F5'],
+sizes: null
+},
+
+{
+id: 27,
+name: 'Piano Tambor',
+description: `
+🥁🎹 ¡Música, luces y diversión para tu bebé!
+
+Juguete interactivo que ayuda al desarrollo sensorial y motriz. ✨
+
+✔️ Sonidos musicales
+✔️ Luces llamativas
+✔️ Fácil de usar
+✔️ Súper entretenido
+
+👶 Ideal para estimular creatividad.
+`,
+price: 160,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 9,
+isNew: true,
+isBestSeller: true,
+image: 'img/productos/piano-tambor.jpg',
+bgGradient: 'linear-gradient(135deg,#FFD93D,#FF6B6B)',
+categories: ['musicales', 'juguetes', '6a12'],
+colors: ['#FFD93D'],
+sizes: null
+},
+
+{
+id: 28,
+name: 'Biberon Only de Vidrio',
+description: `
+🍼✨ Elegancia y seguridad para alimentar a tu bebé.
+
+Biberón de vidrio resistente con funda protectora. 💖
+
+✔️ Vidrio resistente
+✔️ Fácil limpieza
+✔️ Seguro y práctico
+✔️ Diseño elegante
+
+👶 Ideal para uso diario.
+`,
+price: 60,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 8,
+isNew: false,
+isBestSeller: false,
+image: 'img/productos/biberon-only.jpg',
+bgGradient: 'linear-gradient(135deg,#FFF8F2,#F9D5E5)',
+categories: ['alimentacion', '0a6'],
+colors: ['#F7B7D2', '#D6D6D6'],
+sizes: ['240ml']
+},
+
+{
+id: 29,
+name: 'Mamadera PPSU 300ML',
+description: `
+🍼🌟 Calidad premium para los momentos más importantes.
+
+Mamadera PPSU resistente al calor y súper durable. 💖
+
+✔️ Alta resistencia
+✔️ Material premium
+✔️ Diseño ergonómico
+✔️ Ideal para uso diario
+
+👶 Seguridad y comodidad para tu bebé.
+`,
+price: 70,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 8,
+isNew: true,
+isBestSeller: true,
+image: 'img/productos/mamadera-ppsu.jpg',
+bgGradient: 'linear-gradient(135deg,#FFF8F2,#E8DEFF)',
+categories: ['alimentacion', '0a6'],
+colors: ['#C7A17A'],
+sizes: ['300ml']
+},
+
+{
+id: 30,
+name: 'Control Mordedor',
+description: `
+📺🍼 ¡El control remoto que sí puede morder!
+
+Divertido mordedor en forma de control ideal para aliviar la dentición. 💖
+
+✔️ Silicona segura
+✔️ Diseño divertido
+✔️ Fácil agarre
+✔️ Texturas suaves
+
+👶 Perfecto para bebés curiosos.
+`,
+price: 40,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 6,
+isNew: false,
+isBestSeller: true,
+image: 'img/productos/control-mordedor.jpg',
+bgGradient: 'linear-gradient(135deg,#2C3A47,#596275)',
+categories: ['mordedores', 'siliconados', '0a6'],
+colors: ['#2F3542'],
+sizes: null
+},
+
+{
+id: 31,
+name: 'Set Sonajeros Musicales',
+description: `
+🎶👶 ¡Diversión musical para estimular el crecimiento!
+
+Set educativo con sonajeros interactivos y llamativos. 💖
+
+✔️ Sonidos suaves
+✔️ Colores vibrantes
+✔️ Material seguro
+✔️ Diseño ergonómico
+
+🌈 Ideal para bebés pequeños.
+`,
+price: 80,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 9,
+isNew: true,
+isBestSeller: false,
+image: 'img/productos/set-sonajeros-musicales.jpg',
+bgGradient: 'linear-gradient(135deg,#FFD93D,#6BCB77)',
+categories: ['musicales', 'juguetes', '0a6'],
+colors: ['#FFD93D'],
+sizes: null
+},
+
+{
+id: 32,
+name: 'Set de Sonajeros Biberon',
+description: `
+🍼🎉 ¡Pequeños sonajeros llenos de diversión!
+
+Diseñados especialmente para pequeñas manitos curiosas. 💖
+
+✔️ Livianos
+✔️ Coloridos
+✔️ Seguros
+✔️ Divertidos
+
+👶 Perfectos para estimular sentidos.
+`,
+price: 30,
+originalPrice: null,
+discount: null,
+rating: 4,
+reviews: 4,
+isNew: false,
+isBestSeller: false,
+image: 'img/productos/set-sonajeros-biberon.jpg',
+bgGradient: 'linear-gradient(135deg,#FF6B6B,#FFD93D)',
+categories: ['juguetes', '0a6'],
+colors: ['#FF6B6B'],
+sizes: null
+},
+
+{
+id: 33,
+name: 'Pañalera Cuna Cambiador 2 en 1',
+description: `
+🎒🍼 ¡La pañalera soñada para mamás modernas!
+
+Diseño multifuncional que se convierte en cuna portátil y cambiador. 💖
+
+✔️ Amplio espacio
+✔️ Diseño elegante
+✔️ Súper práctica
+✔️ Ideal para viajes
+
+👶 Comodidad para mamá y bebé.
+`,
+price: 300,
+originalPrice: 350,
+discount: 14,
+rating: 5,
+reviews: 12,
+isNew: true,
+isBestSeller: true,
+image: 'img/productos/panalera-cuna.jpg',
+bgGradient: 'linear-gradient(135deg,#D6A2E8,#B8E994)',
+categories: ['maternidad', 'accesorios'],
+colors: ['#D6D6D6'],
+sizes: null
+},
+
+{
+id: 34,
+name: 'Set de Sonajeros de Biberon Grande',
+description: `
+🎉🍼 ¡Más sonajeros, más diversión y más aprendizaje!
+
+Set grande lleno de colores y sonidos que encantan a los bebés. 💖
+
+✔️ Súper completo
+✔️ Estimula sentidos
+✔️ Material seguro
+✔️ Ideal para regalo
+
+👶 Perfecto para entretenimiento diario.
+`,
+price: 90,
+originalPrice: null,
+discount: null,
+rating: 5,
+reviews: 7,
+isNew: true,
+isBestSeller: false,
+image: 'img/productos/set-sonajeros-grande.jpg',
+bgGradient: 'linear-gradient(135deg,#FF9F43,#FFD93D)',
+categories: ['juguetes', 'musicales', '0a6'],
+colors: ['#FF9F43'],
+sizes: null
+}
+];
+
+        // ── COMPUTED ───────────────────────────────────
+        const activeCategoryName = computed(() => {
+          const cat = categories.find(c => c.id === activeCategory.value);
+          return cat ? cat.name : 'Todos';
+        });
+
+        const filteredProducts = computed(() => {
+          let list = [...allProducts];
+
+          if (activeCategory.value !== 'all') {
+            list = list.filter(p => p.categories.includes(activeCategory.value));
+          }
+
+          if (searchQuery.value.trim()) {
+            const q = searchQuery.value.toLowerCase();
+            list = list.filter(p =>
+              p.name.toLowerCase().includes(q) ||
+              p.description.toLowerCase().includes(q)
+            );
+          }
+
+          list = list.filter(p => p.price <= maxPrice.value);
+
+          if (activeTags.value.length) {
+            const normalizedTags = activeTags.value.map(tag => tag.toLowerCase().replace(/\+/g, 'mas').replace(/ /g, '').replace(/-/g, ''));
+            list = list.filter(p => {
+              const productTags = p.categories.map(c => c.toLowerCase());
+              return normalizedTags.every(tag => productTags.includes(tag) || p.description.toLowerCase().includes(tag));
+            });
+          }
+
+          switch (sortBy.value) {
+            case 'price-asc': list.sort((a, b) => a.price - b.price); break;
+            case 'price-desc': list.sort((a, b) => b.price - a.price); break;
+            case 'name': list.sort((a, b) => a.name.localeCompare(b.name)); break;
+            case 'rating': list.sort((a, b) => b.rating - a.rating); break;
+            case 'featured': list.sort((a, b) => (b.isBestSeller ? 1 : 0) - (a.isBestSeller ? 1 : 0)); break;
+          }
+
+          return list;
+        });
+
+        const totalPages = computed(() => Math.ceil(filteredProducts.value.length / ITEMS_PER_PAGE));
+
+        const paginatedProducts = computed(() => {
+          const start = (currentPage.value - 1) * ITEMS_PER_PAGE;
+          return filteredProducts.value.slice(start, start + ITEMS_PER_PAGE);
+        });
+
+        const cartCount = computed(() => cartItems.value.reduce((a, i) => a + i.qty, 0));
+        const cartTotal = computed(() => cartItems.value.reduce((a, i) => a + i.price * i.qty, 0).toFixed(2));
+
+        function selectCategory(id) {
+          activeCategory.value = id;
+          currentPage.value = 1;
+        }
+
+        function clearFilters() {
+          activeCategory.value = 'all';
+          searchQuery.value = '';
+          activeTags.value = [];
+          sortBy.value = 'default';
+          maxPrice.value = 500;
+          currentPage.value = 1;
+        }
+
+        function openCart() {
+          cartOpen.value = true;
+        }
+
+        function closeCart() {
+          cartOpen.value = false;
+        }
+
+        function toggleTag(tag) {
+          const idx = activeTags.value.indexOf(tag);
+          if (idx === -1) activeTags.value.push(tag);
+          else activeTags.value.splice(idx, 1);
+        }
+
+        function openQuickView(p) {
+          quickViewProduct.value = p;
+          selectedColor.value = p.colors?.[0] || null;
+          selectedSize.value = p.sizes?.[0] || null;
+        }
+
+        function loadCart() {
+          try {
+            const s = localStorage.getItem('babyNanaCart');
+            cartItems.value = s ? JSON.parse(s) : [];
+          } catch {
+            cartItems.value = [];
+          }
+        }
+
+        function saveCart() {
+          localStorage.setItem('babyNanaCart', JSON.stringify(cartItems.value));
+        }
+
+        function addToCart(product) {
+          const existing = cartItems.value.find(i => i.id === product.id);
+
+          if (existing) existing.qty++;
+          else cartItems.value.push({ ...product, cartId: Date.now(), qty: 1 });
+
+          saveCart();
+          openCart();
+        }
+
+        function increaseQty(item) {
+          item.qty++;
+          saveCart();
+        }
+
+        function decreaseQty(item) {
+          if (item.qty > 1) item.qty--;
+          else removeFromCart(item);
+          saveCart();
+        }
+
+        function removeFromCart(item) {
+          const idx = cartItems.value.findIndex(i => i.cartId === item.cartId);
+          if (idx !== -1) cartItems.value.splice(idx, 1);
+          saveCart();
+        }
+
+        function clearCart() {
+          cartItems.value = [];
+          saveCart();
+        }
+
+        function checkoutWhatsapp() {
+          if (cartItems.value.length === 0) return;
+          const items = cartItems.value.map(i => `- ${i.name} x${i.qty}: Bs. ${(i.price * i.qty).toFixed(2)}`).join('\n');
+          const msg = encodeURIComponent(`Hola, me gustaría completar la siguiente compra:\n\n${items}\n\nTotal: Bs. ${cartTotal.value}`);
+          window.open(`https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${msg}`, '_blank');
+        }
+
+        watch([searchQuery, activeCategory, sortBy, maxPrice, activeTags], () => {
+          currentPage.value = 1;
+        });
+
+        onMounted(() => {
+          loadCart();
+          window.addEventListener('scroll', () => {
+            scrolled.value = window.scrollY > 40;
+          });
+
+          setTimeout(() => {
+            loading.value = false;
+          }, 800);
+        });
+
+        return {
+          scrolled, loading, cartOpen, cartItems, activeCategory, searchQuery,
+          sortBy, maxPrice, activeTags, gridCols, currentPage,
+          quickViewProduct, mobileSidebarOpen, selectedColor, selectedSize,
+          navLinks, tags, categories, allProducts, activeCategoryName,
+          filteredProducts, totalPages, paginatedProducts,
+          cartCount, cartTotal,
+          selectCategory, clearFilters,
+          openQuickView, addToCart, increaseQty, decreaseQty, removeFromCart, checkoutWhatsapp, clearCart,
+          openCart, closeCart, toggleTag
+        };
+      }
+    }).mount('#app');
+  </script>
+
+</body>
+
+</html>
